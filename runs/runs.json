@@ -156,6 +156,95 @@
       "started_utc": "2026-08-29T09:12:04Z",
       "ended_utc": "2026-08-29T10:47:59Z",
       "notes": "XCETs pressurized 0.062/0.060 bar - hardware tag WORKS at threshold floor (cthr 40): coincidence 2.17% (867 tags, accidental rate ~0.11%); pi/mu below Cherenkov threshold at this pressure. Health clean: 0 gaps, LG rail 0.00-0.03% (bias stays frozen), HG clip ~2% (transfer line handles), MCP thr 133 mV, TR0 corr 0.998, pairings verified. MIP MPVs 459/440/376/405 (+13% vs run 15, day-scale gain ladder, absorbed by per-run calibration). WATCH ITEM: tagged-electron miss fraction 41.5% (vs 8-12% at 3-9 GeV) and depressed per-cap response - consistent with wider/halo beam at the T10 momentum limit; per-cap timing asymmetric (right column 5/7 ~600 ps vs left 4/6 ~400 ps). Standalone timing (mean combo) 328+/-28 ps, N=357."
+    },
+    {
+      "run_number": 31,
+      "run_name": "DSB1_11GEV",
+      "file": "data/DATA/DSB1_11GEV-2026-08-29-134350/run_31.root",
+      "tree": "pulse",
+      "events": 40000,
+      "beam": "CERN T10, -11 GeV",
+      "crystal": "DSB1",
+      "started_utc": "2026-08-29T11:43:58Z",
+      "ended_utc": "2026-08-29T13:21:03Z",
+      "purpose": "DSB1 module scan, 11 GeV point",
+      "notes": "First DSB1 run, straight after LuAG run 30 on the same -11 GeV beam. Same tight-beam era config as run 30 (wide beam at T10 limit expected). XCET pressures presumably 0.062/0.060 as run 30 - verify from spectra."
+    },
+    {
+      "run_number": 32,
+      "run_name": "DSB1_9GEV",
+      "file": "data/DATA/DSB1_9GEV-2026-08-29-152646/run_32.root",
+      "tree": "pulse",
+      "events": 40000,
+      "beam": "CERN T10, -9 GeV",
+      "crystal": "DSB1",
+      "started_utc": "2026-08-29T13:26:46Z",
+      "ended_utc": "2026-08-29T16:12:10Z",
+      "purpose": "DSB1 module scan, 9 GeV point",
+      "notes": "Metadata note: 'DSB1 test at -9 GeV'. Daytime run (light-leak-era noise conditions apply)."
+    },
+    {
+      "run_number": 33,
+      "run_name": "DSB1_7GEV",
+      "file": "data/DATA/DSB1_7GEV-2026-08-29-181648/run_33.root",
+      "tree": "pulse",
+      "events": 20000,
+      "beam": "CERN T10, -7 GeV",
+      "crystal": "DSB1",
+      "started_utc": "2026-08-29T16:16:49Z",
+      "ended_utc": "2026-08-29T17:17:16Z",
+      "purpose": "DSB1 module scan, 7 GeV point",
+      "notes": "Metadata note: '-7GeV Beam'."
+    },
+    {
+      "run_number": 34,
+      "run_name": "DSB1_5GEV",
+      "file": "data/DATA/DSB1_5GEV-2026-08-29-193033/run_34.root",
+      "tree": "pulse",
+      "events": 20000,
+      "beam": "CERN T10, +5 GeV",
+      "crystal": "DSB1",
+      "started_utc": "2026-08-29T17:30:33Z",
+      "ended_utc": "2026-08-29T17:41:25Z",
+      "purpose": "DSB1 5 GeV point - BAD XCET PRESSURE",
+      "notes": "XCETs at 1.5 bar - ABOVE both the muon (0.518 bar) and PION (0.90 bar) thresholds at 5 GeV: the Cherenkov coincidence tags e+mu+pi (~68% of the positive beam), useless as an electron tag. Superseded by run 37 (0.4/0.405 bar). Still useful as: proton-depleted sample, pi-enriched control (tag minus ElectronID), and a fast full-statistics MIP set (11-minute run, highest rate of campaign)."
+    },
+    {
+      "run_number": 35,
+      "run_name": "DSB1_3GEV",
+      "file": "data/DATA/DSB1_3GEV-2026-08-29-200653/run_35.root",
+      "tree": "pulse",
+      "events": 20000,
+      "beam": "CERN T10, +3 GeV",
+      "crystal": "DSB1",
+      "started_utc": "2026-08-29T18:06:53Z",
+      "ended_utc": "2026-08-29T18:26:09Z",
+      "purpose": "DSB1 module scan, 3 GeV point",
+      "notes": "19-minute run at post-fix collimator settings."
+    },
+    {
+      "run_number": 36,
+      "run_name": "DSB1_1GEV",
+      "file": "data/DATA/DSB1_1GEV-2026-08-29-205109/run_36.root",
+      "tree": "pulse",
+      "events": 20000,
+      "beam": "CERN T10, +1 GeV",
+      "crystal": "DSB1",
+      "started_utc": "2026-08-29T18:51:09Z",
+      "ended_utc": "2026-08-29T20:50:00Z",
+      "purpose": "DSB1 module scan, 1 GeV point - CONDITIONS CHANGED MID-RUN",
+      "notes": "The rate-mystery run (see FINDINGS 2026-08-29 night): started in the 11 GeV tight-beam config (collimators +/-10/+/-10/+/-3/+/-20, XCET40 at 11 bar = ~17% X0 of gas) at ~33 trig/min; mid-run XCET40 bled 11 -> 4 bar and collimators opened (+/-35/+/-15/+/-15-20), rates recovered. ANALYSIS MUST SLICE BY trigger_time_tag: XCET40 amplitude scale changes by ~x2.75 at the pressure change (thresholds cannot span the boundary), and beam width/rate differ across it. Locate the boundary from the XCET40 amplitude-vs-time profile."
+    },
+    {
+      "run_number": 37,
+      "run_name": "DSB1_5GEV_redo",
+      "file": "(pending download)",
+      "tree": "pulse",
+      "events": null,
+      "beam": "CERN T10, +5 GeV",
+      "crystal": "DSB1",
+      "purpose": "DSB1 5 GeV point, corrected XCET pressure",
+      "notes": "Redo of run 34 with XCET40 at 0.400 bar / XCET43 at 0.405 bar (below the 0.518 bar muon threshold - clean electron tag). Data not yet on disk."
     }
   ]
 }
