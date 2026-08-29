@@ -144,6 +144,18 @@
       "beam": "CERN T10, -9 GeV",
       "purpose": "9 GeV overnight extension",
       "notes": "INTERMITTENT TIMING DRIFT (environmental, overnight): chronological slices alternate 330-420 ps (stable) and 536-1218 ps with center jumps to +300 ps, worst in the morning. DQ selection keeps slices 0,1,4,6 (20k of 40k). Excluded events recoverable with time-dependent calibration. DQ dataset = run_9001.root (run 28 + good slices, 26,028 events): peak 5782+/-160, sigma/E 31.9+/-3.8%, shower-time 212+/-11 ps (trend predicts 218)."
+    },
+    {
+      "run_number": 30,
+      "run_name": "LUAG_11GeV",
+      "file": "data/DATA/RUN_LUAG_11GEV/run_30.root",
+      "tree": "pulse",
+      "events": 40000,
+      "beam": "CERN T10, -11 GeV",
+      "purpose": "11 GeV scan point (T10 momentum limit)",
+      "started_utc": "2026-08-29T09:12:04Z",
+      "ended_utc": "2026-08-29T10:47:59Z",
+      "notes": "XCETs pressurized 0.062/0.060 bar - hardware tag WORKS at threshold floor (cthr 40): coincidence 2.17% (867 tags, accidental rate ~0.11%); pi/mu below Cherenkov threshold at this pressure. Health clean: 0 gaps, LG rail 0.00-0.03% (bias stays frozen), HG clip ~2% (transfer line handles), MCP thr 133 mV, TR0 corr 0.998, pairings verified. MIP MPVs 459/440/376/405 (+13% vs run 15, day-scale gain ladder, absorbed by per-run calibration). WATCH ITEM: tagged-electron miss fraction 41.5% (vs 8-12% at 3-9 GeV) and depressed per-cap response - consistent with wider/halo beam at the T10 momentum limit; per-cap timing asymmetric (right column 5/7 ~600 ps vs left 4/6 ~400 ps). Standalone timing (mean combo) 328+/-28 ps, N=357."
     }
   ]
 }

@@ -24,11 +24,11 @@ void XCETScanPlot()
 {
   SetRadStyle();
   gSystem->mkdir("Output/scan", true);
-  const int NP = 5;
-  int runs[NP] = {2526, 24, 15, 27, 2829};
-  double E[NP] = {1, 3, 5, 7, 9};
-  double chosen[NP] = {100, 100, 100, 50, 40};
-  int cols[NP] = {rad::cTeal(), rad::cAmber(), rad::cRed(), rad::cBlue(), rad::cInk()};
+  const int NP = 6;
+  int runs[NP] = {2526, 24, 15, 27, 2829, 30};
+  double E[NP] = {1, 3, 5, 7, 9, 11};
+  double chosen[NP] = {100, 100, 100, 50, 40, 40};
+  int cols[NP] = {rad::cTeal(), rad::cAmber(), rad::cRed(), rad::cBlue(), rad::cInk(), rad::cViolet()};
 
   const int NT = 27;
   TGraph *gc[NP]; TH1F *hx[NP];

@@ -1,7 +1,8 @@
 1 GeV (run 2526): N(e,on-module) 5248 | peak 210 +/- 4, sigma 331 => sigma/E 157.8 +/- 7.2 % | t-MEAN 440 +/- 12 ps | t-MEDIAN 412 +/- 11 ps | diff -28 (N=2253)
 3 GeV (run 24): N(e,on-module) 4129 | peak 1686 +/- 25, sigma 914 => sigma/E 54.2 +/- 1.4 % | t-MEAN 300 +/- 6 ps | t-MEDIAN 274 +/- 5 ps | diff -26 (N=3851)
-5 GeV (run 15): N(e,on-module) 1790 | peak 2962 +/- 37, sigma 1038 => sigma/E 35.0 +/- 1.6 % | t-MEAN 249 +/- 7 ps | t-MEDIAN 228 +/- 6 ps | diff -21 (N=1780)
+5 GeV (run 15): N(e,on-module) 1790 | peak 2962 +/- 37, sigma 1038 => sigma/E 35.0 +/- 1.6 % | t-MEAN 249 +/- 7 ps | t-MEDIAN 228 +/- 6 ps | diff -21 (N=1779)
 7 GeV (run 27): N(e,on-module) 1200 | peak 4814 +/- 51, sigma 1081 => sigma/E 22.5 +/- 1.2 % | t-MEAN 223 +/- 9 ps | t-MEDIAN 191 +/- 7 ps | diff -32 (N=1180)
-9 GeV (run 9001): N(e,on-module) 522 | peak 5782 +/- 160, sigma 1844 => sigma/E 31.9 +/- 3.8 % | t-MEAN 212 +/- 11 ps | t-MEDIAN 176 +/- 11 ps | diff -35 (N=523)
+9 GeV (run 9001): N(e,on-module) 522 | peak 5782 +/- 160, sigma 1844 => sigma/E 31.9 +/- 3.8 % | t-MEAN 204 +/- 11 ps | t-MEDIAN 189 +/- 12 ps | diff -15 (N=515)
+11 GeV (run 30): N(e,on-module) 187 | peak 5696 +/- 117, sigma 1056 => sigma/E 18.5 +/- 2.6 % | t-MEAN 547 +/- 32 ps | t-MEDIAN 227 +/- 32 ps | diff -320 (N=187)
 
-timing trend (MEDIAN, 1&9 solve): sigma_t = 395 ps/sqrt(E) (+) 117 ps; 3 GeV median 274 ps, predicted 257
+timing trend (MEDIAN, 1&9 solve): sigma_t = 389 ps/sqrt(E) (+) 138 ps; 3 GeV median 274 ps, predicted 263

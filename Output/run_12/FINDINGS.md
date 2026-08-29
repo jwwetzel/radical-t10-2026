@@ -435,3 +435,32 @@ electron ID; 9-10 figures each) in a collapsible gallery. Run-12
 MCP threshold measured: 238 mV = the original setting, independent
 cross-check of run 15's 240. data/run_12.root restored via symlink after
 the file moved into download/.
+
+## Run 30 — 11 GeV scan point (2026-08-29, 11:12–12:48 CEST)
+
+**The hardware tag works at 11 GeV.** XCETs pressurized to 0.062/0.060 bar
+(≈ 0.44·(5/11)² scaling); π/μ below Cherenkov threshold. Coincidence at the
+threshold floor (thr 40): 867 tags = 2.17% of 40,000 triggers, accidentals
+~0.11%. ElectronID cross-checks rather than replaces the tag.
+
+**Wide beam at the T10 momentum limit.** 54% of tags deposit ΣLG < 400 (miss
+the module; 8–12% at 3–9 GeV), partial-containment continuum to ~4.5k, clear
+contained peak at 5696 ± 117. Scan uses containment floor ΣLG > 3800 for this
+point; timing on contained showers only (EnergyScan now gates timing on the
+on-module cut at every energy — 9 GeV moved: mean 212→204, median 176→189).
+
+**Median rescue, part two.** t-MEDIAN 227 ± 32 ps vs t-MEAN 547 ± 32:
+edge-hit outliers (right column caps 5/7: ~600 ps vs left 4/6: ~400 ps)
+destroy the mean; the median lands ~1.4σ above the 181 ps trend prediction.
+Trend (contained, median, 1&9 anchors): σ_t ≈ 389/√E ⊕ 138 ps.
+
+**Saturation is now a trend.** Response vs linear extrapolation: −3% at 9 GeV,
+−14% at 11 GeV (three-point flattening 7→9→11). Top watch item for the paper.
+
+**Health.** Zero gaps; TR0 corr 0.998; pairings verified; MCP thr 133 mV;
+LG rail 0.00–0.03% — bias stays frozen through 11 GeV. HG clip ~2% (wall-aware
+transfer handles). MIP MPVs 459/440/376/405 (+13% vs run 15, day ladder).
+
+**Macro changes.** QCv2/ChannelIntegrity now take (run, cthr). EnergyScan:
+NP=6, per-point SMIN override (11 GeV: 3800), timing gated on containment,
+trend anchors fixed at 1&9 GeV, ΣLG axis to 10500. radStyle: cViolet added.

@@ -71,7 +71,7 @@ static RunCfg cfgFor(int run)
   return c;
 }
 
-void ChannelIntegrity(int run = 15)
+void ChannelIntegrity(int run = 15, double cthr = 150)
 {
   SetRadStyle();
   RunCfg cfg = cfgFor(run);
@@ -153,7 +153,7 @@ void ChannelIntegrity(int run = 15)
     for (int s2 = 0; s2 < NCH; ++s2)
       for (int k = 0; k < NSAMP; k += 2)                     // every 2nd sample: persistence
         hPer[s2]->Fill(k, (ch[s2][k] - b[s2]) * cfg.toADC);
-    const bool beam = a[0] > 150 && a[1] > 150;
+    const bool beam = a[0] > cthr && a[1] > cthr;
     if (beam) {
       for (int s2 = 0; s2 < NCH; ++s2)
         for (int k = 0; k < NSAMP; k += 2)

@@ -16,6 +16,7 @@ namespace rad {
   inline int cAmber()  { static int c = TColor::GetColor("#D9930D"); return c; }
   inline int cBlue()   { static int c = TColor::GetColor("#2B5DA8"); return c; }
   inline int cGrey()   { static int c = TColor::GetColor("#9AA6AD"); return c; }
+  inline int cViolet() { static int c = TColor::GetColor("#6B4FA1"); return c; }
   inline int cFill()   { static int c = TColor::GetColorTransparent(TColor::GetColor("#0E7C86"), 0.22); return c; }
   inline int cBand()   { static int c = TColor::GetColorTransparent(TColor::GetColor("#D9930D"), 0.18); return c; }
 }

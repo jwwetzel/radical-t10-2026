@@ -90,15 +90,44 @@ RUNS = [
   "extras": [("Output/run_2829/DriftStudy.png",         "Overnight drift time series",
               "MIP gain, pe rate, baselines and timing vs wall-clock — thermally stable box; the morning "
               "ramp is ambient light (sunrise/lights), not temperature.")]},
- # ---- 11 GeV stub: uncomment + fill when the data lands ----------------
- # {"key": "r11gev", "dir": "run_XX", "extras": [],
- #  "new": {"btnname": "Run XX", "dot": "info",
- #          "meta": ["NN,NNN ev · &minus;11 GeV · Aug 30", "11 GeV · offline e&#8315; selection"],
- #          "title": "Run XX — 11 GeV scan point",
- #          "sub":   "Aug 30 · negative beam · XCETs out of reach — ElectronID offline selection",
- #          "chips": ["NN,NNN events", "&minus;11 GeV", "offline e&#8315; ID", "mV format"],
- #          "pill":  ("warn", "analysis in progress"),
- #          "notes": "<p>First look pending.</p>"}},
+ {"key": "r30", "dir": "run_30", "extras": [],
+  "new": {"btnname": "Run 30", "dot": "warn",
+          "meta": ["40,000 ev · &minus;11 GeV · Aug 29", "11 GeV · wide beam at T10 limit"],
+          "title": "Run 30 — 11 GeV scan point (T10 momentum limit)",
+          "sub":   "Aug 29, 11:12&ndash;12:48 CEST · XCETs at 0.062/0.060 bar &mdash; the hardware tag works after all",
+          "chips": ["40,000 events", "&minus;11 GeV", "XCET tag, thr floor (40)", "mV format"],
+          "pill":  ("warn", "complete — wide-beam caveat"),
+          "notes": """<p><b>The tag works at 11 GeV.</b> The XCETs were pressurized to 0.062/0.060 bar
+      (&asymp; the 0.44&middot;(5/11)&sup2; scaling) &mdash; &pi;&#8315;/&mu;&#8315; sit safely below Cherenkov
+      threshold there, and the two counters in coincidence at the threshold floor (thr 40) give
+      <span class="num">867 tags = 2.17%</span> of triggers against an accidental rate of ~0.11%.
+      No offline-only selection needed; ElectronID cross-checks the tag instead of replacing it.</p>
+      <p><b>Wide beam at the T10 momentum limit.</b> 54% of tagged electrons deposit &Sigma;LG &lt; 400
+      (miss the 14&times;14 module, vs 8&ndash;12% miss at 3&ndash;9 GeV) and a partial-containment
+      continuum runs up to ~4.5k. The contained-shower peak stands clearly at
+      <span class="num">5696 &plusmn; 117</span>. The scan therefore uses a containment floor
+      &Sigma;LG &gt; 3800 for this point (drawn from the measured spectrum), and the timing is computed
+      on contained showers only. Timing shows why the median combination is the adopted estimator:
+      <span class="num">t-MEDIAN 227 &plusmn; 32 ps</span> vs t-MEAN 547 &plusmn; 32 &mdash; edge-hit
+      outliers (right column, caps 5/7) destroy the mean, the median holds within ~1.4&sigma; of the
+      photostatistics trend (181 ps predicted).</p>
+      <p><b>Health.</b> Zero event gaps; TR0 copies correlate at 0.998; all four LG&harr;HG pairings
+      verified; MCP threshold measured 133 mV; LG rail 0.00&ndash;0.03% even at 11 GeV &mdash; the bias
+      stays frozen. HG clips in ~2% of beam events, handled by the wall-aware transfer. MIP MPVs
+      459/440/376/405 ADC-eq (+13% vs run 15, the day-scale gain ladder; absorbed per-run).</p>
+      <div class="tblwrap"><table>
+      <tr><th>quantity</th><th>value</th></tr>
+      <tr><td class="t">events / tagged e&#8315;</td><td class="num">40,000 / 867 (2.17%)</td></tr>
+      <tr><td class="t">contained electrons (&Sigma;LG &gt; 3800)</td><td class="num">187</td></tr>
+      <tr><td class="t">&Sigma;LG peak</td><td class="num">5696 &plusmn; 117 ADC-eq</td></tr>
+      <tr><td class="t">&sigma;/E (position-smeared)</td><td class="num">18.5 &plusmn; 2.6%</td></tr>
+      <tr><td class="t">srCFD shower-time &sigma; (median | mean)</td><td class="num">227 &plusmn; 32 | 547 &plusmn; 32 ps</td></tr>
+      <tr><td class="t">response vs linear extrapolation</td><td class="num">~14% below (flattening continues 7&rarr;11)</td></tr>
+      </table></div>
+      <div class="verdict warn"><b>Verdict.</b> Valid 11 GeV point with a wide-beam caveat: statistics
+      limited to 187 contained showers, and the mean-based timing is unusable &mdash; the median rescues
+      it. The response flattening from 7 GeV onward is now a three-point trend (7/9/11): saturation watch
+      item for the paper. A tighter momentum slit or converter-out retake would upgrade this point.</div>"""}},
 ]
 
 def figblock(path, title, desc):

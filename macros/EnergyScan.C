@@ -94,14 +94,14 @@ void EnergyScan()
     fflush(sum); fflush(stdout);
   };
 
-  const int NP = 5;  // timing computed BOTH ways: mean (original) and median (robust) — diffed in the summary
-  int runs[NP] = {2526, 24, 15, 27, 9001};  // 9001 = run 28 + run 29 DQ-good slices (drift periods excluded, see Diag9)
-  double E[NP] = {1.0, 3.0, 5.0, 7.0, 9.0};
+  const int NP = 6;  // timing computed BOTH ways: mean (original) and median (robust) — diffed in the summary
+  int runs[NP] = {2526, 24, 15, 27, 9001, 30};  // 30 = 11 GeV (XCETs 0.06 bar, thr floor)  // 9001 = run 28 + run 29 DQ-good slices (drift periods excluded, see Diag9)
+  double E[NP] = {1.0, 3.0, 5.0, 7.0, 9.0, 11.0};
   // XCET tag threshold per point: at 7 GeV the counters run at 0.21 bar
   // (~5 pe) and the electron spectrum sits at 40-200 ADC-eq — a 150 cut
   // throws away ~5x the electrons (measured with XCETCheck.C).
-  double cthr[NP] = {100, 100, 100, 50, 40};  // on-plateau per XCETCheck (9 GeV: ~3 pe, threshold floor)
-  int cols[NP] = {rad::cTeal(), rad::cAmber(), rad::cRed(), rad::cBlue(), rad::cInk()};
+  double cthr[NP] = {100, 100, 100, 50, 40, 40};  // on-plateau per XCETCheck (9 GeV: ~3 pe, threshold floor)
+  int cols[NP] = {rad::cTeal(), rad::cAmber(), rad::cRed(), rad::cBlue(), rad::cInk(), rad::cViolet()};
   double pkE[NP], pkEe[NP], sgE[NP], sgEe[NP], tS[NP], tSe[NP], tSM[NP], tSMe[NP];
   long nE[NP];
   TH1F *hS[NP];
@@ -146,19 +146,21 @@ void EnergyScan()
     }
 
     // pass 2: spectra + timing
-    hS[ip] = new TH1F(Form("hS%d",ip), ";#Sigma LG [ADC-eq];fraction / bin", 170, 0, 8500);
+    hS[ip] = new TH1F(Form("hS%d",ip), ";#Sigma LG [ADC-eq];fraction / bin", 210, 0, 10500);
     std::vector<double> dtMed;
     hS[ip]->SetDirectory(nullptr);          // survive f->Close(): the crash was a use-after-free here
     std::vector<double> dtA;
     long nOnMod = 0;
-    const double SMIN = 60.0 * E[ip] + 120;    // miss/noise floor, scales mildly
+    static const double SMIN_OV[NP] = {0, 0, 0, 0, 0, 3800};  // 11 GeV: wide beam at the T10 momentum limit — floor above the partial-containment continuum
+    const double SMIN = SMIN_OV[ip] > 0 ? SMIN_OV[ip] : 60.0 * E[ip] + 120;    // miss/noise floor, scales mildly
     for (Long64_t i = 0; i < nEnt; ++i) {
       if (i % 2000 == 0) { printf("  [%d GeV] pass2 %lld/%lld\n", (int)E[ip], i, nEnt); fflush(stdout); }
       if (!isB[i]) continue;
       t->GetEntry(i);
       double S = 0;
       for (int j = 0; j < 4; ++j) S += pulseOf(ch[LGs[j]],+1,BASE_MOD).amp;
-      if (S > SMIN) { hS[ip]->Fill(S); ++nOnMod; }
+      if (S <= SMIN) continue;                 // on-module showers only (also gates the timing below)
+      hS[ip]->Fill(S); ++nOnMod;
       // srCFD shower time
       Pulse m1 = pulseOf(ch[17],-1,BASE_MOD);
       if (m1.amp < 300) continue;
@@ -190,7 +192,7 @@ void EnergyScan()
     double m = hS[ip]->GetBinCenter(pbb), s = 0.35*m;
     TF1 *g = new TF1(Form("g%d",ip), "gaus", m-2*s, m+2*s);
     g->SetParameters(pv, m, s);
-    g->SetParLimits(1, SMIN + 30, 8200);          // mean stays on the physical peak
+    g->SetParLimits(1, SMIN + 30, 10200);          // mean stays on the physical peak
     g->SetParLimits(2, 25, 0.8*m);                // width bounded, cannot swallow the ridge
     for (int it = 0; it < 3; ++it) {
       hS[ip]->Fit(g, "QNR", "", std::max(SMIN, m-1.7*s), m+1.7*s);
@@ -232,9 +234,9 @@ void EnergyScan()
   for (int ip = 0; ip < NP; ++ip) { gr->SetPoint(ip, E[ip], pkE[ip]); gr->SetPointError(ip, 0, pkEe[ip]); }
   gr->SetTitle(";beam energy [GeV];#Sigma LG peak [ADC-eq]");
   gr->SetMarkerStyle(20); gr->SetMarkerSize(1.4); gr->SetMarkerColor(rad::cInk()); gr->SetLineWidth(2);
-  gr->GetXaxis()->SetLimits(0, 10); gr->SetMinimum(0); gr->SetMaximum(7500);
+  gr->GetXaxis()->SetLimits(0, 12); gr->SetMinimum(0); gr->SetMaximum(9000);
   gr->Draw("AP");
-  TF1 *lin = new TF1("lin","[0]*x",0,10);
+  TF1 *lin = new TF1("lin","[0]*x",0,12);
   lin->SetParameter(0, pkE[2]/E[2]); lin->SetLineColor(rad::cGrey()); lin->SetLineStyle(7); lin->Draw("same");
   hx.DrawLatex(0.16,0.86,"response  #font[42]{(dashed: linear through 5 GeV)}");
   // (3) sigma/E vs E
@@ -247,7 +249,7 @@ void EnergyScan()
   }
   gs->SetTitle(";beam energy [GeV];#sigma/E [%]");
   gs->SetMarkerStyle(20); gs->SetMarkerSize(1.4); gs->SetMarkerColor(rad::cInk()); gs->SetLineWidth(2);
-  gs->GetXaxis()->SetLimits(0, 10); gs->SetMinimum(0);
+  gs->GetXaxis()->SetLimits(0, 12); gs->SetMinimum(0);
   gs->Draw("AP");
   hx.DrawLatex(0.16,0.86,"width  #font[42]{(position-smearing dominated)}");
   // (4) timing vs E
@@ -260,7 +262,7 @@ void EnergyScan()
   }
   gt->SetTitle(";beam energy [GeV];shower-time #sigma [ps]");
   gt->SetMarkerStyle(20); gt->SetMarkerSize(1.4); gt->SetMarkerColor(rad::cInk()); gt->SetLineWidth(2);
-  gt->GetXaxis()->SetLimits(0, 10); gt->SetMinimum(0);
+  gt->GetXaxis()->SetLimits(0, 12); gt->SetMinimum(0);
   gt->Draw("AP");
   gm->SetMarkerStyle(24); gm->SetMarkerSize(1.3); gm->SetMarkerColor(rad::cGrey());
   gm->SetLineColor(rad::cGrey()); gm->SetLineWidth(2);
@@ -270,9 +272,10 @@ void EnergyScan()
   lgt->AddEntry(gm, "mean of capillaries", "p");
   lgt->Draw();
   // closed-form a/sqrt(E) (+) b from the MEDIAN 1 and 9 GeV points
-  double a2 = (tSM[0]*tSM[0] - tSM[NP-1]*tSM[NP-1]) * E[0]*E[NP-1] / (E[NP-1]-E[0]);
-  double b2 = tSM[NP-1]*tSM[NP-1] - a2/E[NP-1];
-  TF1 *ft = new TF1("ft","sqrt([0]*[0]/x+[1]*[1])",0.5,10);
+  const int IA = 0, IB = 4;  // 1&9 GeV anchors, fixed regardless of NP
+  double a2 = (tSM[IA]*tSM[IA] - tSM[IB]*tSM[IB]) * E[IA]*E[IB] / (E[IB]-E[IA]);
+  double b2 = tSM[IB]*tSM[IB] - a2/E[IB];
+  TF1 *ft = new TF1("ft","sqrt([0]*[0]/x+[1]*[1])",0.5,12);
   ft->SetParameters(std::sqrt(std::max(a2,0.0)), std::sqrt(std::max(b2,0.0)));
   ft->SetLineColor(rad::cTeal()); ft->SetLineWidth(3); ft->Draw("same");
   out("\ntiming trend (MEDIAN, 1&9 solve): sigma_t = %.0f ps/sqrt(E) (+) %.0f ps; 3 GeV median %.0f ps, predicted %.0f\n",

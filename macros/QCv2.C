@@ -35,7 +35,7 @@ static const float CHER_THR = 150.0f;    // ADC-eq
 static const int BASE_MOD = 40, BASE_CTR = 200;
 static const int EDGE = 30;
 
-void QCv2(int run = 15)
+void QCv2(int run = 15, double cthr = CHER_THR)
 {
   SetRadStyle();
   TString outDir = TString::Format("Output/run_%d", run);
@@ -115,7 +115,7 @@ void QCv2(int run = 15)
       amp[s] = (pol[s] > 0 ? ex - b : b - ex) * MV2ADC;
       pkS[s] = ps;
     }
-    const bool beam = amp[0] > CHER_THR && amp[1] > CHER_THR;
+    const bool beam = amp[0] > cthr && amp[1] > cthr;
     for (int s = 0; s < NSLOT; ++s)
       if (amp[s] > 150) { ++nSig[s]; hPkT[s]->Fill(pkS[s]);
         if (pkS[s] < EDGE) ++edgeLo[s];
