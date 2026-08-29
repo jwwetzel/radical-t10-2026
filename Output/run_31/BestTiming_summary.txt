@@ -1,0 +1,14 @@
+srCFD (github.com/jwwetzel/radical): frac 0.15 x LG-predicted HG_true
+cap 4: wall 3192, HG_true = 313 + 2.79*LG (fit LG 30-705)
+cap 5: wall 3193, HG_true = 358 + 2.25*LG (fit LG 30-735)
+cap 6: wall 3188, HG_true = 394 + 2.29*LG (fit LG 30-775)
+cap 7: wall 3193, HG_true = 294 + 2.60*LG (fit LG 30-695)
+
+beam 948; events with threshold above shelf guard: 0
+
+=== srCFD timing vs TR0 (tebSigma) ===
+cap 4: sigma =  436.2 +/- 32.7 ps (N=743)
+cap 5: sigma =  543.5 +/- 35.6 ps (N=758)
+cap 6: sigma =  614.2 +/- 41.6 ps (N=772)
+cap 7: sigma =  837.3 +/- 43.0 ps (N=767)
+4-capillary mean shower time: sigma = 547.4 +/- 39.1 ps (N=729)  [incl. MCP + DRS ref]

@@ -544,3 +544,24 @@ Lessons:
 - Run 36: tag plateau flat to thr 200 despite the mid-run 11->4 bar
   bleed — 1 GeV light yield is huge at either pressure, so the TAG needs
   no slicing; only beam width/rate change across the boundary.
+
+## DSB1 first scan (runs 31-36, EnergyScanDSB1.C, 2026-08-30 night)
+
+DSB1 is ~2.1x brighter than LuAG (~1,250-1,390 ADC-eq/GeV vs ~660) — the
+scan histogram had to extend to 16,000 and the spectra approach the ~13.6k
+LG headroom ceiling (baseline -330 mV -> ~830 mV x 4.095 x 4 caps) at
+11 GeV. LG rail fractions still <0.02% (soft approach, not hard clip).
+
+Scan (contained, floors 0/1500/4000/6000/6500):
+  1 GeV (36): ridge-merged | t-med 363+/-6   (LuAG 412)
+  3 GeV (35): 3763+/-73, 56%   | t-med 202+/-4   (LuAG 274)
+  7 GeV (33): 9045+/-90, 21.6% | t-med 140+/-6   (LuAG 191)
+  9 GeV (32): 9946+/-144, 26.5%| t-med 133+/-5   (LuAG 189) <- campaign best
+ 11 GeV (31): 10721+/-734, 39% | t-med 181+/-17  (LuAG 227)
+Trend: sigma_t = 323/sqrt(E) (+) 79 ps (LuAG: 389 (+) 138) — the constant
+term nearly HALVED. References included, unsubtracted, in both.
+9 GeV mean 516 vs median 133 (diff -383): most extreme daytime-outlier
+rescue yet; median combination fully vindicated.
+Response shows the same high-E flattening pattern as LuAG (gain ladder +
+shower-max migration; at 11 GeV additionally the LG ceiling).
+5 GeV joins as run 37; 1 GeV stable retake overnight.

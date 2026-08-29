@@ -1,0 +1,51 @@
+// Do NOT change. Changes will be lost next time file is generated
+
+#define R__DICTIONARY_FILENAME dIUsersdIjameswetzeldIDropboxdI01_ResearchdIHEPdIRADiCALdI02_AnalysisdI2026mI08_CERN_T10dIRADiCAL_TB_T10_AugmI2026dIdOdImacrosdIXCETCheck_C_ACLiC_dict
+#define R__NO_DEPRECATION
+
+/*******************************************************************/
+#include <cstddef>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <cassert>
+#define G__DICTIONARY
+#include "ROOT/RConfig.hxx"
+#include "TClass.h"
+#include "TDictAttributeMap.h"
+#include "TInterpreter.h"
+#include "TROOT.h"
+#include "TBuffer.h"
+#include "TMemberInspector.h"
+#include "TInterpreter.h"
+#include "TVirtualMutex.h"
+#include "TError.h"
+
+#ifndef G__ROOT
+#define G__ROOT
+#endif
+
+#include "RtypesImp.h"
+#include "TIsAProxy.h"
+#include "TFileMergeInfo.h"
+#include <algorithm>
+#include "TCollectionProxyInfo.h"
+/*******************************************************************/
+
+#include "TDataMember.h"
+
+// The generated code does not explicitly qualify STL entities
+namespace std {} using namespace std;
+
+// Header files passed as explicit arguments
+#include "/Users/jameswetzel/Dropbox/01_Research/HEP/RADiCAL/02_Analysis/2026-08_CERN_T10/RADiCAL_TB_T10_Aug-2026/./macros/XCETCheck.C"
+
+// Header files passed via #pragma extra_include
+
+namespace ROOT {
+   // Registration Schema evolution read functions
+   int RecordReadRules_XCETCheck_C_ACLiC_dict() {
+      return 0;
+   }
+   static int _R__UNIQUE_DICT_(ReadRules_XCETCheck_C_ACLiC_dict) = RecordReadRules_XCETCheck_C_ACLiC_dict();R__UseDummy(_R__UNIQUE_DICT_(ReadRules_XCETCheck_C_ACLiC_dict));
+} // namespace ROOT

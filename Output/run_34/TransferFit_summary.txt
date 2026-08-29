@@ -1,0 +1,5 @@
+TransferFit run 34 (wall-aware; fit only HG < 0.72 x wall)
+cap 4: wall 3149  fit HG<2267 (LG 30-705)  HG = 211.0 + 2.793*LG
+cap 5: wall 3145  fit HG<2265 (LG 30-705)  HG = 174.3 + 2.974*LG
+cap 6: wall 3158  fit HG<2274 (LG 30-705)  HG = 124.7 + 3.091*LG
+cap 7: wall 3150  fit HG<2268 (LG 30-655)  HG = 197.4 + 2.894*LG

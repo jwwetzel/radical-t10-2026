@@ -128,6 +128,75 @@ RUNS = [
       limited to 187 contained showers, and the mean-based timing is unusable &mdash; the median rescues
       it. The apparent response flattening was traced (SaturationStudy, scan page) to the
       cross-run SiPM gain ladder plus calculable shower-max migration &mdash; not detector saturation. A tighter momentum slit or converter-out retake would upgrade this point.</div>"""}},
+ # ================= DSB1 module (runs 31-37, Aug 29-30) =================
+ {"key": "r31", "dir": "run_31", "extras": [],
+  "new": {"btnname": "Run 31 · DSB1", "dot": "warn",
+          "meta": ["40,000 ev · &minus;11 GeV · Aug 29", "DSB1 · first run of the module"],
+          "title": "Run 31 — DSB1 at 11 GeV",
+          "sub":   "Aug 29, 13:44&ndash;15:21 CEST · straight after LuAG run 30 on the same &minus;11 GeV beam",
+          "chips": ["40,000 events", "&minus;11 GeV", "XCET floor tag (40)", "DSB1"],
+          "pill":  ("warn", "complete — wide-beam era"),
+          "notes": """<p>First DSB1 run, same beam and tight-slit config as LuAG run 30. Floor-threshold tag:
+      <span class="num">948 = 2.37%</span> (LuAG run 30: 2.17% — beam reproducible). Miss fraction 18.7%.
+      MIP MPVs 498/489/459/486. Scan point (contained, &Sigma;LG &gt; 6500): peak 10721 &plusmn; 734 — approaching the ~13.6k LG headroom
+      ceiling — and <b>t-MEDIAN 181 &plusmn; 17 ps</b> (mean 191; LuAG at 11 GeV: 227).</p>"""}},
+ {"key": "r32", "dir": "run_32", "extras": [],
+  "new": {"btnname": "Run 32 · DSB1", "dot": "good",
+          "meta": ["40,000 ev · &minus;9 GeV · Aug 29", "DSB1 · 9 GeV scan point"],
+          "title": "Run 32 — DSB1 at 9 GeV",
+          "sub":   "Aug 29, 15:27&ndash;18:12 CEST · daytime run (pre-tape light-leak noise conditions)",
+          "chips": ["40,000 events", "&minus;9 GeV", "XCET floor tag (40)", "DSB1"],
+          "pill":  ("good", "complete"),
+          "notes": """<p>Floor tag <span class="num">1,954 = 4.88%</span> (LuAG run 28: 4.9% — identical).
+      Miss fraction 24.3%. MIP MPVs 441/422/382/411. Scan point (&Sigma;LG &gt; 6000): peak 9946 &plusmn; 144, &sigma;/E 26.5%, and <b>t-MEDIAN 133 &plusmn; 5 ps</b> —
+      best timing of the campaign; the 516 ps mean vs 133 median is the most extreme daytime-outlier
+      rescue yet (diff &minus;383 ps).</p>"""}},
+ {"key": "r33", "dir": "run_33", "extras": [],
+  "new": {"btnname": "Run 33 · DSB1", "dot": "good",
+          "meta": ["20,000 ev · &minus;7 GeV · Aug 29", "DSB1 · 7 GeV scan point"],
+          "title": "Run 33 — DSB1 at 7 GeV",
+          "sub":   "Aug 29, 18:17&ndash;19:17 CEST",
+          "chips": ["20,000 events", "&minus;7 GeV", "XCET floor tag (40)", "DSB1"],
+          "pill":  ("good", "complete"),
+          "notes": """<p>Tag <span class="num">1,721 = 8.61%</span> &asymp; the known ~9% e&#8315; content of the
+      &minus;7 GeV beam. Miss 18.6%; beam a touch low/left (rows 1.27, cols 1.15). MIP MPVs 406/374/265/365.
+      Scan point (&Sigma;LG &gt; 4000): peak 9045 &plusmn; 90, &sigma;/E 21.6%, <b>t-MEDIAN 140 &plusmn; 6 ps</b> (LuAG: 191).</p>"""}},
+ {"key": "r34", "dir": "run_34", "extras": [],
+  "new": {"btnname": "Run 34 · DSB1", "dot": "warn",
+          "meta": ["20,000 ev · +5 GeV · Aug 29", "DSB1 · BAD XCET PRESSURE"],
+          "title": "Run 34 — DSB1 at 5 GeV (pion-contaminated tag)",
+          "sub":   "Aug 29, 19:31&ndash;19:41 CEST · XCETs at 1.5 bar — above BOTH the &mu; (0.52 bar) and &pi; (0.90 bar) thresholds",
+          "chips": ["20,000 events", "+5 GeV", "1.5 bar — e/&mu;/&pi; tag", "superseded by run 37"],
+          "pill":  ("warn", "tag invalid — redo taken"),
+          "notes": """<p>Coincidence <span class="num">66.6&ndash;69.7%</span> = the e+&mu;+&pi; content of the positive
+      5 GeV beam (67.5% from the T10 tables) — quantitative proof the 1.5 bar tag radiates on pions.
+      The 508 ps &ldquo;shower time&rdquo; of the tagged sample is the hadronic giveaway. As an electron point this
+      run is dead (run 37 at 0.400/0.405 bar replaces it); it survives as a <b>&pi;-enriched control sample</b>
+      and the fastest MIP set of the campaign (20k in 11 minutes).</p>"""}},
+ {"key": "r35", "dir": "run_35", "extras": [],
+  "new": {"btnname": "Run 35 · DSB1", "dot": "good",
+          "meta": ["20,000 ev · +3 GeV · Aug 29", "DSB1 · 3 GeV scan point"],
+          "title": "Run 35 — DSB1 at 3 GeV",
+          "sub":   "Aug 29, 20:07&ndash;20:26 CEST · textbook tag plateau",
+          "chips": ["20,000 events", "+3 GeV", "XCET tag (100)", "DSB1"],
+          "pill":  ("good", "complete"),
+          "notes": """<p>Cleanest tag of the DSB1 set: plateau at <span class="num">23.3%</span> (LuAG run 24: 23.5%).
+      ElectronID selector holds at 83.2% efficiency. Miss 12.7%. MIP MPVs 277/203/169/271.
+      Scan point (&Sigma;LG &gt; 1500): peak 3763 &plusmn; 73, &sigma;/E 56%, <b>t-MEDIAN 202 &plusmn; 4 ps</b> (LuAG: 274).</p>"""}},
+ {"key": "r36", "dir": "run_36", "extras": [],
+  "new": {"btnname": "Run 36 · DSB1", "dot": "warn",
+          "meta": ["20,000 ev · +1 GeV · Aug 29", "DSB1 · config changed mid-run"],
+          "title": "Run 36 — DSB1 at 1 GeV (the rate-mystery run)",
+          "sub":   "Aug 29, 20:51&ndash;22:50 CEST · XCET40 bled 11&rarr;4 bar and collimators opened mid-run",
+          "chips": ["20,000 events", "+1 GeV", "XCET tag (100)", "mixed beam config"],
+          "pill":  ("warn", "usable — stable retake planned overnight"),
+          "notes": """<p>This is the run diagnosed live in FINDINGS (&ldquo;1 GeV rate mystery&rdquo;): it began in the
+      11 GeV tight-slit config with ~17% X&#8320; of XCET gas in the line (33 trig/min, beam wider than the
+      profile monitor) and recovered after the mid-run pressure bleed + collimator opening. The tag is immune
+      to the change (plateau flat to thr 200 at both pressures): <span class="num">86.6%</span> coincidence = the
+      1 GeV e&#8315; content. Beam width and rate differ across the boundary — miss fraction 66.2% overall,
+      dominated by the pre-fix hours. A stable overnight 1 GeV retake is being taken; treat this run as
+      the backup, sliced at the config boundary if used.</p>"""}},
 ]
 
 def figblock(path, title, desc):
