@@ -384,3 +384,20 @@ amplitude-weighted), an analysis to-do, hardware not implicated.
 Recommendations: never chase gain with bias (per-run MIPs absorb it); end
 overnight runs before ~08:30 or log box temperature; XCETScan.png added to
 the scan page (tag plateaus vs threshold across all energies).
+
+## Morning event = LIGHT LEAK (James's hypothesis, confirmed 2026-08-29)
+
+Three-way discriminator (DriftLeak in DriftStudy.C): tail-pulse rate
+3.5 -> 8.4/event (x2.4) while tail-pulse amplitude +14% only and the
+tagged-electron SumLG response scale is FLAT -> more photons, same
+detector = ambient light entering the box (morning lights/sun/activity).
+Corroboration: LG DC baselines shift 40 mV in the pulse direction
+(photocurrent, DC-coupled); HG baselines unmoved (AC-coupled); MCP (sealed
+housing) untouched. The earlier "gain +60%" was a peak-amplitude MIP
+estimator artifact under doubled noise. Campaign-wide: daytime runs have
+~2x overnight noise (run 15 HG RMS 81-111 vs 50-55 overnight) -> the
+day-scale "gain ladder" is likely part lighting leak, part thermal.
+ACTIONS: lights-on/off baseline-RMS test at next access; tape the leak
+(may halve daytime noise); MIP estimator should use charge integrals or
+noise-robust fits when baseline RMS is elevated; per-run MIPs remain the
+operative calibration either way.

@@ -299,12 +299,18 @@ section[hidden]{display:none}
       <p><b>1. The insulated enclosure held all night.</b> The SiPM gain (pooled MIP MPV) is constant to
       <span class="num">&plusmn;1% for 8.5 hours</span> — the box sits at thermal equilibrium from its own
       electronics self-heating. No overnight bias adjustment was needed or would have helped.</p>
-      <p><b>2. A sharp morning event (~09:00&ndash;11:00) broke the equilibrium.</b> Gain
-      <span class="num">+60%</span>, dark noise <span class="num">&times;2</span>, LG baselines shifting
-      <span class="num">40 mV</span> — while the MCP amplitude stayed flat to &plusmn;1%. Consistent with hall
-      HVAC / morning activity reaching the box, not gradual night cooling. (The day-scale gain ladder across
-      runs — MIPs 404 &rarr; 327 &rarr; 281 &rarr; 216 from afternoon to night — is the same box slowly
-      relaxing to closed-lid equilibrium after daytime accesses.)</p>
+      <p><b>2. The morning event (~09:00&ndash;11:00) is a LIGHT LEAK, not temperature.</b> The three-way
+      discriminator settles it: the tail-pulse <em>rate</em> jumps &times;2.4 (3.5 &rarr; 8.4 per event) while
+      the tail-pulse <em>amplitude</em> barely moves (+14%) and the tagged-electron &Sigma;LG response scale
+      stays flat &mdash; more photons, same detector. Corroborating: the LG DC baselines shift
+      <span class="num">40 mV in the pulse direction</span> (photocurrent, DC-coupled), the HG baselines do not
+      (AC-coupled), and the MCP &mdash; in its own light-tight housing &mdash; never moves. The apparent
+      &ldquo;gain +60%&rdquo; was an estimator artifact: peak-amplitude MIP fits swallow noise maxima once the
+      leak doubles the baseline noise. Morning = hall lights / sunrise / activity reaching a seam in the dark
+      box. <b>Campaign-wide implication:</b> daytime runs carry ~2&times; the overnight noise (run 15 HG RMS
+      81&ndash;111 vs 50&ndash;55 ADC-eq overnight), so the day-scale &ldquo;gain ladder&rdquo; is likely part
+      lighting, part thermal &mdash; and a taped leak could halve daytime noise. In-situ test at next access:
+      beam off, hall lights on/off, watch the baseline RMS live (30 seconds settles it).</p>
       <p><b>3. The intermittent timing volatility is not hardware drift.</b> Systematically exonerated:
       the digitizer (TR0 copy-vs-copy = <span class="num">102&ndash;115 ps in every slice</span>, including the
       worst), the MCP branch (the MCP-free capillary pair broadens too), gain/noise/rate (flat), tag purity
@@ -324,9 +330,10 @@ section[hidden]{display:none}
     </div>
     <div class="verdict warn"><b>Verdict.</b> The 9 GeV point stands (212 &plusmn; 11 ps, on the photostatistics curve) and the
     investigation redeems the hardware: the box is stable all night at fixed bias — do NOT chase gain with
-    bias; per-run MIPs absorb the day-scale relaxation. For the 11 GeV overnight: end the run before ~08:30 or
-    log the box temperature; and implement the robust per-event timing combination to tame the low-light
-    outliers. Run 29&rsquo;s morning-ramp events remain recoverable with a time-dependent gain calibration.</div>
+    bias; per-run MIPs absorb the slow scale changes. Priority fix: <b>light-tightness</b> — lights-on/off
+    baseline-RMS test at next access, then tape the seam; that may halve daytime noise across the campaign.
+    Also: implement the robust per-event timing combination for the low-light outliers, and end overnight runs
+    before ~08:30 until the leak is fixed. Run 29&rsquo;s morning events remain recoverable offline.</div>
   </div>
 </section>
 

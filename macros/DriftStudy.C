@@ -331,3 +331,56 @@ void DriftPerCap()
   fflush(nullptr);
   gSystem->Exit(0);
 }
+
+// Light-leak vs gain-change discriminator:
+//   per slice: (1) tagged-electron SumLG response scale (robust center),
+//   (2) rate of discrete pulses in the record tail (samples 550-1000,
+//       away from the shower), (3) their median amplitude (pe-gain proxy).
+// Light leak: response flat, pe amplitude flat, pe rate explodes.
+// Real gain change: response and pe amplitude rise together.
+void DriftLeak()
+{
+  TFile *f = TFile::Open("data/download/run_2829.root");
+  TTree *t = (TTree*)f->Get("pulse");
+  static float ch[18][NSAMP];
+  t->SetBranchStatus("*", 0); t->SetBranchStatus("channel", 1);
+  t->SetBranchAddress("channel", ch);
+  const Long64_t N = t->GetEntries();
+  const int NS = (int)(N / 2000);
+  std::vector<double> eS[64], peA[64];
+  long nPe[64] = {0}, nScan[64] = {0};
+  for (Long64_t i = 0; i < N; ++i) {
+    t->GetEntry(i);
+    int sl = std::min((int)(i / 2000), NS - 1);
+    // (1) electron response scale
+    P c0 = pf(ch[0], -1, BASE_CTR), c1 = pf(ch[1], -1, BASE_CTR);
+    if (c0.amp > 40 && c1.amp > 40) {
+      double S = 0; for (int j = 0; j < 4; ++j) S += pf(ch[LGs[j]], +1, BASE_MOD).amp;
+      if (S > 660 && S < 12000) eS[sl].push_back(S);
+    }
+    // (2,3) tail-pulse counting on HG channels, every 4th event
+    if (i % 4) continue;
+    ++nScan[sl];
+    for (int j = 0; j < 4; ++j) {
+      const float *w = ch[HGs[j]];
+      double med = 0; for (int k = 550; k < 1000; ++k) med += w[k]; med /= 450;
+      for (int k = 555; k < 995; ++k) {
+        double v = (w[k] - med) * MV2ADC;
+        if (v > 120 && w[k] > w[k-1] && w[k] > w[k-2] && w[k] >= w[k+1] && w[k] >= w[k+2]) {
+          peA[sl].push_back(v); ++nPe[sl]; k += 10;   // skip past this pulse
+        }
+      }
+    }
+    if (i % 10000 == 0) printf("  %lld/%lld\n", i, N);
+  }
+  printf("slice | e-response SumLG | tail pulses/event | median tail-pulse amp [ADC-eq]\n");
+  for (int sl = 0; sl < NS; ++sl) {
+    double rc, rw; robust(eS[sl], rc, rw);
+    double med = 0;
+    if (peA[sl].size() > 10) { std::sort(peA[sl].begin(), peA[sl].end()); med = peA[sl][peA[sl].size()/2]; }
+    printf("%5d | %8.0f (N=%2zu) | %6.3f | %6.0f\n", sl, rc, eS[sl].size(),
+           nScan[sl] ? double(nPe[sl])/(4*nScan[sl]) : 0, med);
+  }
+  fflush(nullptr);
+  gSystem->Exit(0);
+}
