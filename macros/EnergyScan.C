@@ -94,14 +94,14 @@ void EnergyScan()
     fflush(sum); fflush(stdout);
   };
 
-  const int NP = 4;
-  int runs[NP] = {2526, 24, 15, 27};
-  double E[NP] = {1.0, 3.0, 5.0, 7.0};
+  const int NP = 5;
+  int runs[NP] = {2526, 24, 15, 27, 9001};  // 9001 = run 28 + run 29 DQ-good slices (drift periods excluded, see Diag9)
+  double E[NP] = {1.0, 3.0, 5.0, 7.0, 9.0};
   // XCET tag threshold per point: at 7 GeV the counters run at 0.21 bar
   // (~5 pe) and the electron spectrum sits at 40-200 ADC-eq — a 150 cut
   // throws away ~5x the electrons (measured with XCETCheck.C).
-  double cthr[NP] = {100, 100, 100, 50};   // on-plateau per XCETCheck: 150 clipped ~9% of e at 5 GeV
-  int cols[NP] = {rad::cTeal(), rad::cAmber(), rad::cRed(), rad::cBlue()};
+  double cthr[NP] = {100, 100, 100, 50, 40};  // on-plateau per XCETCheck (9 GeV: ~3 pe, threshold floor)
+  int cols[NP] = {rad::cTeal(), rad::cAmber(), rad::cRed(), rad::cBlue(), rad::cInk()};
   double pkE[NP], pkEe[NP], sgE[NP], sgEe[NP], tS[NP], tSe[NP];
   long nE[NP];
   TH1F *hS[NP];
@@ -146,7 +146,7 @@ void EnergyScan()
     }
 
     // pass 2: spectra + timing
-    hS[ip] = new TH1F(Form("hS%d",ip), ";#Sigma LG [ADC-eq];fraction / bin", 150, 0, 6500);
+    hS[ip] = new TH1F(Form("hS%d",ip), ";#Sigma LG [ADC-eq];fraction / bin", 170, 0, 8500);
     hS[ip]->SetDirectory(nullptr);          // survive f->Close(): the crash was a use-after-free here
     std::vector<double> dtA;
     long nOnMod = 0;
@@ -184,7 +184,7 @@ void EnergyScan()
     double m = hS[ip]->GetBinCenter(pbb), s = 0.35*m;
     TF1 *g = new TF1(Form("g%d",ip), "gaus", m-2*s, m+2*s);
     g->SetParameters(pv, m, s);
-    g->SetParLimits(1, SMIN + 30, 6300);          // mean stays on the physical peak
+    g->SetParLimits(1, SMIN + 30, 8200);          // mean stays on the physical peak
     g->SetParLimits(2, 25, 0.8*m);                // width bounded, cannot swallow the ridge
     for (int it = 0; it < 3; ++it) {
       hS[ip]->Fit(g, "QNR", "", std::max(SMIN, m-1.7*s), m+1.7*s);
@@ -225,9 +225,9 @@ void EnergyScan()
   for (int ip = 0; ip < NP; ++ip) { gr->SetPoint(ip, E[ip], pkE[ip]); gr->SetPointError(ip, 0, pkEe[ip]); }
   gr->SetTitle(";beam energy [GeV];#Sigma LG peak [ADC-eq]");
   gr->SetMarkerStyle(20); gr->SetMarkerSize(1.4); gr->SetMarkerColor(rad::cInk()); gr->SetLineWidth(2);
-  gr->GetXaxis()->SetLimits(0, 8); gr->SetMinimum(0); gr->SetMaximum(5200);
+  gr->GetXaxis()->SetLimits(0, 10); gr->SetMinimum(0); gr->SetMaximum(7500);
   gr->Draw("AP");
-  TF1 *lin = new TF1("lin","[0]*x",0,8);
+  TF1 *lin = new TF1("lin","[0]*x",0,10);
   lin->SetParameter(0, pkE[2]/E[2]); lin->SetLineColor(rad::cGrey()); lin->SetLineStyle(7); lin->Draw("same");
   hx.DrawLatex(0.16,0.86,"response  #font[42]{(dashed: linear through 5 GeV)}");
   // (3) sigma/E vs E
@@ -240,7 +240,7 @@ void EnergyScan()
   }
   gs->SetTitle(";beam energy [GeV];#sigma/E [%]");
   gs->SetMarkerStyle(20); gs->SetMarkerSize(1.4); gs->SetMarkerColor(rad::cInk()); gs->SetLineWidth(2);
-  gs->GetXaxis()->SetLimits(0, 8); gs->SetMinimum(0);
+  gs->GetXaxis()->SetLimits(0, 10); gs->SetMinimum(0);
   gs->Draw("AP");
   hx.DrawLatex(0.16,0.86,"width  #font[42]{(position-smearing dominated)}");
   // (4) timing vs E
@@ -249,7 +249,7 @@ void EnergyScan()
   for (int ip = 0; ip < NP; ++ip) { gt->SetPoint(ip, E[ip], tS[ip]); gt->SetPointError(ip, 0, tSe[ip]); }
   gt->SetTitle(";beam energy [GeV];shower-time #sigma [ps]");
   gt->SetMarkerStyle(20); gt->SetMarkerSize(1.4); gt->SetMarkerColor(rad::cInk()); gt->SetLineWidth(2);
-  gt->GetXaxis()->SetLimits(0, 8); gt->SetMinimum(0);
+  gt->GetXaxis()->SetLimits(0, 10); gt->SetMinimum(0);
   gt->Draw("AP");
   // closed-form a/sqrt(E) (+) b from the 1 and 5 GeV points (no Minuit: it
   // segfaulted here inside a drawn-graph fit; two points, two parameters)

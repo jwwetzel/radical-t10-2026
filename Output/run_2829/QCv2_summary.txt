@@ -1,0 +1,43 @@
+QCv2 run 2829: 46028 entries
+
+== COMPLETENESS ==
+event-number gaps: 1;  trigger_time_tag non-monotonic steps: 908 (wraps are normal)
+
+== CHANNEL HEALTH ==
+ slot     name   base[mV]  RMS[mV]  sig frac    edgeLo    edgeHi
+    0   XCET40      -35.3     0.42     0.015    0.0000    0.0000
+    1   XCET43      -20.4     0.38     0.007    0.0000    0.0000
+    2   ScintA      409.8     1.17     0.807    0.0002    0.0001
+    3    EMPTY      -58.6     0.38     0.000    0.0000    0.0000
+    4   LG-TL4     -349.2     1.17     0.100    0.0000    0.0000
+    5   LG-TR5     -350.0     1.28     0.111    0.0000    0.0000
+    6   LG-BL6     -342.2     1.26     0.099    0.0000    0.0000
+    7   LG-BR7     -344.8     1.20     0.099    0.0000    0.0000
+    8    MCPg0      361.4     7.58     1.000    0.0000    0.0000
+    9    EMPTY        9.0     0.39     0.000    0.0000    0.0000
+   10    EMPTY        3.0     0.40     0.000    0.0000    0.0000
+   11    EMPTY        2.2     0.39     0.000    0.0000    0.0000
+   12    EMPTY        8.7     0.39     0.000    0.0000    0.0000
+   13    HG(5)     -306.2    15.04     0.942    0.0172    0.0164
+   14    HG(4)     -300.8    16.88     0.995    0.0222    0.0187
+   15    HG(7)     -296.4    16.26     0.993    0.0186    0.0179
+   16    HG(6)     -301.1    10.16     0.859    0.0140    0.0150
+   17    MCPg1      359.0     4.82     1.000    0.0000    0.0000
+
+== BEAM / TRIGGER ==
+Cherenkov coincidence: 142 / 46028 = 0.31%
+
+== MIP CALIBRATION (off-coincidence) ==
+cap 4 (slot 14): MIP MPV = 265.7 +/- 0.5 ADC-eq
+cap 5 (slot 13): MIP MPV = 215.7 +/- 0.6 ADC-eq
+cap 6 (slot 16): MIP MPV = 187.3 +/- 0.5 ADC-eq
+cap 7 (slot 15): MIP MPV = 257.1 +/- 0.4 ADC-eq
+
+== ALIGNMENT ==
+miss fraction (SumLG<300): 37.3% +/- 4.1%   (run 14: 7.9%, run 12: 42.9%)
+  TL(4):  6.31 +/- 0.41 MIP-eq   HG rail frac (beam): 0.028
+  TR(5):  8.19 +/- 0.52 MIP-eq   HG rail frac (beam): 0.021
+  BL(6):  9.27 +/- 0.60 MIP-eq   HG rail frac (beam): 0.014
+  BR(7):  6.97 +/- 0.43 MIP-eq   HG rail frac (beam): 0.021
+rows bottom/top = 1.120 +/- 0.072 (centered = 1)
+cols left/right = 1.027 +/- 0.066
