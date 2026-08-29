@@ -525,3 +525,22 @@ Lessons:
   11 GeV tight-beam config, wrong for 1 GeV rate running.
 - New 1 GeV data at 3 bar CANNOT reuse runs-25/26 XCET thresholds
   (amplitude ∝ pressure — never carry a threshold across pressures).
+
+## DSB1 pipeline notes (2026-08-29/30 night)
+
+- ACLiC RACE: N parallel `root macro.C+` jobs that all need a recompile
+  clobber each other's dict files (clang "no such file" errors). Rule:
+  precompile every macro serially (separate root process per macro —
+  loading several into one session collides on file-scope statics), THEN
+  fan out. MCP trigger unchanged all campaign: 133-137 mV in every run.
+- XCET tag thresholds per DSB1 run (from XCETCheck scans):
+  31/32/33 -> 40 (floor, negative beam); 34/35/36 -> 100 (plateau).
+- Run 34 coincidence 69.7% == e+mu+pi content of +5 GeV beam (67.5% from
+  the T10 tables) — quantitative confirmation the 1.5 bar tag includes
+  pions. ElectronID tag-and-probe invalid for run 34.
+- Run 35 coincidence 23.3% == LuAG run 24's 23.5%; run 31/32 floor tags
+  2.37/4.88% == LuAG 30/28's 2.17/4.9%. Beam composition reproducible
+  day-to-day at the few-percent level.
+- Run 36: tag plateau flat to thr 200 despite the mid-run 11->4 bar
+  bleed — 1 GeV light yield is huge at either pressure, so the TAG needs
+  no slicing; only beam width/rate change across the boundary.
