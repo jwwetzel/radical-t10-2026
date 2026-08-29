@@ -416,3 +416,22 @@ night volatility" = mean dragged by near-threshold outliers); official
 events rejoin the pool for energy/alignment/selection training. TO-DO:
 switch EnergyScan/BestTiming to median combination and re-derive the
 scan timing numbers (expect small improvements at every energy).
+
+## Mean-vs-median timing diff + complete plot galleries (2026-08-29)
+
+EnergyScan now computes BOTH per-event combinations, diffed per point:
+  1 GeV: 440+/-12 (mean) vs 412+/-11 (median)  [-28]
+  3 GeV: 300+/-6  vs 274+/-5   [-26]
+  5 GeV: 249+/-7  vs 228+/-6   [-21]
+  7 GeV: 223+/-9  vs 191+/-7   [-32]
+  9 GeV: 212+/-11 vs 176+/-11  [-35]
+Median improves every point; trend tightens 406/sqrt(E) (+) 171 ->
+395/sqrt(E) (+) 117 ps (constant term down 54 ps: the median trims
+reference-side tails too). Median ADOPTED; mean retained in summaries and
+on the trend figure (open grey markers) for the diff.
+Run book: every run page now carries the complete standard plot set
+(waveforms, health, MIP, QC/align, transfer, timing, MCP threshold, XCET,
+electron ID; 9-10 figures each) in a collapsible gallery. Run-12
+MCP threshold measured: 238 mV = the original setting, independent
+cross-check of run 15's 240. data/run_12.root restored via symlink after
+the file moved into download/.
