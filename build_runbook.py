@@ -122,12 +122,12 @@ RUNS = [
       <tr><td class="t">&Sigma;LG peak</td><td class="num">5696 &plusmn; 117 ADC-eq</td></tr>
       <tr><td class="t">&sigma;/E (position-smeared)</td><td class="num">18.5 &plusmn; 2.6%</td></tr>
       <tr><td class="t">srCFD shower-time &sigma; (median | mean)</td><td class="num">227 &plusmn; 32 | 547 &plusmn; 32 ps</td></tr>
-      <tr><td class="t">response vs linear extrapolation</td><td class="num">~14% below (flattening continues 7&rarr;11)</td></tr>
+      <tr><td class="t">response vs linear &times; shower-max migration</td><td class="num">&minus;5.5% (SaturationStudy: within the gain ladder)</td></tr>
       </table></div>
       <div class="verdict warn"><b>Verdict.</b> Valid 11 GeV point with a wide-beam caveat: statistics
       limited to 187 contained showers, and the mean-based timing is unusable &mdash; the median rescues
-      it. The response flattening from 7 GeV onward is now a three-point trend (7/9/11): saturation watch
-      item for the paper. A tighter momentum slit or converter-out retake would upgrade this point.</div>"""}},
+      it. The apparent response flattening was traced (SaturationStudy, scan page) to the
+      cross-run SiPM gain ladder plus calculable shower-max migration &mdash; not detector saturation. A tighter momentum slit or converter-out retake would upgrade this point.</div>"""}},
 ]
 
 def figblock(path, title, desc):

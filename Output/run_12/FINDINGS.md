@@ -464,3 +464,32 @@ transfer handles). MIP MPVs 459/440/376/405 (+13% vs run 15, day ladder).
 **Macro changes.** QCv2/ChannelIntegrity now take (run, cthr). EnergyScan:
 NP=6, per-point SMIN override (11 GeV: 3800), timing gated on containment,
 trend anchors fixed at 1&9 GeV, ΣLG axis to 10500. radStyle: cViolet added.
+
+## SaturationStudy — the high-energy "saturation" retired (2026-08-29)
+
+Four tests (macros/SaturationStudy.C, runs 24/15/27/9001/30):
+1. Transverse leakage — ACQUITTED. Centered impacts (capillary-balance
+   r<0.18) recover only +3% at 11 GeV (5885±218 vs 5693±101); 5 GeV
+   tight-beam control flat. (Balance is only valid above a floor: junk
+   events have 4 noise-level amps → balance≈0 → they pile into the
+   CENTRAL bin and poison naive centered fits.)
+2. SiPM pixel saturation — ACQUITTED. Per-capillary shares identical at
+   5 GeV (.235/.257/.248/.259) and 11 GeV (.223/.252/.255/.271).
+3. MIP gain normalization — STRUCK DOWN as evidence. Windowed+smoothed
+   estimator vs full-window max: the old MPVs ride the noise envelope
+   (full/window ≈ 2.7×), and BOTH are species-contaminated (positive
+   3/5 GeV beams = proton-enriched "MIPs"; negative 7-11 GeV = π/μ).
+   Implied gain factors 0.55-1.15 are unphysical (would put 7 GeV +105%
+   above linear). MIPs are NOT a cross-run gain monitor here.
+4. Shower-max migration — CONVICTED IN PART. Longo-profile expectation
+   for fixed-depth sampling: −3.2/−6.0/−8.5% at 7/9/11 GeV (insensitive
+   to assumed window thickness).
+
+Verdict: residuals vs linear×Longo = +3.2/0/+19.6/+14.5/−5.5% at
+3/5/7/9/11 GeV — monotone in TIME OF DAY (night high, noon low), not in
+energy. Dominant systematic = cross-run SiPM gain ladder, consistent
+with a few °C hall temperature at ~5%/°C. The 11 GeV point sits on the
+physics curve. Linearity established to the ±15% cross-run gain
+envelope. To do better: temperature logging + LED/laser pulser, or a
+fixed-energy bridge run per scan point; the muon-stopper run doubles as
+a species-pure MIP anchor.

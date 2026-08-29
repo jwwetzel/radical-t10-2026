@@ -1,0 +1,63 @@
+run 24: 20000 events, HG prompt window samples [136,156]
+  scan-floor peak 1757 +/- 29 | centered (r<0.18) peak 1978 +/- 31 (N=2154)
+    r [0.00,0.18): peak 1940 +/- 37 (N=2154)
+    r [0.18,0.35): peak 2089 +/- 46 (N=1021)
+    r [0.35,0.60): peak 1931 +/- 161 (N=263)
+    r [0.60,1.01): peak 2428 +/- 506 (N=61)
+  MIP MPV windowed: 126/99/90/106 | full-window: 325/295/254/302
+  centered cap shares (TL/TR/BL/BR): 0.247 0.260 0.243 0.250
+run 15: 20000 events, HG prompt window samples [168,188]
+  scan-floor peak 3012 +/- 38 | centered (r<0.18) peak 3091 +/- 56 (N=1015)
+    r [0.00,0.18): peak 3002 +/- 47 (N=1015)
+    r [0.18,0.35): peak 2856 +/- 50 (N=451)
+    r [0.35,0.60): peak 2968 +/- 430 (N=98)
+    r [0.60,1.01): peak -1 +/- 0 (N=27)
+  MIP MPV windowed: 145/138/126/131 | full-window: 403/384/327/361
+  centered cap shares (TL/TR/BL/BR): 0.235 0.258 0.249 0.259
+run 27: 20000 events, HG prompt window samples [135,155]
+  scan-floor peak 4962 +/- 54 | centered (r<0.18) peak 5013 +/- 67 (N=724)
+    r [0.00,0.18): peak 5000 +/- 59 (N=724)
+    r [0.18,0.35): peak 5222 +/- 101 (N=251)
+    r [0.35,0.60): peak 3993 +/- 701 (N=43)
+    r [0.60,1.01): peak -1 +/- 0 (N=13)
+  MIP MPV windowed: 93/62/56/94 | full-window: 279/234/207/279
+  centered cap shares (TL/TR/BL/BR): 0.235 0.255 0.248 0.262
+run 9001: 26028 events, HG prompt window samples [287,307]
+  scan-floor peak 5919 +/- 98 | centered (r<0.18) peak 5992 +/- 127 (N=309)
+    r [0.00,0.18): peak 5983 +/- 113 (N=309)
+    r [0.18,0.35): peak 10197 +/- 4901 (N=102)
+    r [0.35,0.60): peak -1 +/- 0 (N=14)
+    r [0.60,1.01): peak -1 +/- 0 (N=6)
+  MIP MPV windowed: 88/66/53/89 | full-window: 257/207/180/251
+  centered cap shares (TL/TR/BL/BR): 0.239 0.259 0.243 0.259
+run 30: 40000 events, HG prompt window samples [195,215]
+  scan-floor peak 5693 +/- 101 | centered (r<0.18) peak 5885 +/- 218 (N=131)
+    r [0.00,0.18): peak 5845 +/- 112 (N=131)
+    r [0.18,0.35): peak 5326 +/- 526 (N=74)
+    r [0.35,0.60): peak -1 +/- 0 (N=9)
+    r [0.60,1.01): peak -1 +/- 0 (N=5)
+  MIP MPV windowed: 177/157/140/149 | full-window: 458/441/376/405
+  centered cap shares (TL/TR/BL/BR): 0.223 0.252 0.255 0.271
+run 24: gain factor vs run 15 (windowed MIP) = 0.780 +/- 0.013
+run 15: gain factor vs run 15 (windowed MIP) = 1.000 +/- 0.014
+run 27: gain factor vs run 15 (windowed MIP) = 0.564 +/- 0.030
+run 9001: gain factor vs run 15 (windowed MIP) = 0.549 +/- 0.013
+run 30: gain factor vs run 15 (windowed MIP) = 1.152 +/- 0.013
+
+== residuals vs linear (CENTERED curve, slope 618.2 ADC-eq/GeV) ==
+   3 GeV: centered 1978 +/- 31, linear 1855 -> +6.6%
+   5 GeV: centered 3091 +/- 56, linear 3091 -> +0.0%
+   7 GeV: centered 5013 +/- 67, linear 4327 -> +15.8%
+   9 GeV: centered 5992 +/- 127, linear 5564 -> +7.7%
+  11 GeV: centered 5885 +/- 218, linear 6800 -> -13.5%
+
+== residuals vs linear x Longo (shower-max migration removed) ==
+   3 GeV: +3.2%  (Longo factor 1.034)
+   5 GeV: +0.0%  (Longo factor 1.000)
+   7 GeV: +19.6%  (Longo factor 0.968)
+   9 GeV: +14.5%  (Longo factor 0.940)
+  11 GeV: -5.5%  (Longo factor 0.916)
+
+MIP-normalized variant NOT plotted: the MIP gain factors (0.78/1.00/0.56/0.55/1.15)
+are invalidated as a gain monitor — beam species mix (p vs pi 'MIPs') and
+ambient-light estimator bias, not SiPM gain (drift study: response flat).
