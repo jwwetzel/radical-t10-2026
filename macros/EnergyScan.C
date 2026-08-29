@@ -100,7 +100,7 @@ void EnergyScan()
   // XCET tag threshold per point: at 7 GeV the counters run at 0.21 bar
   // (~5 pe) and the electron spectrum sits at 40-200 ADC-eq — a 150 cut
   // throws away ~5x the electrons (measured with XCETCheck.C).
-  double cthr[NP] = {150, 150, 150, 50};
+  double cthr[NP] = {100, 100, 100, 50};   // on-plateau per XCETCheck: 150 clipped ~9% of e at 5 GeV
   int cols[NP] = {rad::cTeal(), rad::cAmber(), rad::cRed(), rad::cBlue()};
   double pkE[NP], pkEe[NP], sgE[NP], sgEe[NP], tS[NP], tSe[NP];
   long nE[NP];

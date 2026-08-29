@@ -340,3 +340,13 @@ below threshold at 0.21 bar). CONCLUSION: the -7 GeV beam is ~9% electrons
 7 GeV = 1,200 e on module, peak 4874+/-48, sigma/E 20.4+/-1.1% (best width
 point), shower-time 223+/-9 ps. No additional 7 GeV data needed. Per-energy
 XCET thresholds now in EnergyScan.C (150/150/150/50).
+
+## XCET threshold audit across the scan (XCETCheck.C, 2026-08-29)
+
+Coincidence-vs-threshold plateaus: 1 GeV flat from 60 (85.9%); 3 GeV flat
+80-200 (23.5%); 5 GeV plateau 80-100 at 10.0% -> the common 150 cut was
+clipping ~9% of 5 GeV electrons (benign: random, XCET light uncorrelated
+with module response - peak/timing unchanged within errors, N 1638->1790);
+7 GeV needed 50 (the big recount). EnergyScan now uses per-energy plateau
+thresholds {100,100,100,50}. Lesson: set tag thresholds from each run's own
+XCET spectra, never carry one number across pressure settings.
