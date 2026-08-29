@@ -73,12 +73,14 @@ RUNS = [
  {"key": "r15",   "dir": "run_15",
   "extras": [("Output/run_15/electron_peak.png",        "Electron response peak",
               "&Sigma;LG for Cherenkov-tagged electrons with iterative Gaussian core fit — the 5 GeV anchor."),
-             ("Output/run_15/ResolutionV2_HGvsLG.png",  "Transfer fits (V2, final bias)",
-              "HG&harr;LG transfer measured immediately after the +1 V bias step."),
-             ("Output/run_15/ResolutionV2_timing.png",  "Timing distributions (V2)",
-              "&Delta;t distributions with Gaussian core fits at the final operating point."),
-             ("Output/run_15/ResolutionV2_energy.png",  "Electron response peak (V2)",
-              "Bounded iterative fit of the tagged-electron &Sigma;LG peak.")]},
+             # ResolutionV2_HGvsLG deliberately excluded: its transfer line is drawn
+             # over the full range with no fit-range/wall annotation (fixed LG 30-400
+             # fit) — superseded by the wall-aware TransferFit and never used downstream.
+             ("Output/run_15/ResolutionV2_timing.png",  "Timing distributions (V2) &mdash; first pass, superseded",
+              "Early CFD timing from ResolutionV2 (fixed-range transfer, no wall handling). Kept for "
+              "history; the quoted numbers come from the srCFD analysis above."),
+             ("Output/run_15/ResolutionV2_energy.png",  "Electron response peak (V2) &mdash; first pass",
+              "Bounded iterative fit of the tagged-electron &Sigma;LG peak from the ResolutionV2 analysis.")]},
  {"key": "r24",   "dir": "run_24",   "extras": []},
  {"key": "r2526", "dir": "run_2526",
   "extras": [("Output/run_25/assess.png",               "Run-25 crash assessment",
