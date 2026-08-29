@@ -384,3 +384,105 @@ void DriftLeak()
   fflush(nullptr);
   gSystem->Exit(0);
 }
+
+// smoothed leading-edge crossing: 5-sample moving average tames pe noise
+static double leSmooth(const float *w, const float *tx, int pol, double b, double thrA)
+{
+  static double sm[NSAMP];
+  for (int s = 2; s < NSAMP-2; ++s)
+    sm[s] = (w[s-2] + w[s-1] + w[s] + w[s+1] + w[s+2]) / 5.0;
+  sm[0]=sm[1]=sm[2]; sm[NSAMP-1]=sm[NSAMP-2]=sm[NSAMP-3];
+  double thr = pol > 0 ? b + thrA/MV2ADC : b - thrA/MV2ADC;
+  for (int s = BASE_MOD; s < NSAMP; ++s)
+    if (pol > 0 ? sm[s] >= thr : sm[s] <= thr) {
+      double v0 = sm[s-1], v1 = sm[s]; if (v1 == v0) return tx[s];
+      return tx[s-1] + (thr - v0)/(v1 - v0) * (tx[s] - tx[s-1]); }
+  return -1e9;
+}
+
+// recovery test on the sunrise slices (run 29, entries >= 34000):
+// standard srCFD vs smoothed-edge srCFD; also re-check a clean night window.
+void DriftRecover()
+{
+  TFile *f = TFile::Open("data/DATA/RUN_LUAG_9GEV/run_29.root");
+  TTree *t = (TTree*)f->Get("pulse");
+  static float ch[18][NSAMP], tx[2][NSAMP];
+  t->SetBranchStatus("*", 0);
+  t->SetBranchStatus("channel", 1); t->SetBranchStatus("times", 1);
+  t->SetBranchAddress("channel", ch); t->SetBranchAddress("times", tx);
+  const double a = 180, b = 2.59, wall = 3180;
+  const char *lbl[2] = {"night ctrl (evts 4k-14k)", "sunrise (evts 34k-40k)"};
+  Long64_t lo[2] = {4000, 34000}, hi[2] = {14000, 40000};
+  for (int reg = 0; reg < 2; ++reg) {
+    std::vector<double> dS, dM;   // standard, smoothed (median-combined caps)
+    for (Long64_t i = lo[reg]; i < hi[reg]; ++i) {
+      t->GetEntry(i);
+      P c0 = pf(ch[0], -1, BASE_CTR), c1 = pf(ch[1], -1, BASE_CTR);
+      if (!(c0.amp > 40 && c1.amp > 40)) continue;
+      double S = 0; for (int j = 0; j < 4; ++j) S += pf(ch[LGs[j]], +1, BASE_MOD).amp;
+      if (S < 660) continue;
+      P m1 = pf(ch[17], -1, BASE_MOD); if (m1.amp < 300) continue;
+      double t1s = le(ch[17], tx[1], -1, m1.base, 0.20*m1.amp);
+      double t1m = leSmooth(ch[17], tx[1], -1, m1.base, 0.20*m1.amp);
+      if (t1s < -1e8 || t1m < -1e8) continue;
+      std::vector<double> tcS, tcM;
+      for (int j = 0; j < 4; ++j) {
+        P l = pf(ch[LGs[j]], +1, BASE_MOD), h = pf(ch[HGs[j]], +1, BASE_MOD);
+        double thr = 0.15*(a + b*l.amp);
+        if (thr < 20*MV2ADC || thr > 0.9*wall || h.amp < thr) continue;
+        double s1 = le(ch[HGs[j]], tx[1], +1, h.base, thr);
+        double s2 = leSmooth(ch[HGs[j]], tx[1], +1, h.base, thr);
+        if (s1 > -1e8) tcS.push_back(s1);
+        if (s2 > -1e8) tcM.push_back(s2);
+      }
+      auto med = [](std::vector<double> &v){ std::sort(v.begin(), v.end()); return v[v.size()/2]; };
+      if (tcS.size() >= 2) dS.push_back(med(tcS) - t1s);
+      if (tcM.size() >= 2) dM.push_back(med(tcM) - t1m);
+    }
+    double rc, rw1, rw2;
+    robust(dS, rc, rw1); robust(dM, rc, rw2);
+    printf("%s: standard srCFD (median caps) = %.0f ps (N=%zu) | smoothed edge = %.0f ps (N=%zu)\n",
+           lbl[reg], rw1*1000, dS.size(), rw2*1000, dM.size());
+  }
+  fflush(nullptr);
+  gSystem->Exit(0);
+}
+
+// full 28+29 with per-event MEDIAN capillary combination — no DQ cuts.
+void DriftMedianAll()
+{
+  TFile *f = TFile::Open("data/download/run_2829.root");
+  TTree *t = (TTree*)f->Get("pulse");
+  static float ch[18][NSAMP], tx[2][NSAMP];
+  t->SetBranchStatus("*", 0);
+  t->SetBranchStatus("channel", 1); t->SetBranchStatus("times", 1);
+  t->SetBranchAddress("channel", ch); t->SetBranchAddress("times", tx);
+  const Long64_t N = t->GetEntries();
+  const double a = 180, b = 2.59, wall = 3180;
+  std::vector<double> dt;
+  for (Long64_t i = 0; i < N; ++i) {
+    t->GetEntry(i);
+    P c0 = pf(ch[0], -1, BASE_CTR), c1 = pf(ch[1], -1, BASE_CTR);
+    if (!(c0.amp > 40 && c1.amp > 40)) continue;
+    double S = 0; for (int j = 0; j < 4; ++j) S += pf(ch[LGs[j]], +1, BASE_MOD).amp;
+    if (S < 660) continue;
+    P m1 = pf(ch[17], -1, BASE_MOD); if (m1.amp < 300) continue;
+    double t1 = le(ch[17], tx[1], -1, m1.base, 0.20*m1.amp);
+    if (t1 < -1e8) continue;
+    std::vector<double> tc;
+    for (int j = 0; j < 4; ++j) {
+      P l = pf(ch[LGs[j]], +1, BASE_MOD), h = pf(ch[HGs[j]], +1, BASE_MOD);
+      double thr = 0.15*(a + b*l.amp);
+      if (thr < 20*MV2ADC || thr > 0.9*wall || h.amp < thr) continue;
+      double s1 = le(ch[HGs[j]], tx[1], +1, h.base, thr);
+      if (s1 > -1e8) tc.push_back(s1);
+    }
+    if (tc.size() >= 2) { std::sort(tc.begin(), tc.end()); dt.push_back(tc[tc.size()/2] - t1); }
+    if (i % 10000 == 0) printf("  %lld/%lld\n", i, N);
+  }
+  double rc, rw; robust(dt, rc, rw);
+  printf("FULL 46k, median combination, no DQ cuts: N=%zu, shower-time sigma = %.0f ps\n",
+         dt.size(), rw*1000);
+  fflush(nullptr);
+  gSystem->Exit(0);
+}

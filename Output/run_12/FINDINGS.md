@@ -401,3 +401,18 @@ ACTIONS: lights-on/off baseline-RMS test at next access; tape the leak
 (may halve daytime noise); MIP estimator should use charge integrals or
 noise-robust fits when baseline RMS is elevated; per-run MIPs remain the
 operative calibration either way.
+
+## Sunrise-event recovery (2026-08-29)
+
+The leak-period events are recoverable in software: per-event MEDIAN
+capillary combination (= repo's eventDWUP consistency logic, which the
+simplified mean had dropped) gives sunrise slices 278 ps, night control
+208 ps, and the FULL uncut 46k dataset 253 ps (N=924) with zero DQ cuts.
+5-sample edge smoothing does NOT help (softens the slope more than it
+tames the noise) - skip it. Decision: median adopted as the standard
+per-event combination for all timing (also dissolves the "intermittent
+night volatility" = mean dragged by near-threshold outliers); official
+9 GeV point remains the clean-conditions DQ sample (212+/-11); morning
+events rejoin the pool for energy/alignment/selection training. TO-DO:
+switch EnergyScan/BestTiming to median combination and re-derive the
+scan timing numbers (expect small improvements at every energy).
