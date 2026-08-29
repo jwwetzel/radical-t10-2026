@@ -1,0 +1,12 @@
+# data lives in 01_Data, never in the repo
+data
+*.root
+# ROOT build artifacts
+*.so
+*.d
+*.pcm
+*_C.so
+*_C.d
+# OS / media
+.DS_Store
+*.MOV

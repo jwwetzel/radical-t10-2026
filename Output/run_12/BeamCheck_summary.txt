@@ -1,0 +1,14 @@
+BeamCheck run 12: 2466 / 25000 events pass Cherenkov coincidence (ch0 & ch1 amp > 150)
+
+  ch       role  mean amp beam     sat frac end-of-record avg
+
+   4   low-gain          186.3       0.0000           93.6
+   5   low-gain          202.2       0.0000           98.7
+   6   low-gain          232.2       0.0000          114.1
+   7   low-gain          246.4       0.0000          114.7
+  16        MCP         1497.3       0.0397           16.2
+  12  high-gain          659.0       0.0264          -31.7
+  13  high-gain          631.8       0.0122          -27.8
+  14  high-gain          843.7       0.1245          -42.1
+  15  high-gain          722.3       0.0750          -36.9
+  17        MCP         1486.5       0.0247           14.5

@@ -1,0 +1,25 @@
+ResolutionV2 run 15, 20000 events, CFD 0.30
+
+HG vs LG transfer (fit LG 30-400):
+  cap 4: HG =  335.12 +  2.090 * LG   (ratio 2.09)
+  cap 5: HG =  315.74 +  1.952 * LG   (ratio 1.95)
+  cap 6: HG =  215.13 +  2.561 * LG   (ratio 2.56)
+  cap 7: HG =  248.85 +  2.623 * LG   (ratio 2.62)
+
+Beam events 1816; clipped HG recovered 25
+
+=== TIMING ===
+TR0 copy-vs-copy (inter-group jitter): 107.6 +/- 2.6 ps (N=1816)
+cap 4 - TR0: sigma =  332.3 +/-  12.1 ps (N= 1798)
+cap 5 - TR0: sigma =  328.3 +/-  11.4 ps (N= 1790)
+cap 6 - TR0: sigma =  310.1 +/-  10.5 ps (N= 1768)
+cap 7 - TR0: sigma =  299.1 +/-  10.2 ps (N= 1789)
+cap5-cap4 (MCP-free): 520.4 +/- 18.6 ps (N=1607) => 368.0 ps/capillary
+amplitude bins (all caps vs TR0):
+  A   300-  600:   25.3 +/-   6.3 ps (N=  784)
+  A   600- 1200:  483.8 +/-  22.0 ps (N= 1042)
+  A  1200- 2400:  304.6 +/-   7.1 ps (N= 3189)
+  A  2400-12000:  310.3 +/-   9.0 ps (N= 2130)
+
+=== ENERGY (electrons) ===
+Sum LG peak: mean 2992 +/- 36, sigma 1004 +/- 41 => sigma/E = 33.6% +/- 1.4%

@@ -1,0 +1,37 @@
+Resolution.C run 12, 10000 events; CFD fraction 0.30; pairing LG->HG: 4->13 5->12 6->15 7->14 
+
+LG->HG transfer fits (linear region, HG < 1700 ADC):
+  LG4 -> HG13 :  HG =  137.67 +  2.629 * LG   (HG/LG gain ratio 2.63)
+  LG5 -> HG12 :  HG =   69.97 +  2.973 * LG   (HG/LG gain ratio 2.97)
+  LG6 -> HG15 :  HG =   44.08 +  3.046 * LG   (HG/LG gain ratio 3.05)
+  LG7 -> HG14 :  HG =  138.57 +  3.017 * LG   (HG/LG gain ratio 3.02)
+
+Beam (Cherenkov) events: 985;  clipped HG pulses recovered via LG inference: 243
+
+=== TIMING ===
+MCP0-MCP1 (cross-group): sigma = 100.2 +/- 3.8 ps  (N=985)  => single-MCP+intergroup 70.8 ps
+HG ch 13 - MCP1: sigma =  319.0 +/- 19.3 ps  (N=  571)   halves: 259.4+/-24.1 | 308.1+/-25.8 ps
+HG ch 12 - MCP1: sigma =  215.0 +/- 11.9 ps  (N=  572)   halves: 241.0+/-17.4 | 169.8+/-13.5 ps
+HG ch 15 - MCP1: sigma =  335.3 +/- 19.5 ps  (N=  568)   halves: 305.5+/-40.4 |  25.6+/- 4.1 ps
+HG ch 14 - MCP1: sigma =  425.5 +/- 27.5 ps  (N=  601)   halves:  36.5+/- 7.0 | 222.8+/-22.0 ps
+MCP0-MCP1 halves: 83.8+/-7.1 | 105.8+/-10.3 ps
+HG12-HG13 (MCP-free, both > 500 ADC): sigma = 335.4 +/- 24.5 ps (N=435) => per-capillary 237.1 ps
+all-HG vs MCP1 in amplitude bins:
+  A_inf  300- 600 ADC: sigma =  549.8 +/-  39.1 ps  (N=  566)
+  A_inf  600-1200 ADC: sigma =  310.7 +/-  17.3 ps  (N=  816)
+  A_inf 1200-2400 ADC: sigma =  268.2 +/-  13.0 ps  (N=  841)
+  A_inf 2400-8000 ADC: sigma =   32.7 +/-   7.3 ps  (N=   89)
+
+=== ENERGY RESPONSE (electrons, 5 GeV) ===
+module-miss fraction (Sigma LG < 300 ADC): 42.3% of electrons
+Sum LG direct-hit edge: position 2861.7 +/- 25.5 ADC, width  53.4 +/- 34.8 ADC
+  => edge width / position = 1.87% +/- 1.22%  (upper bound on resolution at full response)
+  halves: width/pos = 19.18% +/- 11.69%  |  2.09% +/- 1.25%
+
+=== MIP (off-coincidence sample, HG channels) ===
+HG ch 13: MIP MPV =  165.4 +/-  0.6 ADC
+HG ch 12: MIP MPV =  143.4 +/-  0.6 ADC
+HG ch 15: MIP MPV =  120.6 +/-  0.7 ADC
+HG ch 14: MIP MPV =  160.4 +/-  0.6 ADC
+
+Wrote Output/run_12/Resolution_{HGvsLG,timing,energy,MIP}.png, Resolution.root
