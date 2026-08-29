@@ -85,3 +85,15 @@ copy (group 0), arrays 9–16 = DT5742 ch 8–15, array 17 = MCP TR0 copy
   ```
   root -l -b -q 'macros/Resolution.C+(12)'
   ```
+
+## Sharing
+
+- Repo: https://github.com/jwwetzel/radical-t10-2026 (public)
+- Run book (GitHub Pages): https://jwwetzel.github.io/radical-t10-2026/
+- To publish an updated run book:
+
+  ```
+  cp run_summary.html docs/index.html && git add -A && git commit -m "update run book" && git push
+  ```
+
+  Raw data (`*.root`) is intentionally excluded from the repo.
