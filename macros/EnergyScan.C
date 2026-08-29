@@ -97,6 +97,10 @@ void EnergyScan()
   const int NP = 4;
   int runs[NP] = {2526, 24, 15, 27};
   double E[NP] = {1.0, 3.0, 5.0, 7.0};
+  // XCET tag threshold per point: at 7 GeV the counters run at 0.21 bar
+  // (~5 pe) and the electron spectrum sits at 40-200 ADC-eq — a 150 cut
+  // throws away ~5x the electrons (measured with XCETCheck.C).
+  double cthr[NP] = {150, 150, 150, 50};
   int cols[NP] = {rad::cTeal(), rad::cAmber(), rad::cRed(), rad::cBlue()};
   double pkE[NP], pkEe[NP], sgE[NP], sgEe[NP], tS[NP], tSe[NP];
   long nE[NP];
@@ -122,7 +126,7 @@ void EnergyScan()
       t->GetEntry(i);
       if (i % 2000 == 0) { printf("  [%d GeV] pass1 %lld/%lld\n", (int)E[ip], i, nEnt); fflush(stdout); }
       Pulse c0 = pulseOf(ch[0],-1,BASE_CTR), c1 = pulseOf(ch[1],-1,BASE_CTR);
-      isB[i] = c0.amp > 150 && c1.amp > 150;
+      isB[i] = c0.amp > cthr[ip] && c1.amp > cthr[ip];
       if (!isB[i]) continue;
       for (int j = 0; j < 4; ++j) {
         Pulse l = pulseOf(ch[LGs[j]],+1,BASE_MOD), h = pulseOf(ch[HGs[j]],+1,BASE_MOD);
@@ -180,7 +184,7 @@ void EnergyScan()
     double m = hS[ip]->GetBinCenter(pbb), s = 0.35*m;
     TF1 *g = new TF1(Form("g%d",ip), "gaus", m-2*s, m+2*s);
     g->SetParameters(pv, m, s);
-    g->SetParLimits(1, SMIN + 30, 4400);          // mean stays on the physical peak
+    g->SetParLimits(1, SMIN + 30, 6300);          // mean stays on the physical peak
     g->SetParLimits(2, 25, 0.8*m);                // width bounded, cannot swallow the ridge
     for (int it = 0; it < 3; ++it) {
       hS[ip]->Fit(g, "QNR", "", std::max(SMIN, m-1.7*s), m+1.7*s);

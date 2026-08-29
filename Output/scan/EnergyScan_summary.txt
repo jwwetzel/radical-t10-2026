@@ -1,6 +1,6 @@
 1 GeV (run 2526): N(e,on-module) 5248 | peak 210 +/- 3, sigma 326 => sigma/E 155.1 +/- 6.5 % | shower-time sigma 440 +/- 12 ps (N=2253)
 3 GeV (run 24): N(e,on-module) 4129 | peak 1742 +/- 30, sigma 1128 => sigma/E 64.7 +/- 2.6 % | shower-time sigma 300 +/- 6 ps (N=3851)
 5 GeV (run 15): N(e,on-module) 1638 | peak 3002 +/- 43, sigma 1084 => sigma/E 36.1 +/- 2.1 % | shower-time sigma 251 +/- 8 ps (N=1637)
-7 GeV (run 27): N(e,on-module) 285 | peak 4400 +/- 97, sigma 2523 => sigma/E 57.3 +/- 10.2 % | shower-time sigma 242 +/- 28 ps (N=282)
+7 GeV (run 27): N(e,on-module) 1200 | peak 4874 +/- 48, sigma 992 => sigma/E 20.4 +/- 1.1 % | shower-time sigma 223 +/- 9 ps (N=1180)
 
 timing trend (1&5 GeV solve): sigma_t = 404 ps/sqrt(E) (+) 174 ps const (incl. MCP+DRS ref); 3 GeV point: 300 ps predicted 291

@@ -328,3 +328,15 @@ BUG POSTMORTEM: EnergyScan's crash/livelock chain was a use-after-free -
 histograms created while a TFile is open are owned by it and deleted at
 Close(); fix = SetDirectory(nullptr). The "Minuit segfault" hypothesis was
 wrong; hard exit kept as belt-and-suspenders.
+
+## 7 GeV recount (XCETCheck.C, 2026-08-29)
+
+The 285-electron figure was a threshold artifact: at 0.21 bar the XCETs make
+~5 pe and the electron spectrum sits at 40-200 ADC-eq; the standard 150 cut
+bisected it. Threshold scan: coincidence 1.74% @150 -> 8.77% @40, with
+singles 9.2%/9.0% (near-total correlation = real radiating particles; pi/mu
+below threshold at 0.21 bar). CONCLUSION: the -7 GeV beam is ~9% electrons
+(supersedes the T10 table's 2.3+/-1.6%). With cthr=50 in EnergyScan:
+7 GeV = 1,200 e on module, peak 4874+/-48, sigma/E 20.4+/-1.1% (best width
+point), shower-time 223+/-9 ps. No additional 7 GeV data needed. Per-energy
+XCET thresholds now in EnergyScan.C (150/150/150/50).
