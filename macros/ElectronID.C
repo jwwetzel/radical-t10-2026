@@ -33,7 +33,7 @@ static const double MV2ADC = 4.095;
 static const int BASE_MOD = 40, BASE_CTR = 200;
 static const int LGs[4] = {4,5,6,7}, HGs[4] = {14,13,16,15};
 
-void ElectronID(int run = 15)
+void ElectronID(int run = 15, double cthr = 150)
 {
   SetRadStyle();
   TString outDir = TString::Format("Output/run_%d", run);
@@ -76,7 +76,7 @@ void ElectronID(int run = 15)
       float ex = ch[s][0];
       for (int k = 0; k < NSAMP; ++k){ float v = ch[s][k]; if (pol>0 ? v>ex : v<ex) ex = v; }
       return (pol>0 ? ex-b : b-ex) * toADC; };
-    const bool tag = amp(0,BASE_CTR,-1) > 150 && amp(1,BASE_CTR,-1) > 150;
+    const bool tag = amp(0,BASE_CTR,-1) > cthr && amp(1,BASE_CTR,-1) > cthr;
     double S = 0, mx = 0, H = 0;
     for (int j = 0; j < 4; ++j) {
       double l = amp(LGs[j], BASE_MOD, +1);

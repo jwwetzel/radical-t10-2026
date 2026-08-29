@@ -95,7 +95,7 @@ static double tebSigma(std::vector<double> &v, double *errOut = nullptr)
   return useG ? gfit : robust;
 }
 
-void BestTiming(int run = 15)
+void BestTiming(int run = 15, double cthr = 150)
 {
   SetRadStyle();
   TString outDir = TString::Format("Output/run_%d", run);
@@ -126,7 +126,7 @@ void BestTiming(int run = 15)
   for (Long64_t i = 0; i < nEnt; ++i) {
     t->GetEntry(i);
     Pulse c0 = pulseOf(ch[0], -1, BASE_CTR), c1 = pulseOf(ch[1], -1, BASE_CTR);
-    isBeam[i] = (c0.amp > 150 && c1.amp > 150);
+    isBeam[i] = (c0.amp > cthr && c1.amp > cthr);
     if (!isBeam[i]) continue;
     for (int j = 0; j < 4; ++j) {
       Pulse l = pulseOf(ch[LGs[j]], +1, BASE_MOD), h = pulseOf(ch[HGs[j]], +1, BASE_MOD);

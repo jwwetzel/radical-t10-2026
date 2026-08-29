@@ -30,7 +30,7 @@ static const double MV2ADC = 4.095;
 static const int BASE_MOD = 40, BASE_CTR = 200;
 static const int LGs[4] = {4,5,6,7}, HGs[4] = {14,13,16,15};
 
-void TransferFit(int run = 15)
+void TransferFit(int run = 15, double cthr = 150)
 {
   SetRadStyle();
   TString outDir = TString::Format("Output/run_%d", run);
@@ -59,7 +59,7 @@ void TransferFit(int run = 15)
   // pass 1: fill everything (beam events only)
   for (Long64_t i = 0; i < nEnt; ++i) {
     t->GetEntry(i);
-    if (!(amp(0,BASE_CTR,-1) > 150 && amp(1,BASE_CTR,-1) > 150)) continue;
+    if (!(amp(0,BASE_CTR,-1) > cthr && amp(1,BASE_CTR,-1) > cthr)) continue;
     for (int j = 0; j < 4; ++j) {
       double l = amp(LGs[j], BASE_MOD, +1), h = amp(HGs[j], BASE_MOD, +1);
       hAmp[j]->Fill(h); hHL[j]->Fill(l, h);

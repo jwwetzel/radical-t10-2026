@@ -94,7 +94,7 @@ void EnergyScan()
     fflush(sum); fflush(stdout);
   };
 
-  const int NP = 5;
+  const int NP = 5;  // timing computed BOTH ways: mean (original) and median (robust) — diffed in the summary
   int runs[NP] = {2526, 24, 15, 27, 9001};  // 9001 = run 28 + run 29 DQ-good slices (drift periods excluded, see Diag9)
   double E[NP] = {1.0, 3.0, 5.0, 7.0, 9.0};
   // XCET tag threshold per point: at 7 GeV the counters run at 0.21 bar
@@ -102,7 +102,7 @@ void EnergyScan()
   // throws away ~5x the electrons (measured with XCETCheck.C).
   double cthr[NP] = {100, 100, 100, 50, 40};  // on-plateau per XCETCheck (9 GeV: ~3 pe, threshold floor)
   int cols[NP] = {rad::cTeal(), rad::cAmber(), rad::cRed(), rad::cBlue(), rad::cInk()};
-  double pkE[NP], pkEe[NP], sgE[NP], sgEe[NP], tS[NP], tSe[NP];
+  double pkE[NP], pkEe[NP], sgE[NP], sgEe[NP], tS[NP], tSe[NP], tSM[NP], tSMe[NP];
   long nE[NP];
   TH1F *hS[NP];
 
@@ -147,6 +147,7 @@ void EnergyScan()
 
     // pass 2: spectra + timing
     hS[ip] = new TH1F(Form("hS%d",ip), ";#Sigma LG [ADC-eq];fraction / bin", 170, 0, 8500);
+    std::vector<double> dtMed;
     hS[ip]->SetDirectory(nullptr);          // survive f->Close(): the crash was a use-after-free here
     std::vector<double> dtA;
     long nOnMod = 0;
@@ -164,14 +165,19 @@ void EnergyScan()
       double t1 = leTime(ch[17], tax[1], -1, m1.base, 0.20*m1.amp);
       if (t1 < -1e8) continue;
       double ts = 0; int nOK = 0;
+      std::vector<double> tcv;
       for (int j = 0; j < 4; ++j) {
         Pulse l = pulseOf(ch[LGs[j]],+1,BASE_MOD), h = pulseOf(ch[HGs[j]],+1,BASE_MOD);
         double thr = SRCFD_FRAC * (a[j] + b[j]*l.amp);
         if (thr < THR_MIN || thr > 0.9*wall[j] || h.amp < thr) continue;
         double tc = leTime(ch[HGs[j]], tax[1], +1, h.base, thr);
-        if (tc > -1e8) { ts += tc; ++nOK; }
+        if (tc > -1e8) { ts += tc; ++nOK; tcv.push_back(tc); }
       }
-      if (nOK >= 2) dtA.push_back(ts/nOK - t1);
+      if (nOK >= 2) {
+        dtA.push_back(ts/nOK - t1);                                    // original: mean of caps
+        std::sort(tcv.begin(), tcv.end());
+        dtMed.push_back(tcv[tcv.size()/2] - t1);                       // added: median of caps
+      }
     }
     nE[ip] = nOnMod;
 
@@ -195,11 +201,12 @@ void EnergyScan()
     sgE[ip] = std::fabs(g->GetParameter(2)); sgEe[ip] = g->GetParError(2);
     double e;
     tS[ip] = tebSigma(dtA, &e); tSe[ip] = e;
-    out("%.0f GeV (run %d): N(e,on-module) %ld | peak %.0f +/- %.0f, sigma %.0f => sigma/E %.1f +/- %.1f %% | shower-time sigma %.0f +/- %.0f ps (N=%zu)\n",
+    double eM; tSM[ip] = tebSigma(dtMed, &eM); tSMe[ip] = eM;
+    out("%.0f GeV (run %d): N(e,on-module) %ld | peak %.0f +/- %.0f, sigma %.0f => sigma/E %.1f +/- %.1f %% | t-MEAN %.0f +/- %.0f ps | t-MEDIAN %.0f +/- %.0f ps | diff %+.0f (N=%zu)\n",
         E[ip], runs[ip], nOnMod, pkE[ip], pkEe[ip], sgE[ip],
         100*sgE[ip]/pkE[ip],
         100*sgE[ip]/pkE[ip]*std::sqrt(std::pow(sgEe[ip]/sgE[ip],2)+std::pow(pkEe[ip]/pkE[ip],2)),
-        tS[ip], tSe[ip], dtA.size());
+        tS[ip], tSe[ip], tSM[ip], tSMe[ip], tSM[ip]-tS[ip], dtA.size());
     f->Close();
   }
 
@@ -245,21 +252,31 @@ void EnergyScan()
   hx.DrawLatex(0.16,0.86,"width  #font[42]{(position-smearing dominated)}");
   // (4) timing vs E
   c.cd(4);
-  TGraphErrors *gt = new TGraphErrors(NP);
-  for (int ip = 0; ip < NP; ++ip) { gt->SetPoint(ip, E[ip], tS[ip]); gt->SetPointError(ip, 0, tSe[ip]); }
+  TGraphErrors *gt = new TGraphErrors(NP);   // median (adopted)
+  TGraphErrors *gm = new TGraphErrors(NP);   // mean (original, kept for the diff)
+  for (int ip = 0; ip < NP; ++ip) {
+    gt->SetPoint(ip, E[ip], tSM[ip]); gt->SetPointError(ip, 0, tSMe[ip]);
+    gm->SetPoint(ip, E[ip]+0.12, tS[ip]); gm->SetPointError(ip, 0, tSe[ip]);
+  }
   gt->SetTitle(";beam energy [GeV];shower-time #sigma [ps]");
   gt->SetMarkerStyle(20); gt->SetMarkerSize(1.4); gt->SetMarkerColor(rad::cInk()); gt->SetLineWidth(2);
   gt->GetXaxis()->SetLimits(0, 10); gt->SetMinimum(0);
   gt->Draw("AP");
-  // closed-form a/sqrt(E) (+) b from the 1 and 5 GeV points (no Minuit: it
-  // segfaulted here inside a drawn-graph fit; two points, two parameters)
-  double a2 = (tS[0]*tS[0] - tS[2]*tS[2]) * E[0]*E[2] / (E[2]-E[0]);
-  double b2 = tS[2]*tS[2] - a2/E[2];
-  TF1 *ft = new TF1("ft","sqrt([0]*[0]/x+[1]*[1])",0.5,6);
+  gm->SetMarkerStyle(24); gm->SetMarkerSize(1.3); gm->SetMarkerColor(rad::cGrey());
+  gm->SetLineColor(rad::cGrey()); gm->SetLineWidth(2);
+  gm->Draw("P same");
+  TLegend *lgt = new TLegend(0.55, 0.66, 0.94, 0.86);
+  lgt->AddEntry(gt, "median of capillaries", "p");
+  lgt->AddEntry(gm, "mean of capillaries", "p");
+  lgt->Draw();
+  // closed-form a/sqrt(E) (+) b from the MEDIAN 1 and 9 GeV points
+  double a2 = (tSM[0]*tSM[0] - tSM[NP-1]*tSM[NP-1]) * E[0]*E[NP-1] / (E[NP-1]-E[0]);
+  double b2 = tSM[NP-1]*tSM[NP-1] - a2/E[NP-1];
+  TF1 *ft = new TF1("ft","sqrt([0]*[0]/x+[1]*[1])",0.5,10);
   ft->SetParameters(std::sqrt(std::max(a2,0.0)), std::sqrt(std::max(b2,0.0)));
   ft->SetLineColor(rad::cTeal()); ft->SetLineWidth(3); ft->Draw("same");
-  out("\ntiming trend (1&5 GeV solve): sigma_t = %.0f ps/sqrt(E) (+) %.0f ps const (incl. MCP+DRS ref); 3 GeV point: %.0f ps predicted %.0f\n",
-      std::sqrt(std::max(a2,0.0)), std::sqrt(std::max(b2,0.0)), tS[1],
+  out("\ntiming trend (MEDIAN, 1&9 solve): sigma_t = %.0f ps/sqrt(E) (+) %.0f ps; 3 GeV median %.0f ps, predicted %.0f\n",
+      std::sqrt(std::max(a2,0.0)), std::sqrt(std::max(b2,0.0)), tSM[1],
       std::sqrt(a2/E[1] + std::max(b2,0.0)));
   hx.DrawLatex(0.16,0.86,"srCFD 4-cap shower time  #font[42]{(incl. MCP+DRS)}");
   c.SaveAs("Output/scan/EnergyScan.png");

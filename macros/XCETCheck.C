@@ -16,6 +16,7 @@ void XCETCheck(int run = 27)
   gSystem->mkdir(outDir, true);
   TFile *f = TFile::Open(TString::Format("data/download/run_%d.root", run));
   TTree *t = (TTree*)f->Get("pulse");
+  const double toADC = run <= 13 ? 1.0 : 4.095;
   static float ch[18][1024];
   t->SetBranchStatus("*",0); t->SetBranchStatus("channel",1);
   t->SetBranchAddress("channel", ch);
@@ -29,7 +30,7 @@ void XCETCheck(int run = 27)
     auto amp=[&](int s){
       double b=0; for(int k=0;k<200;++k) b+=ch[s][k]; b/=200;
       float mn=ch[s][0]; for(int k=0;k<1024;++k) if(ch[s][k]<mn) mn=ch[s][k];
-      return (b-mn)*4.095; };
+      return (b-mn)*toADC; };
     double a0=amp(0), a1=amp(1);
     h0->Fill(a0); h1->Fill(a1);
     for (int k=0;k<NT;++k){ if(a0>thr[k])++s40[k]; if(a1>thr[k])++s43[k];

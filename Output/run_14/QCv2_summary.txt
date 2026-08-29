@@ -1,0 +1,43 @@
+QCv2 run 14: 1000 entries
+
+== COMPLETENESS ==
+event-number gaps: 0;  trigger_time_tag non-monotonic steps: 8 (wraps are normal)
+
+== CHANNEL HEALTH ==
+ slot     name   base[mV]  RMS[mV]  sig frac    edgeLo    edgeHi
+    0   XCET40      -35.6     0.46     0.078    0.0000    0.0000
+    1   XCET43      -20.6     0.38     0.081    0.0000    0.0123
+    2   ScintA      409.5     1.42     0.875    0.0000    0.0023
+    3    EMPTY      -58.9     0.38     0.000    0.0000    0.0000
+    4   LG-TL4     -342.2     1.16     0.203    0.0000    0.0000
+    5   LG-TR5     -344.1     1.25     0.239    0.0000    0.0000
+    6   LG-BL6     -339.0     1.23     0.207    0.0000    0.0000
+    7   LG-BR7     -341.2     1.20     0.203    0.0000    0.0000
+    8    MCPg0      237.6     3.12     1.000    0.0000    0.0000
+    9    EMPTY        8.4     0.40     0.000    0.0000    0.0000
+   10    EMPTY        2.4     0.40     0.000    0.0000    0.0000
+   11    EMPTY        1.6     0.40     0.000    0.0000    0.0000
+   12    EMPTY        8.1     0.39     0.000    0.0000    0.0000
+   13    HG(5)     -307.2    18.95     1.000    0.0180    0.0120
+   14    HG(4)     -301.6    19.67     1.000    0.0110    0.0150
+   15    HG(7)     -296.8    18.18     1.000    0.0130    0.0090
+   16    HG(6)     -302.4    11.88     0.991    0.0081    0.0071
+   17    MCPg1      234.7     1.58     1.000    0.0000    0.0000
+
+== BEAM / TRIGGER ==
+Cherenkov coincidence: 76 / 1000 = 7.60%
+
+== MIP CALIBRATION (off-coincidence) ==
+cap 4 (slot 14): MIP MPV = 325.0 +/- 3.8 ADC-eq
+cap 5 (slot 13): MIP MPV = 301.8 +/- 3.7 ADC-eq
+cap 6 (slot 16): MIP MPV = 255.3 +/- 3.5 ADC-eq
+cap 7 (slot 15): MIP MPV = 301.6 +/- 3.6 ADC-eq
+
+== ALIGNMENT ==
+miss fraction (SumLG<300): 7.9% +/- 3.1%   (run 14: 7.9%, run 12: 42.9%)
+  TL(4):  4.92 +/- 0.30 MIP-eq   HG rail frac (beam): 0.066
+  TR(5):  5.89 +/- 0.34 MIP-eq   HG rail frac (beam): 0.132
+  BL(6):  6.97 +/- 0.42 MIP-eq   HG rail frac (beam): 0.013
+  BR(7):  6.49 +/- 0.36 MIP-eq   HG rail frac (beam): 0.039
+rows bottom/top = 1.245 +/- 0.073 (centered = 1)
+cols left/right = 0.960 +/- 0.057
