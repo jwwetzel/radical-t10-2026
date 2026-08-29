@@ -493,3 +493,35 @@ physics curve. Linearity established to the ±15% cross-run gain
 envelope. To do better: temperature logging + LED/laser pulser, or a
 fixed-energy bridge run per scan point; the muon-stopper run doubles as
 a species-pure MIP anchor.
+
+## 1 GeV rate mystery solved — beamline config, not beam (2026-08-29 night)
+
+Symptom: XBPF profile peak 80 counts (expected ~800), beam "extraordinarily
+wide and flat", DAQ 33 triggers/min (runs 25/26 reference: 64-123/min at
+~48 triggers/spill, difference purely supercycle cadence).
+
+Diagnosis chain:
+- Profile INTEGRAL healthy (9.5-10k/spill) → intensity fine, pure dilution.
+- Both planes RMS = 26 mm = 45/sqrt(3) exactly → aperture-truncated FLAT
+  profile: true beam wider than the 90 mm monitor. The "800 peak"
+  expectation was a 5 GeV memory; 80-140 flat IS nominal 1 GeV regular-mode.
+- Collimators found at 11 GeV settings: XCSV010 ±10, XCSH013 ±10,
+  XCHV022 (momentum slit) ±3, XCHV023 ±20 → ×13-20 intensity reduction.
+- XCET040 at 11.05 bar CO2 (~17% X0!) + XCET043 at 4.12 bar (~6% X0):
+  ~23% X0 of gas NOT in the manual's 8.6% material budget ("gas assumed
+  vacuum") → ~6 mrad extra scattering at 1 GeV, ~35-40 mm smear.
+
+Fix (confirmed working): XCET040 bled 11 → ~3 bar (still e-only: mu
+threshold 12.96 bar at 1 GeV; scale XCET40 software tag threshold ×~0.27
+with the light yield), collimators opened (XCSV010 ±35, XCSH013 ±15,
+slit ±15-20). Rates recovered significantly.
+
+Lessons:
+- XCET gas pressure is beamline MATERIAL at low energy — factor it into
+  spot size whenever pressures >~2 bar.
+- Profile RMS = aperture/sqrt(3) means truncated-flat: read the integral,
+  not the peak.
+- Log collimator settings per run config; the ±10/±10/±3/±20 set is the
+  11 GeV tight-beam config, wrong for 1 GeV rate running.
+- New 1 GeV data at 3 bar CANNOT reuse runs-25/26 XCET thresholds
+  (amplitude ∝ pressure — never carry a threshold across pressures).
