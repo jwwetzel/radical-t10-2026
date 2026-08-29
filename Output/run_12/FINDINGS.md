@@ -350,3 +350,37 @@ with module response - peak/timing unchanged within errors, N 1638->1790);
 7 GeV needed 50 (the big recount). EnergyScan now uses per-energy plateau
 thresholds {100,100,100,50}. Lesson: set tag thresholds from each run's own
 XCET spectra, never carry one number across pressure settings.
+
+## 9 GeV point + overnight drift (runs 28/29, 2026-08-29)
+
+XCETs at 0.150/0.156 bar (~3 pe): no threshold plateau; tag at floor
+(40 ADC-eq) gives 4.86% coincidence with 5.5%/5.3% singles => -9 GeV beam
+is >=5% electrons (table said ~2%). Merged timing first read 548 ps —
+chronological slicing of the overnight run 29 exposed intermittent drift
+(stable 330-420 ps vs 536-1218 ps periods, center jumps +300 ps, worst at
+morning). DQ selection (run 28 + run 29 slices 0/1/4/6 = 26,028 events,
+run_9001.root): peak 5782+/-160, sigma/E 31.9+/-3.8%, shower-time
+212+/-11 ps — the trend (406/sqrt(E) (+) 171) predicts 218. LG rail still
+0.0000 at 9 GeV. TO-DO: time-dependent calibration recovers run 29's 20k
+drift-period events; for 11 GeV overnight running, add environmental
+monitoring or periodic calibration triggers.
+
+## Overnight stability investigation (DriftStudy.C, runs 28+29, 2026-08-29)
+
+James's challenge ("insulated box shouldn't feel ambient") CONFIRMED for the
+night itself: pooled MIP MPV flat +/-1% for 8.5 h (closed-box thermal
+equilibrium from self-heating). The degradation splits in two: (1) a sharp
+MORNING event ~09:00-11:00 (gain +60%, dark noise x2, LG baselines +40 mV,
+MCP untouched) - environment reaching the box at morning, not night cooling;
+the day-scale gain ladder (404->327->281->216 across runs 15/24/27/28) is
+slow relaxation to closed-lid equilibrium after daytime accesses. (2) The
+intermittent night-time timing volatility correlates with NOTHING (TR0
+copy-copy 102-115 ps every slice = digitizer stable; MCP-free pair broadens
+= not the MCP; gain/noise/rate/tag flat; all four caps fluctuate
+independently; survives purity cuts) -> attributed to sporadic near-
+threshold srCFD outliers dragging the per-event MEAN at the scan's lowest
+per-capillary light; fix = robust per-event combination (median /
+amplitude-weighted), an analysis to-do, hardware not implicated.
+Recommendations: never chase gain with bias (per-run MIPs absorb it); end
+overnight runs before ~08:30 or log box temperature; XCETScan.png added to
+the scan page (tag plateaus vs threshold across all energies).

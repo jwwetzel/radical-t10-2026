@@ -124,6 +124,26 @@
       "beam": "CERN T10, -7 GeV (negative)",
       "purpose": "7 GeV scan point, marginal XCET tag",
       "notes": "Both XCETs 0.21 bar (1/p^2-scaled). Coincidence 1.74% (347 e) ~ 2.3% e- content x ~60-75% tag eff. Peak 4400+/-97 (on linear trend), shower-time 242+/-28 ps. MCP thr 133 mV. MIP MPVs 281/239/215/280."
+    },
+    {
+      "run_number": 28,
+      "run_name": "LUAG_9GeV",
+      "file": "data/download/run_28.root",
+      "tree": "pulse",
+      "events": 6028,
+      "beam": "CERN T10, -9 GeV",
+      "purpose": "9 GeV scan point, part 1",
+      "notes": "XCET40 0.150 / XCET43 0.156 bar (~3 pe: no threshold plateau, tag floor thr=40 ADC-eq, coincidence ~4.9% => beam >=5% e-). Stable; timing 331 ps standalone."
+    },
+    {
+      "run_number": 29,
+      "run_name": "LUAG_9GeV",
+      "file": "data/DATA/RUN_LUAG_9GEV/run_29.root",
+      "tree": "pulse",
+      "events": 40000,
+      "beam": "CERN T10, -9 GeV",
+      "purpose": "9 GeV overnight extension",
+      "notes": "INTERMITTENT TIMING DRIFT (environmental, overnight): chronological slices alternate 330-420 ps (stable) and 536-1218 ps with center jumps to +300 ps, worst in the morning. DQ selection keeps slices 0,1,4,6 (20k of 40k). Excluded events recoverable with time-dependent calibration. DQ dataset = run_9001.root (run 28 + good slices, 26,028 events): peak 5782+/-160, sigma/E 31.9+/-3.8%, shower-time 212+/-11 ps (trend predicts 218)."
     }
   ]
 }
