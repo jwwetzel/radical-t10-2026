@@ -1,0 +1,153 @@
+<meta charset="utf-8">
+<title>EJ199 — RADiCAL T10</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F2F4F5; --card:#FFFFFF; --ink:#182027; --muted:#5A6771; --line:#D6DCDF;
+  --accent:#0E7C86; --accent-ink:#0A5A62; --accent-soft:#E0EEF0;
+  --good:#2E7D46; --good-soft:#E3F0E7; --warn:#A66A14; --warn-soft:#F5EBDA; --bad:#B3372F; --bad-soft:#F4E3E1;
+  --chip:#E9EDEF; --shadow:0 1px 3px rgba(24,32,39,.08);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#12161A; --card:#1A2026; --ink:#D9E0E4; --muted:#8B98A1; --line:#2A3239;
+    --accent:#3FB2BD; --accent-ink:#7BCBD3; --accent-soft:#153237;
+    --good:#5CB878; --good-soft:#17301F; --warn:#D6A04C; --warn-soft:#33270F; --bad:#DB7268; --bad-soft:#3A1B18;
+    --chip:#232B32; --shadow:0 1px 3px rgba(0,0,0,.4);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#12161A; --card:#1A2026; --ink:#D9E0E4; --muted:#8B98A1; --line:#2A3239;
+  --accent:#3FB2BD; --accent-ink:#7BCBD3; --accent-soft:#153237;
+  --good:#5CB878; --good-soft:#17301F; --warn:#D6A04C; --warn-soft:#33270F; --bad:#DB7268; --bad-soft:#3A1B18;
+  --chip:#232B32; --shadow:0 1px 3px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--ground);color:var(--ink);font:15px/1.55 "IBM Plex Sans",system-ui,sans-serif}
+.wrap{display:grid;grid-template-columns:264px 1fr;min-height:100vh}
+@media(max-width:880px){.wrap{grid-template-columns:1fr}.rail{position:static;height:auto;border-right:none;border-bottom:1px solid var(--line)}}
+
+/* ---------- rail ---------- */
+.rail{border-right:1px solid var(--line);padding:22px 18px;position:sticky;top:0;height:100vh;overflow:auto}
+.brand{font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:700;font-size:21px;letter-spacing:.02em;line-height:1.15}
+.brand small{display:block;font-family:"IBM Plex Sans",sans-serif;font-weight:500;font-size:11.5px;color:var(--muted);letter-spacing:.09em;text-transform:uppercase;margin-top:5px}
+.rail h2{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:26px 0 8px}
+.runbtn{display:block;width:100%;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:11px 12px;margin-bottom:8px;cursor:pointer;color:var(--ink);font:inherit;box-shadow:var(--shadow)}
+.runbtn:hover{border-color:var(--accent)}
+.runbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.runbtn[aria-current="true"]{border-color:var(--accent);background:var(--accent-soft)}
+.runbtn .rn{font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:700;font-size:16px}
+.runbtn .rm{font-family:"IBM Plex Mono",monospace;font-size:11.5px;color:var(--muted);margin-top:2px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
+.dot.good{background:var(--good)} .dot.warn{background:var(--warn)} .dot.info{background:var(--accent)}
+.railnote{font-size:12px;color:var(--muted);margin-top:22px;border-top:1px solid var(--line);padding-top:14px}
+.railnote code{font-family:"IBM Plex Mono",monospace;font-size:11px}
+
+/* ---------- main ---------- */
+main{padding:30px 40px 70px;max-width:1040px}
+.runhead h1{font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:700;font-size:31px;margin:0;text-wrap:balance}
+.runhead .sub{color:var(--muted);margin:4px 0 12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.chip{background:var(--chip);border-radius:5px;padding:3px 10px;font-family:"IBM Plex Mono",monospace;font-size:12px}
+.pill{border-radius:999px;padding:3px 12px;font-size:12px;font-weight:600}
+.pill.good{background:var(--good-soft);color:var(--good)}
+.pill.warn{background:var(--warn-soft);color:var(--warn)}
+.pill.info{background:var(--accent-soft);color:var(--accent-ink)}
+
+.stage{margin-top:34px}
+.stagehead{display:flex;align-items:baseline;gap:12px;border-bottom:2px solid var(--accent);padding-bottom:6px;margin-bottom:16px}
+.stagehead .n{font-family:"IBM Plex Mono",monospace;font-weight:500;font-size:13px;color:var(--accent-ink);background:var(--accent-soft);border-radius:5px;padding:2px 8px}
+.stagehead h3{font-family:"IBM Plex Sans Condensed",sans-serif;font-weight:700;font-size:21px;margin:0}
+.stagehead .why{color:var(--muted);font-size:13px;margin-left:auto;text-align:right}
+@media(max-width:880px){.stagehead .why{display:none}}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin-bottom:14px;box-shadow:var(--shadow)}
+.card h4{margin:0 0 8px;font-size:14.5px;font-weight:600}
+.card p{margin:6px 0;max-width:72ch}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:1000px){.grid2{grid-template-columns:1fr}}
+
+table{border-collapse:collapse;width:100%;font-size:13px}
+.tblwrap{overflow-x:auto}
+th{font-size:11px;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);text-align:left;font-weight:600;padding:5px 10px;border-bottom:1px solid var(--line)}
+td{padding:5px 10px;border-bottom:1px solid var(--line);font-family:"IBM Plex Mono",monospace;font-variant-numeric:tabular-nums;font-size:12.5px}
+td.t{font-family:"IBM Plex Sans",sans-serif;font-size:13px}
+tr:last-child td{border-bottom:none}
+.num{color:var(--accent-ink);font-weight:500}
+.flag-bad{color:var(--bad);font-weight:500}
+.flag-warn{color:var(--warn);font-weight:500}
+.flag-good{color:var(--good);font-weight:500}
+
+figure{margin:12px 0 4px}
+figure img{max-width:100%;border:1px solid var(--line);border-radius:6px;display:block}
+figcaption{font-size:12.5px;color:var(--muted);margin-top:6px;max-width:78ch}
+details{margin:10px 0}
+summary{cursor:pointer;color:var(--accent-ink);font-size:13.5px;font-weight:500}
+summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+.verdict{border-radius:10px;padding:14px 18px;margin-top:26px;font-size:14.5px}
+.verdict b{font-family:"IBM Plex Sans Condensed",sans-serif;font-size:16px;letter-spacing:.02em}
+.verdict.good{background:var(--good-soft);border:1px solid var(--good)}
+.verdict.warn{background:var(--warn-soft);border:1px solid var(--warn)}
+.verdict.info{background:var(--accent-soft);border:1px solid var(--accent)}
+section[hidden]{display:none}
+
+.figgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));gap:14px 18px;margin-top:10px}
+.figgrid figure{margin:0}
+.figgrid img{width:100%;border-radius:6px}
+.figgrid figcaption{font-size:12.5px;color:#5b6570;margin-top:4px;line-height:1.35}
+
+.stdfig{max-width:940px;margin:20px auto 26px}
+.stdfig img{width:100%;display:block;border-radius:8px}
+.stdfig figcaption{font-size:13px;color:#5b6570;margin-top:7px;line-height:1.45;max-width:860px}
+.stdfig figcaption b{color:inherit;filter:brightness(1.25)}
+
+.modnav a{display:block;padding:9px 12px;margin:2px 0;border-radius:8px;color:inherit;
+  text-decoration:none;font-weight:600;font-size:14.5px}
+.modnav a small{display:block;font-weight:400;font-size:11.5px;opacity:.65}
+.modnav a[aria-current="true"]{background:rgba(14,124,134,.16);color:#0E7C86}
+.modnav a:hover{background:rgba(14,124,134,.08)}
+.sumgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px 18px}
+</style>
+<div class="wrap">
+<nav class="rail" aria-label="Navigation">
+<div class="brand">RADiCAL T10 Run Book<small>EJ-199 + WLS · CERN PS T10 · Aug 2026</small></div>
+<h2>Modules</h2><div class="modnav">
+<a href="index.html" aria-current="false">Summary<small>campaign overview</small></a>
+<a href="luag.html" aria-current="false">LuAG<small>LuAG:Ce crystal fibers</small></a>
+<a href="dsb1.html" aria-current="false">DSB1<small>DSB:Ce glass fibers</small></a>
+<a href="ej199.html" aria-current="true">EJ199<small>EJ-199 plastic + WLS</small></a>
+</div>
+</nav>
+<main>
+<section data-content="scan">
+  <div class="runhead">
+    <h1>EJ199 — awaiting beam</h1>
+    <div class="sub">EJ-199 plastic + wavelength shifter &middot; scheduled Aug 30</div>
+    <div class="chips"><span class="pill info">runs pending</span></div>
+  </div>
+  <div class="card"><p>The EJ199 module takes the same 1&ndash;11 GeV scan today. Pages appear here run by run:
+  the pipeline (QC &rarr; integrity &rarr; thresholds &rarr; transfer &rarr; ElectronID &rarr; timing), the scan macro, and the page
+  template are ready — each run is one registry entry once its file lands in <code>data/download/</code>.</p></div>
+</section>
+</main>
+</div>
+
+<script>
+(function(){
+  const btns = document.querySelectorAll('.runbtn');
+  const secs = document.querySelectorAll('section[data-content]');
+  function show(run, push){
+    if (!document.querySelector(`section[data-content="${run}"]`)) return;
+    secs.forEach(s => s.hidden = (s.dataset.content !== run));
+    btns.forEach(b => b.setAttribute('aria-current', b.dataset.run === run ? 'true' : 'false'));
+    if (push) history.replaceState(null, '', '#' + run);
+    window.scrollTo(0, 0);
+  }
+  btns.forEach(b => b.addEventListener('click', () => show(b.dataset.run, true)));
+  window.addEventListener('hashchange', () => show(location.hash.slice(1), false));
+  const start = location.hash.slice(1);
+  show(start && document.querySelector(`section[data-content="${start}"]`) ? start : secs[0].dataset.content, false);
+})();
+</script>
