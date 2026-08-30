@@ -103,22 +103,22 @@ section[hidden]{display:none}
 .stdfig figcaption{font-size:13px;color:#5b6570;margin-top:7px;line-height:1.45;max-width:860px}
 .stdfig figcaption b{color:inherit;filter:brightness(1.25)}
 
-.modnav a{display:block;padding:9px 12px;margin:2px 0;border-radius:8px;color:inherit;
-  text-decoration:none;font-weight:600;font-size:14.5px}
-.modnav a small{display:block;font-weight:400;font-size:11.5px;opacity:.65}
-.modnav a[aria-current="true"]{background:rgba(14,124,134,.16);color:#0E7C86}
-.modnav a:hover{background:rgba(14,124,134,.08)}
-.sumgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px 18px}
+.topbar{display:flex;align-items:center;gap:26px;padding:12px 40px;border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:50;background:var(--ground)}
+.topbar .brand{font-size:17px}
+.topbar .brand small{margin-top:1px;font-size:10px}
+.topnav{display:flex;gap:6px;margin-left:auto}
+.topnav a{display:block;padding:8px 16px;border-radius:9px;color:inherit;text-decoration:none;
+  font-weight:600;font-size:14.5px;line-height:1.2}
+.topnav a small{display:block;font-weight:400;font-size:10.5px;opacity:.6}
+.topnav a[aria-current="true"]{background:rgba(14,124,134,.16);color:#0E7C86}
+.topnav a:hover{background:rgba(14,124,134,.08)}
+.rail{height:calc(100vh - 62px);top:62px}
+@media (max-width:900px){.topbar{flex-wrap:wrap;padding:10px 16px}.topnav{margin-left:0;flex-wrap:wrap}}
 </style>
+<header class="topbar"><div class="brand">RADiCAL T10 Run Book<small>LuAG:Ce · CERN PS T10 · Aug 2026</small></div><nav class="topnav" aria-label="Modules"><a href="index.html" aria-current="false">Summary<small>campaign overview</small></a><a href="luag.html" aria-current="true">LuAG<small>LuAG:Ce crystal fibers</small></a><a href="dsb1.html" aria-current="false">DSB1<small>DSB:Ce glass fibers</small></a><a href="ej199.html" aria-current="false">EJ199<small>WLS carrier (awaiting LuO:Yb)</small></a></nav></header>
 <div class="wrap">
-<nav class="rail" aria-label="Navigation">
-<div class="brand">RADiCAL T10 Run Book<small>LuAG:Ce · CERN PS T10 · Aug 2026</small></div>
-<h2>Modules</h2><div class="modnav">
-<a href="index.html" aria-current="false">Summary<small>campaign overview</small></a>
-<a href="luag.html" aria-current="true">LuAG<small>LuAG:Ce crystal fibers</small></a>
-<a href="dsb1.html" aria-current="false">DSB1<small>DSB:Ce glass fibers</small></a>
-<a href="ej199.html" aria-current="false">EJ199<small>EJ-199 plastic + WLS</small></a>
-</div>
+<nav class="rail" aria-label="Runs">
 <h2>Overview</h2><button class="runbtn" data-run="scan"><span class="rn"><span class="dot good"></span>Energy scan</span>
     <div class="rm">1&ndash;11 GeV trends</div>
     <div class="rm">linearity &middot; width &middot; timing</div></button>

@@ -50,16 +50,22 @@ MODULES = {
             "tag": "DSB:Ce glass fibers", "runs":
             ["r31","r32","r33","r34","r35","r36","r37","r38"]},
   "ej199": {"title": "EJ199", "page": "ej199.html",
-            "tag": "EJ-199 plastic + WLS", "runs": []},
+            "tag": "WLS carrier (awaiting LuO:Yb)", "runs": ["r39","r40","r41"]},
 }
 
 EXTRA_CSS = """
-.modnav a{display:block;padding:9px 12px;margin:2px 0;border-radius:8px;color:inherit;
-  text-decoration:none;font-weight:600;font-size:14.5px}
-.modnav a small{display:block;font-weight:400;font-size:11.5px;opacity:.65}
-.modnav a[aria-current="true"]{background:rgba(14,124,134,.16);color:#0E7C86}
-.modnav a:hover{background:rgba(14,124,134,.08)}
-.sumgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px 18px}
+.topbar{display:flex;align-items:center;gap:26px;padding:12px 40px;border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:50;background:var(--ground)}
+.topbar .brand{font-size:17px}
+.topbar .brand small{margin-top:1px;font-size:10px}
+.topnav{display:flex;gap:6px;margin-left:auto}
+.topnav a{display:block;padding:8px 16px;border-radius:9px;color:inherit;text-decoration:none;
+  font-weight:600;font-size:14.5px;line-height:1.2}
+.topnav a small{display:block;font-weight:400;font-size:10.5px;opacity:.6}
+.topnav a[aria-current="true"]{background:rgba(14,124,134,.16);color:#0E7C86}
+.topnav a:hover{background:rgba(14,124,134,.08)}
+.rail{height:calc(100vh - 62px);top:62px}
+@media (max-width:900px){.topbar{flex-wrap:wrap;padding:10px 16px}.topnav{margin-left:0;flex-wrap:wrap}}
 """
 
 SCRIPT = """
@@ -82,29 +88,28 @@ SCRIPT = """
 </script>"""
 
 def page(fname, title, brand_small, nav_current, run_keys, sections_html, scan_btn=None):
-    nav = ['<div class="brand">RADiCAL T10 Run Book<small>' + brand_small + '</small></div>']
-    nav.append('<h2>Modules</h2><div class="modnav">')
-    nav.append(f'<a href="index.html" aria-current="{"true" if nav_current=="summary" else "false"}">Summary<small>campaign overview</small></a>')
+    tabs = [f'<a href="index.html" aria-current="{"true" if nav_current=="summary" else "false"}">Summary<small>campaign overview</small></a>']
     for mk, m in MODULES.items():
         cur = "true" if nav_current == mk else "false"
-        nav.append(f'<a href="{m["page"]}" aria-current="{cur}">{m["title"]}<small>{m["tag"]}</small></a>')
-    nav.append('</div>')
-    if scan_btn: nav.append('<h2>Overview</h2>' + scan_btn)
+        tabs.append(f'<a href="{m["page"]}" aria-current="{cur}">{m["title"]}<small>{m["tag"]}</small></a>')
+    topbar = ('<header class="topbar"><div class="brand">RADiCAL T10 Run Book<small>' + brand_small +
+              '</small></div><nav class="topnav" aria-label="Modules">' + "".join(tabs) + '</nav></header>')
+    rail_items = []
+    if scan_btn: rail_items.append('<h2>Overview</h2>' + scan_btn)
     if run_keys:
-        nav.append('<h2>Runs</h2>')
-        for rk in run_keys: nav.append(runbtn(rk))
+        rail_items.append('<h2>Runs</h2>')
+        for rk in run_keys: rail_items.append(runbtn(rk))
+    if rail_items:
+        body = (f'<div class="wrap">\n<nav class="rail" aria-label="Runs">\n' + chr(10).join(rail_items)
+                + '\n</nav>\n<main>\n' + sections_html + '\n</main>\n</div>')
+    else:
+        body = '<main style="margin:0 auto">\n' + sections_html + '\n</main>'
     html = f"""<meta charset="utf-8">
 <title>{title}</title>
 {HEAD_LINK}
 {STYLE.replace('</style>', EXTRA_CSS + '</style>')}
-<div class="wrap">
-<nav class="rail" aria-label="Navigation">
-{chr(10).join(nav)}
-</nav>
-<main>
-{sections_html}
-</main>
-</div>
+{topbar}
+{body}
 {SCRIPT}"""
     open(fname, "w").write(html)
     print(f"{fname}: {len(html)//1024} KB")
@@ -161,18 +166,41 @@ page("dsb1.html", "DSB1 — RADiCAL T10", "DSB:Ce · CERN PS T10 · Aug 2026",
      "dsb1", MODULES["dsb1"]["runs"], "\n".join(dsb1_secs), scan_btn_dsb1)
 
 # ---------------- EJ199 skeleton ----------------
-ej_sec = '''<section data-content="scan">
-  <div class="runhead">
-    <h1>EJ199 — awaiting beam</h1>
-    <div class="sub">EJ-199 plastic + wavelength shifter &middot; scheduled Aug 30</div>
-    <div class="chips"><span class="pill info">runs pending</span></div>
+ej_intro = ('<div class="card"><p><b>This page is the EJ199 module&rsquo;s record — with one caveat that frames '
+ 'every number:</b> EJ199 is the wavelength-shifting carrier tuned to capture LuO:Yb emission, and the LuO:Yb '
+ 'crystals were not yet in hand. These runs measure the WLS-only baseline — expect dimmer, slower a priori, '
+ 'and that is what we find.</p></div>')
+ej_scan = f'''  <div class="runhead">
+    <h1>EJ199 energy scan — WLS-only baseline</h1>
+    <div class="sub">Runs 39&ndash;41, Aug 30 &middot; +1/+3/+5 GeV &middot; single ~0.4 bar XCET fill (e-only at all three) &middot; negative points next</div>
+    <div class="chips"><span class="chip">3 energies</span><span class="chip">~60k events</span>
+    <span class="chip">WLS-only — LuO:Yb pending</span><span class="pill info">baseline established</span></div>
   </div>
-  <div class="card"><p>The EJ199 module takes the same 1&ndash;11 GeV scan today. Pages appear here run by run:
-  the pipeline (QC &rarr; integrity &rarr; thresholds &rarr; transfer &rarr; ElectronID &rarr; timing), the scan macro, and the page
-  template are ready — each run is one registry entry once its file lands in <code>data/download/</code>.</p></div>
-</section>'''
-page("ej199.html", "EJ199 — RADiCAL T10", "EJ-199 + WLS · CERN PS T10 · Aug 2026",
-     "ej199", [], ej_sec, None)
+  <div class="card">
+    <figure><img src="{enc('Output/scan_ej199/EnergyScanEJ199.png', 1600, 82)}" alt="EJ199 energy scan trends"><figcaption>Tagged-electron spectra, response, width, and shower-time trend for the EJ199 WLS-only module.</figcaption></figure>
+  </div>
+  <div class="card"><h4>Scan table</h4>
+    <div class="tblwrap"><table>
+      <tr><th>E [GeV]</th><th>run</th><th>events</th><th>e&#8315; on module</th><th>&Sigma;LG peak</th><th>&sigma;/E</th><th>&sigma;_t mean [ps]</th><th><b>&sigma;_t median [ps]</b></th></tr>
+      <tr><td>1</td><td class="t">39</td><td>20,000</td><td>9,240</td><td>ridge-merged</td><td>&mdash;</td><td class="num">1269 &plusmn; 21</td><td class="num"><b>1367 &plusmn; 24</b></td></tr>
+      <tr><td>3</td><td class="t">40</td><td>20,000</td><td>3,407</td><td class="num">1354 &plusmn; 42</td><td>74.7%</td><td class="num">639 &plusmn; 13</td><td class="num"><b>626 &plusmn; 13</b></td></tr>
+      <tr><td>5</td><td class="t">41</td><td>20,000</td><td>812</td><td class="num">2740 &plusmn; 74</td><td>44.9%</td><td class="num">405 &plusmn; 18</td><td class="num"><b>380 &plusmn; 18</b></td></tr>
+    </table></div>
+    <p>Response ~<span class="num">550 ADC-eq/GeV</span> — the dimmest module (LuAG ~620, DSB1 ~1,350) — and timing
+    ~1.7&times; slower than LuAG at 5 GeV, with the trend fitting pure photostatistics
+    (<span class="num">&sigma;_t &asymp; 1360/&radic;E ps</span>, constant term unresolved): both are the expected
+    signature of the WLS carrier running without its LuO:Yb light source, where the shifter&rsquo;s own re-emission
+    time and reduced light yield dominate. These three points are the <b>baseline</b> the crystal-loaded module
+    will be compared against. Tag plateaus (88.7/22.8/5.6%) match DSB1&rsquo;s to a fraction of a percent — the beam
+    is reproducible across all three modules. Negative-beam points (&minus;7/&minus;9/&minus;11 GeV) follow.</p>
+  </div>'''
+ej_secs = [f'<section data-content="scan">{ej_intro}{ej_scan}</section>']
+for rk in MODULES["ej199"]["runs"]:
+    ej_secs.append(f'<section data-content="{rk}" hidden>{section(rk)}</section>')
+ej_scan_btn = ('<button class="runbtn" data-run="scan"><span class="rn"><span class="dot info"></span>Energy scan</span>'
+               '<div class="rm">+1/+3/+5 GeV baseline</div><div class="rm">WLS-only &middot; LuO:Yb pending</div></button>')
+page("ej199.html", "EJ199 — RADiCAL T10", "EJ-199 WLS · CERN PS T10 · Aug 2026",
+     "ej199", MODULES["ej199"]["runs"], "\n".join(ej_secs), ej_scan_btn)
 
 # ---------------- SUMMARY (index) ----------------
 hero  = enc("Output/summary/Hero_timing.png", 1500, 84)
@@ -199,7 +227,7 @@ index_sec = f'''<section data-content="summary">
       <tr><th>module</th><th>capillary material</th><th>runs</th><th>events</th><th>status</th></tr>
       <tr><td class="t">LuAG</td><td>LuAG:Ce crystal fibers</td><td>12&ndash;30</td><td class="num">~168k</td><td>6-point scan complete</td></tr>
       <tr><td class="t">DSB1</td><td>DSB:Ce glass fibers</td><td>31&ndash;38</td><td class="num">~230k</td><td>6-point scan complete</td></tr>
-      <tr><td class="t">EJ199</td><td>EJ-199 plastic + WLS</td><td>&mdash;</td><td class="num">&mdash;</td><td>beam scheduled Aug 30</td></tr>
+      <tr><td class="t">EJ199</td><td>EJ-199 WLS carrier, tuned for LuO:Yb (crystals pending)</td><td>39&ndash;41</td><td class="num">~60k</td><td>+1/+3/+5 done; negative points next</td></tr>
     </table></div></div>
 
   <div class="card">

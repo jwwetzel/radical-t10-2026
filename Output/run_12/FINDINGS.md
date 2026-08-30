@@ -609,3 +609,18 @@ numbers stand. Untagged -11 GeV = ~97% pi (purest MIP sets: runs 30/31).
 
 Site: conclusions card, module-page intros, timeline links to run pages,
 MIP-normalized units table (+ caveats), trial card added.
+
+## EJ199 first beam (runs 39-41, +1/+3/+5 GeV, 2026-08-30)
+
+CAVEAT FRAMING EVERYTHING: EJ199 = WLS carrier tuned for LuO:Yb; crystals
+not yet in hand -> these runs are the WLS-only BASELINE.
+Single ~0.4 bar XCET fill for all three positive energies (e-only
+everywhere; clever). Tag plateaus 88.7/22.8/5.6% - match DSB1 to <1%.
+Scan (floors 0/500/1200): 3 GeV 1354+/-42, 626+/-13 ps; 5 GeV 2740+/-74
+(~550 ADC-eq/GeV, dimmest module), 380+/-18 ps. Trend fits pure
+photostatistics 1360/sqrt(E), constant term unresolved - expected for a
+dim, slow WLS-only module (re-emission delay, no fast component).
+Negative points next (pressures: 0.21 / 0.150 / 0.089-agreed).
+
+Site: nav restructured - module tabs (Summary|LuAG|DSB1|EJ199) across
+the top, run-context nav in the sidebar; EJ199 module page live.

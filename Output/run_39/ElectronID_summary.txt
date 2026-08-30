@@ -1,0 +1,10 @@
+ElectronID run 39 (tag-and-probe vs XCET coincidence, module-hit events)
+populations: tagged e 5402, off-coincidence 371
+
+energy-scalable selection (HG/LG in [2.0, 3.9]):
+  electron efficiency  30.8%
+  MIP/hadron acceptance 10.2%  (rejection x9.8)
+
++ energy window (SumLG in [1800, 4300], scales with beam E):
+  electron efficiency  0.4%
+  MIP/hadron acceptance 0.0%  (rejection x371.0)

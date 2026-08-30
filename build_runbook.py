@@ -223,6 +223,39 @@ RUNS = [
       Miss 57.7% is the 1 GeV material-scattering floor, not a config problem. Scan point:
       response ridge-merged at the 1 GeV floor (as for LuAG), <b>t-MEDIAN 366 &plusmn; 4 ps</b> with the
       campaign&rsquo;s largest timed sample.</p>"""}},
+ # ================= EJ199 module (runs 39-41+, Aug 30) — WLS-only baseline =================
+ {"key": "r39", "dir": "run_39", "extras": [],
+  "new": {"btnname": "Run 39 · EJ199", "dot": "good",
+          "meta": ["20,000 ev · +1 GeV · Aug 30", "EJ199 · first run of the module"],
+          "title": "Run 39 — EJ199 at 1 GeV",
+          "sub":   "Aug 30, 12:08&ndash;12:20 CEST · WLS-only baseline: tuned for LuO:Yb, crystals not yet in hand",
+          "chips": ["20,000 events", "+1 GeV", "XCET tag (100)", "EJ199 WLS-only"],
+          "pill":  ("good", "complete"),
+          "notes": """<p>First EJ199 beam. Tag plateau <span class="num">88.7%</span> (17,732 e). Miss 69.5%
+      (1 GeV material floor). Timing reflects the missing fast component: <b>t-MEDIAN 1367 &plusmn; 24 ps</b> —
+      the WLS re-emission delay with no LuO:Yb light to shift.</p>"""}},
+ {"key": "r40", "dir": "run_40", "extras": [],
+  "new": {"btnname": "Run 40 · EJ199", "dot": "good",
+          "meta": ["20,000 ev · +3 GeV · Aug 30", "EJ199 · 3 GeV scan point"],
+          "title": "Run 40 — EJ199 at 3 GeV",
+          "sub":   "Aug 30, 12:29&ndash;12:51 CEST · same ~0.4 bar XCET fill as the whole positive set",
+          "chips": ["20,000 events", "+3 GeV", "XCET tag (100)", "EJ199 WLS-only"],
+          "pill":  ("good", "complete"),
+          "notes": """<p>Tag plateau <span class="num">22.8%</span> (4,557 e), matching DSB1/LuAG — beam reproducible
+      across all three modules. Miss 17.4%. Scan point (&Sigma;LG &gt; 500): peak
+      <span class="num">1354 &plusmn; 42</span>, <b>t-MEDIAN 626 &plusmn; 13 ps</b>.</p>"""}},
+ {"key": "r41", "dir": "run_41", "extras": [],
+  "new": {"btnname": "Run 41 · EJ199", "dot": "good",
+          "meta": ["20,000 ev · +5 GeV · Aug 30", "EJ199 · 5 GeV scan point"],
+          "title": "Run 41 — EJ199 at 5 GeV",
+          "sub":   "Aug 30, 12:56&ndash;13:11 CEST",
+          "chips": ["20,000 events", "+5 GeV", "XCET tag (100)", "EJ199 WLS-only"],
+          "pill":  ("good", "complete"),
+          "notes": """<p>Tag plateau <span class="num">5.6%</span> (1,121 e). Miss 12.0%. Scan point
+      (&Sigma;LG &gt; 1200): peak <span class="num">2740 &plusmn; 74</span> — ~550 ADC-eq/GeV, the dimmest module
+      (LuAG ~620, DSB1 ~1,350) — and <b>t-MEDIAN 380 &plusmn; 18 ps</b> (LuAG 228, DSB1 156). Both exactly as
+      expected for the WLS carrier without its LuO:Yb crystals: this run is the baseline the crystal-loaded
+      module will be measured against.</p>"""}},
 ]
 
 def figblock(path, title, desc):

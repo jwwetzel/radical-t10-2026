@@ -260,6 +260,45 @@
       "ended_utc": "2026-08-29T22:24:33Z",
       "purpose": "DSB1 1 GeV stable retake (replaces mixed-config run 36)",
       "notes": "James's note: re-run because pressures/collimators changed mid-run-36. Stable config throughout: 50,000 events in 27 minutes (~1850/min - the fixed beam config delivers ~30x run 36's pre-fix rate). Coincidence plateau 88.8% = 44,408 tagged e. Miss 57.7% (1 GeV material-scattering floor; run 36 overall was 66%). 12,575 timed electrons. cthr 100."
+    },
+    {
+      "run_number": 39,
+      "run_name": "EJ199_1GEV",
+      "file": "data/DATA/EJ199_1GEV-2026-08-30-120816/run_39.root",
+      "tree": "pulse",
+      "events": 20000,
+      "beam": "CERN T10, +1 GeV",
+      "crystal": "EJ199 (WLS-only)",
+      "started_utc": "2026-08-30T10:08:16Z",
+      "ended_utc": "2026-08-30T10:20:32Z",
+      "purpose": "EJ199 module scan, 1 GeV",
+      "notes": "XCETs ~0.4 bar (single setting, e-only at +1/+3/+5). MODULE NOTE: EJ199 is the WLS carrier tuned for LuO:Yb capture; LuO:Yb crystals not yet in hand - this is the WLS-only baseline (slower pulses, dimmer response expected and observed). Tag plateau 88.7% (17,732 e). Miss 69.5%. t-med 1367+/-24 ps."
+    },
+    {
+      "run_number": 40,
+      "run_name": "EJ199_3GEV",
+      "file": "data/DATA/EJ199_3GEV-2026-08-30-122959/run_40.root",
+      "tree": "pulse",
+      "events": 20000,
+      "beam": "CERN T10, +3 GeV",
+      "crystal": "EJ199 (WLS-only)",
+      "started_utc": "2026-08-30T10:29:59Z",
+      "ended_utc": "2026-08-30T10:51:50Z",
+      "purpose": "EJ199 module scan, 3 GeV",
+      "notes": "XCETs ~0.4 bar (single setting, e-only at +1/+3/+5). MODULE NOTE: EJ199 is the WLS carrier tuned for LuO:Yb capture; LuO:Yb crystals not yet in hand - this is the WLS-only baseline (slower pulses, dimmer response expected and observed). Tag plateau 22.8% (4,557 e). Miss 17.4%. t-med 666+/-14 ps."
+    },
+    {
+      "run_number": 41,
+      "run_name": "EJ199_5GEV",
+      "file": "data/DATA/EJ199_5GEV-2026-08-30-125648/run_41.root",
+      "tree": "pulse",
+      "events": 20000,
+      "beam": "CERN T10, +5 GeV",
+      "crystal": "EJ199 (WLS-only)",
+      "started_utc": "2026-08-30T10:56:48Z",
+      "ended_utc": "2026-08-30T11:11:08Z",
+      "purpose": "EJ199 module scan, 5 GeV",
+      "notes": "XCETs ~0.4 bar (single setting, e-only at +1/+3/+5). MODULE NOTE: EJ199 is the WLS carrier tuned for LuO:Yb capture; LuO:Yb crystals not yet in hand - this is the WLS-only baseline (slower pulses, dimmer response expected and observed). Tag plateau 5.6% (1,121 e). Miss 12.0%. Peak ~2440 => ~490 ADC-eq/GeV (dimmest module). t-med 432+/-17 ps."
     }
   ]
 }
