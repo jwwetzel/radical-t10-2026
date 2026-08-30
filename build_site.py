@@ -263,3 +263,11 @@ page("index.html", "RADiCAL T10 Run Book", "CERN PS T10 · Aug 2026 · LuAG / DS
 # ---------------- copy to docs ----------------
 os.system("cp index.html luag.html dsb1.html ej199.html docs/")
 print("copied to docs/")
+
+# ---------------- artifact variant: absolute links for the claude.ai copy ----
+PAGES = "https://jwwetzel.github.io/radical-t10-2026/"
+art = open("index.html").read()
+for p in ("index.html", "luag.html", "dsb1.html", "ej199.html"):
+    art = art.replace(f'href="{p}"', f'href="{PAGES}{p}" target="_blank"')
+open("/private/tmp/claude-501/-Users-jameswetzel-Documents/7538d0d0-b27d-467b-8254-3b3949a82e69/scratchpad/artifact_index.html", "w").write(art)
+print("artifact variant written")
