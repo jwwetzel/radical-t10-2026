@@ -58,7 +58,11 @@ EXTRA_CSS = """
   position:sticky;top:0;z-index:50;background:var(--ground)}
 .topbar .brand{font-size:17px}
 .topbar .brand small{margin-top:1px;font-size:10px}
-.topnav{display:flex;gap:6px;margin-left:auto}
+.topbar .brand{flex:1 1 0}
+.topbar .spacer{flex:1 1 0}
+.topnav{display:flex;gap:6px;justify-content:center}
+html,body{scroll-behavior:smooth}
+a.runbtn{display:block;text-decoration:none;color:inherit}
 .topnav a{display:block;padding:8px 16px;border-radius:9px;color:inherit;text-decoration:none;
   font-weight:600;font-size:14.5px;line-height:1.2}
 .topnav a small{display:block;font-weight:400;font-size:10.5px;opacity:.6}
@@ -71,7 +75,7 @@ EXTRA_CSS = """
 SCRIPT = """
 <script>
 (function(){
-  const btns = document.querySelectorAll('.runbtn');
+  const btns = document.querySelectorAll('button.runbtn');
   const secs = document.querySelectorAll('section[data-content]');
   function show(run, push){
     if (!document.querySelector(`section[data-content="${run}"]`)) return;
@@ -82,29 +86,48 @@ SCRIPT = """
   }
   btns.forEach(b => b.addEventListener('click', () => show(b.dataset.run, true)));
   window.addEventListener('hashchange', () => show(location.hash.slice(1), false));
-  const start = location.hash.slice(1);
-  show(start && document.querySelector(`section[data-content="${start}"]`) ? start : secs[0].dataset.content, false);
+  if (secs.length) {
+    const start = location.hash.slice(1);
+    show(start && document.querySelector(`section[data-content="${start}"]`) ? start : secs[0].dataset.content, false);
+  }
+  // TOC scroll-spy for anchor rails
+  const tocs = document.querySelectorAll('a.tocbtn');
+  if (tocs.length) {
+    const targets = [...tocs].map(a => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean);
+    const mark = () => {
+      let cur = targets[0];
+      for (const t of targets) if (t.getBoundingClientRect().top < 140) cur = t;
+      tocs.forEach(a => a.setAttribute('aria-current', a.getAttribute('href') === '#' + cur.id ? 'true' : 'false'));
+    };
+    document.addEventListener('scroll', mark, {passive: true}); mark();
+  }
 })();
 </script>"""
 
-def page(fname, title, brand_small, nav_current, run_keys, sections_html, scan_btn=None):
+def page(fname, title, brand_small, nav_current, run_keys, sections_html, scan_btn=None, toc=None):
     tabs = [f'<a href="index.html" aria-current="{"true" if nav_current=="summary" else "false"}">Summary<small>campaign overview</small></a>']
     for mk, m in MODULES.items():
         cur = "true" if nav_current == mk else "false"
         tabs.append(f'<a href="{m["page"]}" aria-current="{cur}">{m["title"]}<small>{m["tag"]}</small></a>')
     topbar = ('<header class="topbar"><div class="brand">RADiCAL T10 Run Book<small>' + brand_small +
-              '</small></div><nav class="topnav" aria-label="Modules">' + "".join(tabs) + '</nav></header>')
+              '</small></div><nav class="topnav" aria-label="Modules">' + "".join(tabs) + '</nav><div class="spacer"></div></header>')
     rail_items = []
     if scan_btn: rail_items.append('<h2>Overview</h2>' + scan_btn)
     if run_keys:
         rail_items.append('<h2>Runs</h2>')
         for rk in run_keys: rail_items.append(runbtn(rk))
+    if toc:
+        rail_items.append('<h2>On this page</h2>')
+        for tid, label, sub in toc:
+            rail_items.append(f'<a class="runbtn tocbtn" href="#{tid}"><span class="rn">{label}</span>'
+                              f'<div class="rm">{sub}</div></a>')
     if rail_items:
         body = (f'<div class="wrap">\n<nav class="rail" aria-label="Runs">\n' + chr(10).join(rail_items)
                 + '\n</nav>\n<main>\n' + sections_html + '\n</main>\n</div>')
     else:
         body = '<main style="margin:0 auto">\n' + sections_html + '\n</main>'
-    html = f"""<meta charset="utf-8">
+    html = f"""<!doctype html>
+<meta charset="utf-8">
 <title>{title}</title>
 {HEAD_LINK}
 {STYLE.replace('</style>', EXTRA_CSS + '</style>')}
@@ -218,7 +241,7 @@ index_sec = f'''<section data-content="summary">
     <span class="pill good">two modules fully analyzed</span></div>
   </div>
 
-  <div class="card"><h4>What we tested</h4>
+  <div class="card" id="sec-tested"><h4>What we tested</h4>
     <p>RADiCAL modules sample an electromagnetic shower at its maximum with a 2&times;2 array of scintillating
     capillaries (14&times;14 mm face) read out by dual-gain SiPMs into a CAEN DT5742 (DRS4, 5 GS/s). A micro-channel
     plate upstream provides the ~10 ps time reference; two threshold Cherenkov counters tag electrons in hardware
@@ -230,7 +253,7 @@ index_sec = f'''<section data-content="summary">
       <tr><td class="t">EJ199</td><td>EJ-199 WLS carrier, tuned for LuO:Yb (crystals pending)</td><td>39&ndash;41</td><td class="num">~60k</td><td>+1/+3/+5 done; negative points next</td></tr>
     </table></div></div>
 
-  <div class="card">
+  <div class="card" id="sec-headline">
     <figure><img src="{hero}" alt="Shower timing versus energy for both modules"><figcaption><b>The headline.</b>
     Shower-time resolution vs beam energy for tagged electrons. DSB1 reaches <b>133 &plusmn; 5 ps at 9 GeV</b> and 156 &plusmn; 8 at 5 GeV with the
     MCP and digitizer reference jitter still included — the trend&rsquo;s constant term is 79 ps vs LuAG&rsquo;s 138 ps.
@@ -239,13 +262,13 @@ index_sec = f'''<section data-content="summary">
     hard electrons — see &ldquo;11 GeV on trial&rdquo; below.</figcaption></figure>
   </div>
 
-  <div class="card"><h4>How the measurement works — one real event</h4>
+  <div class="card" id="sec-how"><h4>How the measurement works — one real event</h4>
     <figure><img src="{how}" alt="Annotated tagged-electron event in four steps"><figcaption>A single 5 GeV electron
     from LuAG run 15, in four steps: the two Cherenkov counters identify it, the MCP timestamps it, the four
     low-gain channels measure the shower energy, and the high-gain copy&rsquo;s threshold crossing gives the
     per-capillary time. The shower time is the median of the four capillaries.</figcaption></figure></div>
 
-  <div class="card"><h4>Materials, compared</h4>
+  <div class="card" id="sec-materials"><h4>Materials, compared</h4>
     <figure><img src="{comp}" alt="Timing and response for both modules"><figcaption><b>Timing and response.</b>
     DSB1 is faster at every energy and delivers ~2.1&times; the light (~1,250&ndash;1,390 vs ~660 ADC-eq/GeV).
     Response linearity for both modules is established to the &plusmn;15% cross-run gain envelope (see the LuAG
@@ -267,7 +290,7 @@ index_sec = f'''<section data-content="summary">
     scintillation tail (&tau; &asymp; 12.5 ns, 32% of light after 8 ns) is nearly three times longer than DSB1&rsquo;s
     (&tau; &asymp; 4.9 ns, 16%). Less late light &rarr; a smaller timing constant term.</figcaption></figure></div>
 
-  <div class="card"><h4>What we measured about the T10 beam itself</h4>
+  <div class="card" id="sec-beam"><h4>What we measured about the T10 beam itself</h4>
     <p>Running two threshold Cherenkovs in coincidence at every momentum makes the experiment a beam monitor.
     In-situ electron fractions (coincidence at the per-energy working points):</p>
     <div class="tblwrap"><table>
@@ -283,7 +306,7 @@ index_sec = f'''<section data-content="summary">
     the beam. A 1.5 bar setting at +5 GeV radiates on pions too: coincidence 69.7% = the beam&rsquo;s combined
     e+&mu;+&pi; content, measured to a percent.</p></div>
 
-  <div class="card"><h4>&ldquo;11 GeV on trial&rdquo; — are the tags real electrons?</h4>
+  <div class="card" id="sec-trial"><h4>&ldquo;11 GeV on trial&rdquo; — are the tags real electrons?</h4>
     <figure><img src="{t11}" alt="11 GeV tagged spectra and MCP pulse heights by class"><figcaption><b>Verdict: the
     contained tags are hard electrons.</b> Top: the &minus;11 GeV tagged &Sigma;LG spectra, classed miss / partial /
     contained, with the 9 GeV tagged shape overlaid — the contained class traces the 9 GeV shape in both modules
@@ -294,7 +317,7 @@ index_sec = f'''<section data-content="summary">
     Bottom: MCP pulse heights by class — no species contradiction. The 11 GeV scan points stay open-markered for the
     halo uncertainty, but their contained-subset numbers stand.</figcaption></figure></div>
 
-  <div class="card"><h4>Campaign log — the short version</h4>
+  <div class="card" id="sec-log"><h4>Campaign log — the short version</h4>
     <p class="t">Aug 27 &middot; LuAG first beam (<a href="luag.html#r12">run 12</a>), channel map verified, clipped-pulse recovery adopted (never
     discard clipped high-gain: predict the true peak from the low-gain transfer line, fit only below the clip wall).<br>
     Aug 28 &middot; module centered (<a href="luag.html#r14">run 14</a>); bias +1 V, final (<a href="luag.html#r15">run 15</a>); MCP threshold lowered 240&rarr;137 mV after discovering the
@@ -310,7 +333,7 @@ index_sec = f'''<section data-content="summary">
     <code>Output/run_12/FINDINGS.md</code> (the full log, including the mistakes), and <code>macros/</code>
     (every plot&rsquo;s source). Run pages carry the complete standard plot set for every run.</p></div>
 
-  <div class="card"><h4>Conclusions so far</h4>
+  <div class="card" id="sec-conclusions"><h4>Conclusions so far</h4>
     <p><b>Shower-max sampling times electromagnetic showers at the hundred-picosecond scale from a 14 mm module.</b>
     DSB1 reaches <span class="num">133 &plusmn; 5 ps at 9 GeV</span> with all reference jitter included, and its trend
     constant term (79 ps) is nearly half of LuAG&rsquo;s (138 ps) — traced mechanistically to its ~3&times; shorter
@@ -319,14 +342,25 @@ index_sec = f'''<section data-content="summary">
     have:</b> in-situ electron fractions above the published tables at 5&ndash;9 GeV/c, their dependence on collimation,
     and the XCET radiator gas as unbudgeted beamline material at low momentum.</p></div>
 
-  <div class="card"><h4>Next</h4>
+  <div class="card" id="sec-next"><h4>Next</h4>
     <p>EJ199 scan (today); run 37 + stable 1 GeV into the DSB1 scan; connection of all three capillary types to the
     earlier high-energy campaigns once that data is staged — cross-campaign comparisons will use shape-normalized
     quantities (timing trends, &sigma;/E) pending a per-run gain reference (planned: temperature logging + pulser,
     muon-stopper MIP anchor).</p></div>
 </section>'''
+SUMMARY_TOC = [
+  ("sec-tested",      "What we tested",   "modules · beam · readout"),
+  ("sec-headline",    "The headline",     "timing vs energy"),
+  ("sec-how",         "How it works",     "one event, four steps"),
+  ("sec-materials",   "Materials",        "light · speed · pulse shape"),
+  ("sec-beam",        "The T10 beam",     "in-situ composition"),
+  ("sec-trial",       "11 GeV on trial",  "are the tags electrons?"),
+  ("sec-log",         "Campaign log",     "four days, short version"),
+  ("sec-conclusions", "Conclusions",      "three claims, three numbers"),
+  ("sec-next",        "Next",             "what remains"),
+]
 page("index.html", "RADiCAL T10 Run Book", "CERN PS T10 · Aug 2026 · LuAG / DSB1 / EJ199",
-     "summary", [], index_sec, None)
+     "summary", [], index_sec, None, toc=SUMMARY_TOC)
 
 # ---------------- copy to docs ----------------
 os.system("cp index.html luag.html dsb1.html ej199.html docs/")
