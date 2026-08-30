@@ -146,7 +146,7 @@ void EnergyScan()
     }
 
     // pass 2: spectra + timing
-    hS[ip] = new TH1F(Form("hS%d",ip), ";#Sigma LG [ADC-eq];fraction / bin", 210, 0, 10500);
+    hS[ip] = new TH1F(Form("hS%d",ip), ";#Sigma LG [ADC-eq];fraction / bin", 320, 0, 16000);  // unified axis; 50-wide bins preserved -> fits unchanged
     std::vector<double> dtMed;
     hS[ip]->SetDirectory(nullptr);          // survive f->Close(): the crash was a use-after-free here
     std::vector<double> dtA;
@@ -234,8 +234,17 @@ void EnergyScan()
   for (int ip = 0; ip < NP; ++ip) { gr->SetPoint(ip, E[ip], pkE[ip]); gr->SetPointError(ip, 0, pkEe[ip]); }
   gr->SetTitle(";beam energy [GeV];#Sigma LG peak [ADC-eq]");
   gr->SetMarkerStyle(20); gr->SetMarkerSize(1.4); gr->SetMarkerColor(rad::cInk()); gr->SetLineWidth(2);
-  gr->GetXaxis()->SetLimits(0, 12); gr->SetMinimum(0); gr->SetMaximum(9000);
+  gr->GetXaxis()->SetLimits(0, 12); gr->SetMinimum(0); gr->SetMaximum(13500);   // unified across modules
+  // 11 GeV: e- purity uncertain above ~10 GeV/c (T10 composition: e -> 0) — open marker
+  auto demote11 = [&](TGraphErrors *g, int ip) {
+    double x, y; g->GetPoint(ip, x, y);
+    TGraph *w = new TGraph(1); w->SetPoint(0, x, y);
+    w->SetMarkerStyle(20); w->SetMarkerColor(kWhite); w->SetMarkerSize(1.15); w->Draw("P same");
+    TGraph *o = new TGraph(1); o->SetPoint(0, x, y);
+    o->SetMarkerStyle(24); o->SetMarkerColor(g->GetMarkerColor()); o->SetMarkerSize(1.3); o->Draw("P same");
+  };
   gr->Draw("AP");
+  demote11(gr, NP-1);
   TF1 *lin = new TF1("lin","[0]*x",0,12);
   lin->SetParameter(0, pkE[2]/E[2]); lin->SetLineColor(rad::cGrey()); lin->SetLineStyle(7); lin->Draw("same");
   hx.DrawLatex(0.16,0.86,"response  #font[42]{(dashed: linear through 5 GeV)}");
@@ -251,6 +260,7 @@ void EnergyScan()
   gs->SetMarkerStyle(20); gs->SetMarkerSize(1.4); gs->SetMarkerColor(rad::cInk()); gs->SetLineWidth(2);
   gs->GetXaxis()->SetLimits(0, 12); gs->SetMinimum(0);
   gs->Draw("AP");
+  demote11(gs, NP-1);
   hx.DrawLatex(0.16,0.86,"width  #font[42]{(position-smearing dominated)}");
   // (4) timing vs E
   c.cd(4);
@@ -264,6 +274,7 @@ void EnergyScan()
   gt->SetMarkerStyle(20); gt->SetMarkerSize(1.4); gt->SetMarkerColor(rad::cInk()); gt->SetLineWidth(2);
   gt->GetXaxis()->SetLimits(0, 12); gt->SetMinimum(0);
   gt->Draw("AP");
+  demote11(gt, NP-1);
   gm->SetMarkerStyle(24); gm->SetMarkerSize(1.3); gm->SetMarkerColor(rad::cGrey());
   gm->SetLineColor(rad::cGrey()); gm->SetLineWidth(2);
   gm->Draw("P same");

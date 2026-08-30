@@ -238,13 +238,28 @@
     {
       "run_number": 37,
       "run_name": "DSB1_5GEV_redo",
-      "file": "(pending download)",
+      "file": "data/DATA/DSB1_5GEV-2026-08-29-234315/run_37.root",
       "tree": "pulse",
-      "events": null,
+      "events": 20000,
       "beam": "CERN T10, +5 GeV",
       "crystal": "DSB1",
-      "purpose": "DSB1 5 GeV point, corrected XCET pressure",
-      "notes": "Redo of run 34 with XCET40 at 0.400 bar / XCET43 at 0.405 bar (below the 0.518 bar muon threshold - clean electron tag). Data not yet on disk."
+      "started_utc": "2026-08-29T21:43:15Z",
+      "ended_utc": "2026-08-29T21:55:07Z",
+      "purpose": "DSB1 5 GeV point, corrected XCET pressure (replaces run 34)",
+      "notes": "XCET40 0.400 / XCET43 0.405 bar (below 0.518 bar mu threshold - clean e+ tag). Coincidence plateau 5.7% (T10 table: 4.1% e+ - in-situ again above tables). 1,132 tagged e+, miss fraction 7.8% (BEST containment of the campaign - post-fix beam config). Mean timing 214+/-9 ps. MIP MPVs 282/200/168/267. cthr 100."
+    },
+    {
+      "run_number": 38,
+      "run_name": "DSB1_1GEV_stable",
+      "file": "data/DATA/DSB1_1GEV-2026-08-29-235720/run_38.root",
+      "tree": "pulse",
+      "events": 50000,
+      "beam": "CERN T10, +1 GeV",
+      "crystal": "DSB1",
+      "started_utc": "2026-08-29T21:57:20Z",
+      "ended_utc": "2026-08-29T22:24:33Z",
+      "purpose": "DSB1 1 GeV stable retake (replaces mixed-config run 36)",
+      "notes": "James's note: re-run because pressures/collimators changed mid-run-36. Stable config throughout: 50,000 events in 27 minutes (~1850/min - the fixed beam config delivers ~30x run 36's pre-fix rate). Coincidence plateau 88.8% = 44,408 tagged e. Miss 57.7% (1 GeV material-scattering floor; run 36 overall was 66%). 12,575 timed electrons. cthr 100."
     }
   ]
 }

@@ -197,6 +197,32 @@ RUNS = [
       1 GeV e&#8315; content. Beam width and rate differ across the boundary — miss fraction 66.2% overall,
       dominated by the pre-fix hours. A stable overnight 1 GeV retake is being taken; treat this run as
       the backup, sliced at the config boundary if used.</p>"""}},
+ {"key": "r37", "dir": "run_37", "extras": [],
+  "new": {"btnname": "Run 37 · DSB1", "dot": "good",
+          "meta": ["20,000 ev · +5 GeV · Aug 29", "DSB1 · 5 GeV point, correct pressure"],
+          "title": "Run 37 — DSB1 at 5 GeV (the clean one)",
+          "sub":   "Aug 29, 23:43&ndash;23:55 CEST · XCETs at 0.400/0.405 bar — below the 0.518 bar &mu; threshold",
+          "chips": ["20,000 events", "+5 GeV", "XCET tag (100)", "replaces run 34"],
+          "pill":  ("good", "complete"),
+          "notes": """<p>The 5 GeV point done right: pressures under the muon threshold give a clean e&#8315; tag with a
+      textbook plateau at <span class="num">5.7%</span> (the T10 table says 4.1% — in-situ above the tables again).
+      1,132 tagged positrons; <b>miss fraction 7.8% — the best containment of the campaign</b>, courtesy of the
+      post-fix beam config. MIP MPVs 282/200/168/267. Scan point (&Sigma;LG &gt; 2500): peak
+      <span class="num">6769 &plusmn; 138</span>, &sigma;/E 39.7%, <b>t-MEDIAN 156 &plusmn; 8 ps</b>
+      (LuAG at 5 GeV: 228) — on the DSB1 trend prediction of 165 ps.</p>"""}},
+ {"key": "r38", "dir": "run_38", "extras": [],
+  "new": {"btnname": "Run 38 · DSB1", "dot": "good",
+          "meta": ["50,000 ev · +1 GeV · Aug 29", "DSB1 · stable 1 GeV retake"],
+          "title": "Run 38 — DSB1 at 1 GeV (stable config)",
+          "sub":   "Aug 29, 23:57&ndash;00:24 CEST · 50k events in 27 minutes — the fixed beam config at full throttle",
+          "chips": ["50,000 events", "+1 GeV", "XCET tag (100)", "replaces run 36"],
+          "pill":  ("good", "complete"),
+          "notes": """<p>Single stable configuration end to end (unlike run 36): <span class="num">~1,850 events/min</span>,
+      ~30&times; run 36&rsquo;s pre-fix rate — the collimator + XCET-gas diagnosis cashed in. Tag plateau
+      <span class="num">88.8%</span> = 44,408 tagged electrons; 22,745 on module, 14,582 timed.
+      Miss 57.7% is the 1 GeV material-scattering floor, not a config problem. Scan point:
+      response ridge-merged at the 1 GeV floor (as for LuAG), <b>t-MEDIAN 366 &plusmn; 4 ps</b> with the
+      campaign&rsquo;s largest timed sample.</p>"""}},
 ]
 
 def figblock(path, title, desc):

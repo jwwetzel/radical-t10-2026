@@ -94,14 +94,14 @@ void EnergyScanDSB1()
     fflush(sum); fflush(stdout);
   };
 
-  const int NP = 5;  // DSB1 module; 5 GeV slot joins as run 37 when downloaded  // timing computed BOTH ways: mean (original) and median (robust) — diffed in the summary
-  int runs[NP] = {36, 35, 33, 32, 31};  // 30 = 11 GeV (XCETs 0.06 bar, thr floor)  // 9001 = run 28 + run 29 DQ-good slices (drift periods excluded, see Diag9)
-  double E[NP] = {1.0, 3.0, 7.0, 9.0, 11.0};
+  const int NP = 6;  // full DSB1 scan  // timing computed BOTH ways: mean (original) and median (robust) — diffed in the summary
+  int runs[NP] = {38, 35, 37, 33, 32, 31};  // 38 = stable 1 GeV retake (replaces mixed-config 36); 37 = 5 GeV at correct pressure  // 30 = 11 GeV (XCETs 0.06 bar, thr floor)  // 9001 = run 28 + run 29 DQ-good slices (drift periods excluded, see Diag9)
+  double E[NP] = {1.0, 3.0, 5.0, 7.0, 9.0, 11.0};
   // XCET tag threshold per point: at 7 GeV the counters run at 0.21 bar
   // (~5 pe) and the electron spectrum sits at 40-200 ADC-eq — a 150 cut
   // throws away ~5x the electrons (measured with XCETCheck.C).
-  double cthr[NP] = {100, 100, 40, 40, 40};  // per XCETCheck scans 2026-08-29  // on-plateau per XCETCheck (9 GeV: ~3 pe, threshold floor)
-  int cols[NP] = {rad::cTeal(), rad::cAmber(), rad::cBlue(), rad::cInk(), rad::cViolet()};
+  double cthr[NP] = {100, 100, 100, 40, 40, 40};  // per XCETCheck scans  // on-plateau per XCETCheck (9 GeV: ~3 pe, threshold floor)
+  int cols[NP] = {rad::cTeal(), rad::cAmber(), rad::cRed(), rad::cBlue(), rad::cInk(), rad::cViolet()};
   double pkE[NP], pkEe[NP], sgE[NP], sgEe[NP], tS[NP], tSe[NP], tSM[NP], tSMe[NP];
   long nE[NP];
   TH1F *hS[NP];
@@ -151,7 +151,7 @@ void EnergyScanDSB1()
     hS[ip]->SetDirectory(nullptr);          // survive f->Close(): the crash was a use-after-free here
     std::vector<double> dtA;
     long nOnMod = 0;
-    static const double SMIN_OV[NP] = {0, 1500, 4000, 6000, 6500};  // containment floors from the measured DSB1 spectra (miss/partial ridges below)
+    static const double SMIN_OV[NP] = {0, 1500, 2500, 4000, 6000, 6500};  // containment floors from the measured DSB1 spectra
     const double SMIN = SMIN_OV[ip] > 0 ? SMIN_OV[ip] : 60.0 * E[ip] + 120;    // miss/noise floor, scales mildly
     for (Long64_t i = 0; i < nEnt; ++i) {
       if (i % 2000 == 0) { printf("  [%d GeV] pass2 %lld/%lld\n", (int)E[ip], i, nEnt); fflush(stdout); }
@@ -234,8 +234,17 @@ void EnergyScanDSB1()
   for (int ip = 0; ip < NP; ++ip) { gr->SetPoint(ip, E[ip], pkE[ip]); gr->SetPointError(ip, 0, pkEe[ip]); }
   gr->SetTitle(";beam energy [GeV];#Sigma LG peak [ADC-eq]");
   gr->SetMarkerStyle(20); gr->SetMarkerSize(1.4); gr->SetMarkerColor(rad::cInk()); gr->SetLineWidth(2);
-  gr->GetXaxis()->SetLimits(0, 12); gr->SetMinimum(0); gr->SetMaximum(9000);
+  gr->GetXaxis()->SetLimits(0, 12); gr->SetMinimum(0); gr->SetMaximum(13500);   // unified across modules
+  // 11 GeV: e- purity uncertain above ~10 GeV/c (T10 composition: e -> 0) — open marker
+  auto demote11 = [&](TGraphErrors *g, int ip) {
+    double x, y; g->GetPoint(ip, x, y);
+    TGraph *w = new TGraph(1); w->SetPoint(0, x, y);
+    w->SetMarkerStyle(20); w->SetMarkerColor(kWhite); w->SetMarkerSize(1.15); w->Draw("P same");
+    TGraph *o = new TGraph(1); o->SetPoint(0, x, y);
+    o->SetMarkerStyle(24); o->SetMarkerColor(g->GetMarkerColor()); o->SetMarkerSize(1.3); o->Draw("P same");
+  };
   gr->Draw("AP");
+  demote11(gr, NP-1);
   TF1 *lin = new TF1("lin","[0]*x",0,12);
   lin->SetParameter(0, pkE[2]/E[2]); lin->SetLineColor(rad::cGrey()); lin->SetLineStyle(7); lin->Draw("same");
   hx.DrawLatex(0.16,0.86,"response  #font[42]{(dashed: linear through 5 GeV)}");
@@ -251,6 +260,7 @@ void EnergyScanDSB1()
   gs->SetMarkerStyle(20); gs->SetMarkerSize(1.4); gs->SetMarkerColor(rad::cInk()); gs->SetLineWidth(2);
   gs->GetXaxis()->SetLimits(0, 12); gs->SetMinimum(0);
   gs->Draw("AP");
+  demote11(gs, NP-1);
   hx.DrawLatex(0.16,0.86,"width  #font[42]{(position-smearing dominated)}");
   // (4) timing vs E
   c.cd(4);
@@ -264,6 +274,7 @@ void EnergyScanDSB1()
   gt->SetMarkerStyle(20); gt->SetMarkerSize(1.4); gt->SetMarkerColor(rad::cInk()); gt->SetLineWidth(2);
   gt->GetXaxis()->SetLimits(0, 12); gt->SetMinimum(0);
   gt->Draw("AP");
+  demote11(gt, NP-1);
   gm->SetMarkerStyle(24); gm->SetMarkerSize(1.3); gm->SetMarkerColor(rad::cGrey());
   gm->SetLineColor(rad::cGrey()); gm->SetLineWidth(2);
   gm->Draw("P same");
@@ -272,7 +283,7 @@ void EnergyScanDSB1()
   lgt->AddEntry(gm, "mean of capillaries", "p");
   lgt->Draw();
   // closed-form a/sqrt(E) (+) b from the MEDIAN 1 and 9 GeV points
-  const int IA = 1, IB = 3;  // 3&9 GeV anchors for DSB1  // 1&9 GeV anchors, fixed regardless of NP
+  const int IA = 1, IB = 4;  // 3&9 GeV anchors for DSB1  // 1&9 GeV anchors, fixed regardless of NP
   double a2 = (tSM[IA]*tSM[IA] - tSM[IB]*tSM[IB]) * E[IA]*E[IB] / (E[IB]-E[IA]);
   double b2 = tSM[IB]*tSM[IB] - a2/E[IB];
   TF1 *ft = new TF1("ft","sqrt([0]*[0]/x+[1]*[1])",0.5,12);

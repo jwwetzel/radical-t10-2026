@@ -565,3 +565,29 @@ rescue yet; median combination fully vindicated.
 Response shows the same high-E flattening pattern as LuAG (gain ladder +
 shower-max migration; at 11 GeV additionally the LG ceiling).
 5 GeV joins as run 37; 1 GeV stable retake overnight.
+
+## DSB1 completion + 11 GeV reinterpretation (2026-08-30)
+
+Runs 37/38 folded in. Run 37 (+5 GeV, 0.400/0.405 bar): clean 5.7% tag
+plateau, miss 7.8% (campaign-best containment), peak 6769+/-138,
+t-MEDIAN 156+/-8 ps (trend predicts 165). Run 38 (+1 GeV stable): 50k in
+27 min (~30x run-36 pre-fix rate), 44,408 tags, t-MEDIAN 366+/-4 ps.
+DSB1 scan now 6 points; trend unchanged 323/sqrt(E) (+) 79 ps.
+
++5 GeV e fraction is CONFIG-DEPENDENT: 9.1% (run 15, tight acceptance)
+vs 5.7% (run 37, open acceptance) — quote composition with collimator
+settings, never as a function of momentum alone.
+
+11 GeV REINTERPRETED: T10 composition has e- -> 0 above ~10 GeV/c. Our
+tags there are real (accidentals ~0.1%) but are likely soft tertiary
+electrons travelling with the beam — explains the depressed peaks, wide
+widths, and huge miss fractions at 11 GeV in BOTH modules. 11 GeV points
+now drawn OPEN everywhere and excluded from claims (they were never
+trend anchors). Off-coincidence at -11 GeV = ~97% pi: runs 30/31 are the
+campaign's purest MIP datasets.
+
+Cosmetics: scan axes unified across modules (spectra to 16k with 50-wide
+bins preserved — LuAG fits bit-identical; response ymax 13500);
+HowItWorks rebuilt with mean tagged-electron waveforms (single-event
+version had empty/truncated panels); ModuleCompare markers: LuAG filled
+squares / DSB1 filled circles, 11 GeV open in both.

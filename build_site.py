@@ -48,7 +48,7 @@ MODULES = {
             ["r12","r14","r15","r24","r2526","r27","r2829","r30"]},
   "dsb1":  {"title": "DSB1",  "page": "dsb1.html",
             "tag": "DSB:Ce glass fibers", "runs":
-            ["r31","r32","r33","r34","r35","r36"]},
+            ["r31","r32","r33","r34","r35","r36","r37","r38"]},
   "ej199": {"title": "EJ199", "page": "ej199.html",
             "tag": "EJ-199 plastic + WLS", "runs": []},
 }
@@ -120,8 +120,8 @@ page("luag.html", "LuAG — RADiCAL T10", "LuAG:Ce · CERN PS T10 · Aug 2026",
 # ---------------- DSB1 page ----------------
 dsb1_scan = f'''  <div class="runhead">
     <h1>DSB1 energy scan — first trends</h1>
-    <div class="sub">Runs 31&ndash;36, Aug 29 &middot; 1&ndash;11 GeV, all hardware-tagged &middot; 5 GeV redo (run 37) and stable 1 GeV retake pending</div>
-    <div class="chips"><span class="chip">5 energies</span><span class="chip">~160k events</span>
+    <div class="sub">Runs 31&ndash;38, Aug 29 &middot; 1&ndash;11 GeV, all hardware-tagged &middot; complete: 5 GeV (run 37) and stable 1 GeV (run 38) folded in</div>
+    <div class="chips"><span class="chip">6 energies</span><span class="chip">~230k events</span>
     <span class="chip">~2.1&times; the LuAG light</span><span class="pill good">fastest timing of the campaign</span></div>
   </div>
   <div class="card">
@@ -130,19 +130,19 @@ dsb1_scan = f'''  <div class="runhead">
   <div class="card"><h4>Scan table</h4>
     <div class="tblwrap"><table>
       <tr><th>E [GeV]</th><th>run</th><th>events</th><th>e&#8315; on module</th><th>&Sigma;LG peak</th><th>&sigma;/E</th><th>&sigma;_t mean [ps]</th><th><b>&sigma;_t median [ps]</b></th></tr>
-      <tr><td>1</td><td class="t">36</td><td>20,000</td><td>7,243</td><td>ridge-merged (mixed config)</td><td>&mdash;</td><td class="num">410 &plusmn; 8</td><td class="num"><b>363 &plusmn; 6</b></td></tr>
+      <tr><td>1</td><td class="t">38</td><td>50,000</td><td>22,745</td><td>ridge-merged (1 GeV material floor)</td><td>&mdash;</td><td class="num">416 &plusmn; 4</td><td class="num"><b>366 &plusmn; 4</b></td></tr>
       <tr><td>3</td><td class="t">35</td><td>20,000</td><td>3,319</td><td class="num">3763 &plusmn; 73</td><td>56.4%</td><td class="num">254 &plusmn; 6</td><td class="num"><b>202 &plusmn; 4</b></td></tr>
-      <tr><td>5</td><td class="t">37</td><td colspan="6" class="t">pending — redo at 0.400/0.405 bar (run 34's 1.5 bar tag radiates on pions)</td></tr>
+      <tr><td>5</td><td class="t">37</td><td>20,000</td><td>856</td><td class="num">6769 &plusmn; 138</td><td>39.7%</td><td class="num">182 &plusmn; 8</td><td class="num"><b>156 &plusmn; 8</b></td></tr>
       <tr><td>7</td><td class="t">33</td><td>20,000</td><td>1,001</td><td class="num">9045 &plusmn; 90</td><td class="num">21.6%</td><td class="num">176 &plusmn; 8</td><td class="num"><b>140 &plusmn; 6</b></td></tr>
       <tr><td>9</td><td class="t">32</td><td>40,000</td><td>847</td><td class="num">9946 &plusmn; 144</td><td>26.5%</td><td class="num">516 &plusmn; 14</td><td class="num"><b>133 &plusmn; 5</b></td></tr>
-      <tr><td>11</td><td class="t">31</td><td>40,000</td><td>303</td><td class="num">10721 &plusmn; 734</td><td>38.6%</td><td class="num">191 &plusmn; 18</td><td class="num"><b>181 &plusmn; 17</b></td></tr>
+      <tr><td>11*</td><td class="t">31</td><td>40,000</td><td>303</td><td class="num">10721 &plusmn; 734</td><td>38.6%</td><td class="num">191 &plusmn; 18</td><td class="num"><b>181 &plusmn; 17</b></td></tr>
     </table></div>
     <p>Timing trend (median, contained showers, 3&amp;9 GeV anchors): <span class="num">&sigma;_t &asymp; 323/&radic;E &oplus; 79 ps</span> —
     the constant term nearly half of LuAG&rsquo;s 138 ps, references included unsubtracted. The 9 GeV point
     (<span class="num">133 &plusmn; 5 ps</span>) is the best timing of the campaign; its 516 ps <em>mean</em> against the 133 ps
     <em>median</em> is the strongest daytime-outlier rescue yet. DSB1 delivers ~2.1&times; the LuAG light
     (~1,250&ndash;1,390 ADC-eq/GeV): the scan histograms extend to 16k and at 11 GeV the summed response approaches the
-    ~13.6k LG headroom ceiling (rails still &lt;0.02%). Containment floors 0/1500/4000/6000/6500 from the measured spectra.
+    ~13.6k LG headroom ceiling (rails still &lt;0.02%). Containment floors 0/1500/2500/4000/6000/6500 from the measured spectra. Runs 34 (pion-contaminated tag) and 36 (mixed beam config) are superseded by 37/38 and kept as control/backup datasets. *The 11 GeV point is drawn OPEN in all trend figures: the T10 composition measurements show the electron fraction falling to zero above ~10 GeV/c, so the (real, low-accidental) tags there are likely soft tertiary electrons travelling with the beam — consistent with the depressed peak and width in BOTH modules at 11 GeV. The off-coincidence sample at &minus;11 GeV is ~97% pions: the campaign&rsquo;s purest MIP dataset (runs 30/31).
     High-energy response flattening mirrors LuAG — the cross-run gain ladder and shower-max migration
     (see the LuAG page&rsquo;s linearity forensics), plus the LG ceiling at 11 GeV.</p>
   </div>'''
@@ -191,15 +191,16 @@ index_sec = f'''<section data-content="summary">
     <div class="tblwrap"><table>
       <tr><th>module</th><th>capillary material</th><th>runs</th><th>events</th><th>status</th></tr>
       <tr><td class="t">LuAG</td><td>LuAG:Ce crystal fibers</td><td>12&ndash;30</td><td class="num">~168k</td><td>6-point scan complete</td></tr>
-      <tr><td class="t">DSB1</td><td>DSB:Ce glass fibers</td><td>31&ndash;37</td><td class="num">~160k</td><td>5 points; 5 GeV redo + 1 GeV retake pending</td></tr>
+      <tr><td class="t">DSB1</td><td>DSB:Ce glass fibers</td><td>31&ndash;38</td><td class="num">~230k</td><td>6-point scan complete</td></tr>
       <tr><td class="t">EJ199</td><td>EJ-199 plastic + WLS</td><td>&mdash;</td><td class="num">&mdash;</td><td>beam scheduled Aug 30</td></tr>
     </table></div></div>
 
   <div class="card">
     <figure><img src="{hero}" alt="Shower timing versus energy for both modules"><figcaption><b>The headline.</b>
-    Shower-time resolution vs beam energy for tagged electrons. DSB1 reaches <b>133 &plusmn; 5 ps at 9 GeV</b> with the
+    Shower-time resolution vs beam energy for tagged electrons. DSB1 reaches <b>133 &plusmn; 5 ps at 9 GeV</b> and 156 &plusmn; 8 at 5 GeV with the
     MCP and digitizer reference jitter still included — the trend&rsquo;s constant term is 79 ps vs LuAG&rsquo;s 138 ps.
-    Median 4-capillary combination; no reference subtraction.</figcaption></figure>
+    Median 4-capillary combination; no reference subtraction. Open 11 GeV points: electron purity uncertain above
+    ~10 GeV/c (T10 composition) — kept, not trusted.</figcaption></figure>
   </div>
 
   <div class="card"><h4>How the measurement works — one real event</h4>
@@ -224,10 +225,10 @@ index_sec = f'''<section data-content="summary">
     In-situ electron fractions (coincidence at the per-energy working points):</p>
     <div class="tblwrap"><table>
       <tr><th>p [GeV/c]</th><th>+1</th><th>+3</th><th>+5</th><th>&minus;7</th><th>&minus;9</th><th>&minus;11</th></tr>
-      <tr><td class="t">measured e&#8315; coincidence</td><td class="num">85.9&ndash;86.6%</td><td class="num">23.3&ndash;23.5%</td><td class="num">~9.1%</td><td class="num">8.6&ndash;8.8%</td><td class="num">&ge;4.9%</td><td class="num">2.2&ndash;2.4%</td></tr>
+      <tr><td class="t">measured e&#8315; coincidence</td><td class="num">85.9&ndash;88.8%</td><td class="num">23.3&ndash;23.5%</td><td class="num">5.7&ndash;9.1%&dagger;</td><td class="num">8.6&ndash;8.8%</td><td class="num">&ge;4.9%</td><td class="num">2.2&ndash;2.4%&Dagger;</td></tr>
       <tr><td class="t">T10 guide tables</td><td class="num">80.6%</td><td class="num">18.0%</td><td class="num">4.1%</td><td class="num">2.3%</td><td class="num">&mdash;</td><td class="num">&mdash;</td></tr>
     </table></div>
-    <p>Above ~5 GeV we consistently find <b>more electrons than the published tables</b> — reproducible day-to-day
+    <p>&dagger;The +5 GeV fraction depends on the collimation configuration: 9.1% with the early tight-acceptance settings (run 15), 5.7% with acceptance collimators open (run 37) — composition is not a constant of the momentum setting alone. &Dagger;At &minus;11 GeV the published composition has e&#8315;&rarr;0; our (real) coincidences there are likely soft tertiary electrons, so we quote a tag rate, not a beam e&#8315; fraction. Above ~5 GeV we otherwise consistently find <b>more electrons than the published tables</b> — reproducible day-to-day
     at the few-percent level across two modules. Other beam findings: MCP pulse height is species-correlated
     (electrons pulse smaller — a high trigger threshold silently rejects them); ~48 triggers/spill at 1 GeV with
     run-rate differences driven by supercycle cadence, not intensity; and XCET radiator gas at low-energy pressures
