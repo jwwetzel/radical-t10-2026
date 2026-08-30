@@ -110,7 +110,10 @@ def page(fname, title, brand_small, nav_current, run_keys, sections_html, scan_b
     print(f"{fname}: {len(html)//1024} KB")
 
 # ---------------- LuAG page ----------------
-luag_secs = [f'<section data-content="scan">{section("scan")}</section>']
+luag_intro = ('<div class="card"><p><b>This page is the LuAG:Ce module\u2019s complete record.</b> '
+  'Below: the energy-scan summary. In the left rail: every run, each with the same four-stage structure '
+  '(channel integrity \u2192 selection &amp; calibration \u2192 results \u2192 run-specific notes).</p></div>')
+luag_secs = [f'<section data-content="scan">{luag_intro}{section("scan")}</section>']
 for rk in MODULES["luag"]["runs"]:
     luag_secs.append(f'<section data-content="{rk}" hidden>{section(rk)}</section>')
 scan_btn_luag = runbtn("scan")
@@ -118,6 +121,9 @@ page("luag.html", "LuAG — RADiCAL T10", "LuAG:Ce · CERN PS T10 · Aug 2026",
      "luag", MODULES["luag"]["runs"], "\n".join(luag_secs), scan_btn_luag)
 
 # ---------------- DSB1 page ----------------
+dsb1_intro = ('<div class="card"><p><b>This page is the DSB:Ce glass module\u2019s complete record.</b> '
+  'Below: the energy-scan summary. In the left rail: every run, each with the same four-stage structure '
+  '(channel integrity \u2192 selection &amp; calibration \u2192 results \u2192 run-specific notes).</p></div>')
 dsb1_scan = f'''  <div class="runhead">
     <h1>DSB1 energy scan — first trends</h1>
     <div class="sub">Runs 31&ndash;38, Aug 29 &middot; 1&ndash;11 GeV, all hardware-tagged &middot; complete: 5 GeV (run 37) and stable 1 GeV (run 38) folded in</div>
@@ -142,11 +148,11 @@ dsb1_scan = f'''  <div class="runhead">
     (<span class="num">133 &plusmn; 5 ps</span>) is the best timing of the campaign; its 516 ps <em>mean</em> against the 133 ps
     <em>median</em> is the strongest daytime-outlier rescue yet. DSB1 delivers ~2.1&times; the LuAG light
     (~1,250&ndash;1,390 ADC-eq/GeV): the scan histograms extend to 16k and at 11 GeV the summed response approaches the
-    ~13.6k LG headroom ceiling (rails still &lt;0.02%). Containment floors 0/1500/2500/4000/6000/6500 from the measured spectra. Runs 34 (pion-contaminated tag) and 36 (mixed beam config) are superseded by 37/38 and kept as control/backup datasets. *The 11 GeV point is drawn OPEN in all trend figures: the T10 composition measurements show the electron fraction falling to zero above ~10 GeV/c, so the (real, low-accidental) tags there are likely soft tertiary electrons travelling with the beam — consistent with the depressed peak and width in BOTH modules at 11 GeV. The off-coincidence sample at &minus;11 GeV is ~97% pions: the campaign&rsquo;s purest MIP dataset (runs 30/31).
+    ~13.6k LG headroom ceiling (rails still &lt;0.02%). Containment floors 0/1500/2500/4000/6000/6500 from the measured spectra. Runs 34 (pion-contaminated tag) and 36 (mixed beam config) are superseded by 37/38 and kept as control/backup datasets. *The 11 GeV point is drawn OPEN in the trend figures: T10&rsquo;s composition measurements put the electron fraction near zero above ~10 GeV/c, so the tag&rsquo;s purity was on trial. The trial (summary page, &ldquo;11 GeV on trial&rdquo;) finds the <em>contained</em> subset — the only events these scan numbers use — measures as genuine hard electrons: E-equivalent 9.7 GeV (LuAG, within the &plusmn;15% gain envelope of 11), spectra matching the 9 GeV shape, and hard-shower timing. The excess miss/halo population remains unexplained (plausibly tertiary electrons). The off-coincidence sample at &minus;11 GeV is ~97% pions: the campaign&rsquo;s purest MIP dataset (runs 30/31).
     High-energy response flattening mirrors LuAG — the cross-run gain ladder and shower-max migration
     (see the LuAG page&rsquo;s linearity forensics), plus the LG ceiling at 11 GeV.</p>
   </div>'''
-dsb1_secs = [f'<section data-content="scan">{dsb1_scan}</section>']
+dsb1_secs = [f'<section data-content="scan">{dsb1_intro}{dsb1_scan}</section>']
 for rk in MODULES["dsb1"]["runs"]:
     dsb1_secs.append(f'<section data-content="{rk}" hidden>{section(rk)}</section>')
 scan_btn_dsb1 = ('<button class="runbtn" data-run="scan"><span class="rn"><span class="dot good"></span>Energy scan</span>'
@@ -173,6 +179,7 @@ hero  = enc("Output/summary/Hero_timing.png", 1500, 84)
 how   = enc("Output/summary/HowItWorks.png", 1500, 82)
 comp  = enc("Output/summary/ModuleCompare.png", 1500, 82)
 pulse = enc("Output/summary/PulseShapes.png", 1400, 82)
+t11   = enc("Output/summary/Tertiary11.png", 1500, 82)
 
 index_sec = f'''<section data-content="summary">
   <div class="runhead">
@@ -199,8 +206,9 @@ index_sec = f'''<section data-content="summary">
     <figure><img src="{hero}" alt="Shower timing versus energy for both modules"><figcaption><b>The headline.</b>
     Shower-time resolution vs beam energy for tagged electrons. DSB1 reaches <b>133 &plusmn; 5 ps at 9 GeV</b> and 156 &plusmn; 8 at 5 GeV with the
     MCP and digitizer reference jitter still included — the trend&rsquo;s constant term is 79 ps vs LuAG&rsquo;s 138 ps.
-    Median 4-capillary combination; no reference subtraction. Open 11 GeV points: electron purity uncertain above
-    ~10 GeV/c (T10 composition) — kept, not trusted.</figcaption></figure>
+    Median 4-capillary combination; no reference subtraction. Open 11 GeV points: the whole-tag purity there was
+    on trial (T10 composition: e&rarr;0 above ~10 GeV/c); the contained subset behind these points measures as genuine
+    hard electrons — see &ldquo;11 GeV on trial&rdquo; below.</figcaption></figure>
   </div>
 
   <div class="card"><h4>How the measurement works — one real event</h4>
@@ -215,6 +223,17 @@ index_sec = f'''<section data-content="summary">
     Response linearity for both modules is established to the &plusmn;15% cross-run gain envelope (see the LuAG
     page&rsquo;s linearity forensics: the apparent high-energy &ldquo;saturation&rdquo; is a SiPM temperature-gain ladder
     plus calculable shower-max migration, not the detectors).</figcaption></figure>
+    <div class="tblwrap"><table>
+      <tr><th>unit</th><th>LuAG</th><th>DSB1</th><th>DSB1 / LuAG</th></tr>
+      <tr><td class="t">shower response [ADC-eq / GeV]</td><td class="num">~620</td><td class="num">~1,350</td><td class="num">2.2&times;</td></tr>
+      <tr><td class="t">MIP signal, 4-capillary sum [ADC-eq]&sect;</td><td class="num">~1,480</td><td class="num">~920</td><td class="num">0.62&times;</td></tr>
+      <tr><td class="t">shower response [MIP-sums / GeV]</td><td class="num">0.42</td><td class="num">1.48</td><td class="num">3.5&times;</td></tr>
+    </table></div>
+    <p>&sect;Units caveat, stated plainly: ADC-eq is a readout-relative unit, and the MIP MPVs carry estimator and
+    beam-species systematics (see the LuAG linearity forensics) — both MIP sets here are same-beam +5 GeV runs, so the
+    <em>ratio</em> is meaningful even where the absolute scale is soft. DSB1 delivers less light per crossing MIP
+    (lower-density glass) but far more per shower GeV — its shower response per MIP unit is ~3.5&times; LuAG&rsquo;s.
+    An absolute photoelectron scale (dark-pulse calibration) is possible from existing data and planned.</p>
     <figure><img src="{pulse}" alt="Mean pulse shape per material"><figcaption><b>Why DSB1 is faster.</b>
     Mean tagged-electron pulse on the same &minus;7 GeV beam: identical readout-limited 4.4 ns rise, but LuAG&rsquo;s
     scintillation tail (&tau; &asymp; 12.5 ns, 32% of light after 8 ns) is nearly three times longer than DSB1&rsquo;s
@@ -228,7 +247,7 @@ index_sec = f'''<section data-content="summary">
       <tr><td class="t">measured e&#8315; coincidence</td><td class="num">85.9&ndash;88.8%</td><td class="num">23.3&ndash;23.5%</td><td class="num">5.7&ndash;9.1%&dagger;</td><td class="num">8.6&ndash;8.8%</td><td class="num">&ge;4.9%</td><td class="num">2.2&ndash;2.4%&Dagger;</td></tr>
       <tr><td class="t">T10 guide tables</td><td class="num">80.6%</td><td class="num">18.0%</td><td class="num">4.1%</td><td class="num">2.3%</td><td class="num">&mdash;</td><td class="num">&mdash;</td></tr>
     </table></div>
-    <p>&dagger;The +5 GeV fraction depends on the collimation configuration: 9.1% with the early tight-acceptance settings (run 15), 5.7% with acceptance collimators open (run 37) — composition is not a constant of the momentum setting alone. &Dagger;At &minus;11 GeV the published composition has e&#8315;&rarr;0; our (real) coincidences there are likely soft tertiary electrons, so we quote a tag rate, not a beam e&#8315; fraction. Above ~5 GeV we otherwise consistently find <b>more electrons than the published tables</b> — reproducible day-to-day
+    <p>&dagger;The +5 GeV fraction depends on the collimation configuration: 9.1% with the early tight-acceptance settings (run 15), 5.7% with acceptance collimators open (run 37) — composition is not a constant of the momentum setting alone. &Dagger;At &minus;11 GeV the published composition has e&#8315;&rarr;0, yet our contained tags measure as hard electrons (E-eq &asymp; 10 GeV; see the 11 GeV trial below) — evidence the tables are again pessimistic at high |p|; the tag&rsquo;s halo component remains uncertain, so we quote a tag rate. Above ~5 GeV we otherwise consistently find <b>more electrons than the published tables</b> — reproducible day-to-day
     at the few-percent level across two modules. Other beam findings: MCP pulse height is species-correlated
     (electrons pulse smaller — a high trigger threshold silently rejects them); ~48 triggers/spill at 1 GeV with
     run-rate differences driven by supercycle cadence, not intensity; and XCET radiator gas at low-energy pressures
@@ -236,21 +255,41 @@ index_sec = f'''<section data-content="summary">
     the beam. A 1.5 bar setting at +5 GeV radiates on pions too: coincidence 69.7% = the beam&rsquo;s combined
     e+&mu;+&pi; content, measured to a percent.</p></div>
 
+  <div class="card"><h4>&ldquo;11 GeV on trial&rdquo; — are the tags real electrons?</h4>
+    <figure><img src="{t11}" alt="11 GeV tagged spectra and MCP pulse heights by class"><figcaption><b>Verdict: the
+    contained tags are hard electrons.</b> Top: the &minus;11 GeV tagged &Sigma;LG spectra, classed miss / partial /
+    contained, with the 9 GeV tagged shape overlaid — the contained class traces the 9 GeV shape in both modules
+    (E-equivalent 9.7 GeV for LuAG, inside the &plusmn;15% gain envelope of 11; DSB1&rsquo;s 8.0 is compressed by its LG
+    ceiling), and times like hard showers (181/227 ps vs 366/412 at 1 GeV). So the T10 composition tables are again
+    pessimistic at high |p| — a real electron component survives at &minus;11 GeV/c. The outsized <em>miss</em> class
+    (LuAG: 467 vs 187 contained) is the remaining puzzle: beam halo, plausibly including soft tertiary electrons.
+    Bottom: MCP pulse heights by class — no species contradiction. The 11 GeV scan points stay open-markered for the
+    halo uncertainty, but their contained-subset numbers stand.</figcaption></figure></div>
+
   <div class="card"><h4>Campaign log — the short version</h4>
-    <p class="t">Aug 27 &middot; LuAG first beam (run 12), channel map verified, clipped-pulse recovery adopted (never
+    <p class="t">Aug 27 &middot; LuAG first beam (<a href="luag.html#r12">run 12</a>), channel map verified, clipped-pulse recovery adopted (never
     discard clipped high-gain: predict the true peak from the low-gain transfer line, fit only below the clip wall).<br>
-    Aug 28 &middot; module centered; bias +1 V (final); MCP threshold lowered 240&rarr;137 mV after discovering the
-    species-correlated pulse height (~10&times; more electrons/minute); LuAG scan 1&ndash;7 GeV in one day.<br>
-    Aug 28&ndash;29 &middot; overnight 9 GeV; morning &ldquo;drift&rdquo; traced to an ambient light leak, not temperature;
+    Aug 28 &middot; module centered (<a href="luag.html#r14">run 14</a>); bias +1 V, final (<a href="luag.html#r15">run 15</a>); MCP threshold lowered 240&rarr;137 mV after discovering the
+    species-correlated pulse height — ~10&times; more electrons/minute (<a href="luag.html#scan">runs 22/23</a>); LuAG scan 1&ndash;7 GeV in one day.<br>
+    Aug 28&ndash;29 &middot; overnight 9 GeV (<a href="luag.html#r2829">runs 28+29</a>); morning &ldquo;drift&rdquo; traced to an ambient light leak, not temperature;
     the per-event <b>median</b> capillary combination adopted after rescuing the noisy periods.<br>
-    Aug 29 &middot; 11 GeV point — the hardware tag works even at 0.06 bar; wide beam at the T10 momentum limit;
-    apparent high-energy saturation investigated and retired (gain ladder + shower-max migration).
-    DSB1 module: full 1&ndash;11 GeV scan in one day, fastest timing of the campaign.<br>
-    Aug 29&ndash;30 &middot; 1 GeV rate mystery solved at the collimators + XCET gas; stable retakes overnight.
+    Aug 29 &middot; 11 GeV point (<a href="luag.html#r30">run 30</a>) — the hardware tag works even at 0.06 bar; wide beam at the T10 momentum limit;
+    apparent high-energy saturation investigated and retired (gain ladder + shower-max migration, <a href="luag.html#scan">forensics</a>).
+    <a href="dsb1.html">DSB1 module</a>: full 1&ndash;11 GeV scan in one day, fastest timing of the campaign.<br>
+    Aug 29&ndash;30 &middot; 1 GeV rate mystery solved at the collimators + XCET gas (<a href="dsb1.html#r36">run 36</a>); clean retakes the same night (<a href="dsb1.html#r37">run 37</a>, <a href="dsb1.html#r38">run 38</a>).
     EJ199 up next.</p>
     <p>Every number above is reproducible from the repo: <code>runs/runs.json</code> (provenance),
     <code>Output/run_12/FINDINGS.md</code> (the full log, including the mistakes), and <code>macros/</code>
     (every plot&rsquo;s source). Run pages carry the complete standard plot set for every run.</p></div>
+
+  <div class="card"><h4>Conclusions so far</h4>
+    <p><b>Shower-max sampling times electromagnetic showers at the hundred-picosecond scale from a 14 mm module.</b>
+    DSB1 reaches <span class="num">133 &plusmn; 5 ps at 9 GeV</span> with all reference jitter included, and its trend
+    constant term (79 ps) is nearly half of LuAG&rsquo;s (138 ps) — traced mechanistically to its ~3&times; shorter
+    scintillation tail. <b>Material choice is now a measured trade:</b> DSB:Ce buys ~2.2&times; the light per GeV and the
+    faster pulse; LuAG:Ce buys more signal per crossing MIP. <b>And the campaign returned beam knowledge T10 didn&rsquo;t
+    have:</b> in-situ electron fractions above the published tables at 5&ndash;9 GeV/c, their dependence on collimation,
+    and the XCET radiator gas as unbudgeted beamline material at low momentum.</p></div>
 
   <div class="card"><h4>Next</h4>
     <p>EJ199 scan (today); run 37 + stable 1 GeV into the DSB1 scan; connection of all three capillary types to the

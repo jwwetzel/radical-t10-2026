@@ -1,0 +1,3 @@
+LuAG  run 30: miss 467 / partial 213 / contained 187 | contained peak 5604+/-100 -> E-equivalent 9.7 GeV
+DSB1  run 31: miss 189 / partial 456 / contained 303 | contained peak 10323+/-266 -> E-equivalent 8.0 GeV (LG ceiling compresses)
+timing (from scans): contained tags 227 ps (LuAG) / 181 ps (DSB1) vs 412/366 ps at 1 GeV — hard-shower-like

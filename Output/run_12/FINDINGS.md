@@ -591,3 +591,21 @@ bins preserved — LuAG fits bit-identical; response ymax 13500);
 HowItWorks rebuilt with mean tagged-electron waveforms (single-event
 version had empty/truncated panels); ModuleCompare markers: LuAG filled
 squares / DSB1 filled circles, 11 GeV open in both.
+
+## "11 GeV on trial" — verdict: contained tags ARE hard electrons (2026-08-30)
+
+Tertiary11.C, runs 30/31 vs 9 GeV references:
+- Contained-class SumLG spectra trace the 9 GeV tagged shape in BOTH
+  modules; LuAG contained peak E-equivalent 9.7 GeV (within the +/-15%
+  gain envelope of 11); DSB1 8.0 GeV is LG-ceiling-compressed.
+- Contained timing 227/181 ps vs 412/366 ps at 1 GeV: hard-shower-like.
+- MCP pulse heights by class: no species contradiction.
+CONCLUSION: a real electron component survives at -11 GeV/c — the T10
+composition tables are again pessimistic at high |p| (pattern: 7, 9, now
+11 GeV). The outsized MISS class (LuAG 467 vs 187 contained) remains
+unexplained: halo, plausibly including soft tertiary electrons. Scan
+points stay open-markered for the halo uncertainty; contained-subset
+numbers stand. Untagged -11 GeV = ~97% pi (purest MIP sets: runs 30/31).
+
+Site: conclusions card, module-page intros, timeline links to run pages,
+MIP-normalized units table (+ caveats), trial card added.
