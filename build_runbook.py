@@ -255,6 +255,35 @@ RUNS = [
       (&Sigma;LG &gt; 1200): peak <span class="num">2740 &plusmn; 74</span> — ~550 ADC-eq/GeV, the dimmest module
       (LuAG ~620, DSB1 ~1,350) — and <b>t-MEDIAN 380 &plusmn; 18 ps</b> (LuAG 228, DSB1 156). By spec this channel should be nearly blind to the LYSO:Ce tiles&rsquo; 425 nm light — the observed response
       is in-beam support for the suspected Eljen contaminant, and this run quantifies it.</p>"""}},
+ {"key": "r42", "dir": "run_42", "extras": [],
+  "new": {"btnname": "Run 42 · EJ199", "dot": "good",
+          "meta": ["20,000 ev · &minus;7 GeV · Aug 30", "EJ199 · 7 GeV scan point"],
+          "title": "Run 42 — EJ199 at 7 GeV",
+          "sub":   "Aug 30, 13:13&ndash;13:41 CEST · XCETs 0.21 bar",
+          "chips": ["20,000 events", "&minus;7 GeV", "XCET floor tag (40)", "EJ199"],
+          "pill":  ("good", "complete"),
+          "notes": """<p>Tag 7.77% (1,554 e). Scan point (&Sigma;LG &gt; 1700): peak <span class="num">4658 &plusmn; 97</span>,
+      <b>t-MEDIAN 278 &plusmn; 10 ps</b>. This run also supplies the EJ199 curve of the three-channel pulse-shape
+      comparison (tail &tau; = 6.5 ns, 25% of light after 8 ns — the fingerprint for the contaminant question).</p>"""}},
+ {"key": "r43", "dir": "run_43", "extras": [],
+  "new": {"btnname": "Run 43 · EJ199", "dot": "good",
+          "meta": ["20,000 ev · &minus;9 GeV · Aug 30", "EJ199 · 9 GeV scan point"],
+          "title": "Run 43 — EJ199 at 9 GeV",
+          "sub":   "Aug 30, 13:42&ndash;16:37 CEST · 2.9 h wall clock (supercycle-lean afternoon)",
+          "chips": ["20,000 events", "&minus;9 GeV", "XCET floor tag (40)", "EJ199"],
+          "pill":  ("good", "complete"),
+          "notes": """<p>Tag 5.17% (1,034 e). Scan point (&Sigma;LG &gt; 2200): peak <span class="num">5704 &plusmn; 159</span>,
+      <b>t-MEDIAN 249 &plusmn; 17 ps</b>.</p>"""}},
+ {"key": "r44", "dir": "run_44", "extras": [],
+  "new": {"btnname": "Run 44 · EJ199", "dot": "warn",
+          "meta": ["20,000 ev · &minus;11 GeV · Aug 30", "EJ199 · 11 GeV, raised pressure"],
+          "title": "Run 44 — EJ199 at 11 GeV",
+          "sub":   "Aug 30, 16:44&ndash;17:42 CEST · XCETs at the agreed 0.089 bar (raised from 0.060)",
+          "chips": ["20,000 events", "&minus;11 GeV", "0.089 bar tag (40)", "11 GeV caveat"],
+          "pill":  ("warn", "complete — low stats"),
+          "notes": """<p>The raised 0.089 bar fill delivered a modest tag gain: 2.48% vs 2.17&ndash;2.37% at 0.060 bar
+      for the other modules. Only 202 on-module electrons; the &Sigma;LG peak fit is unstable
+      (8655 &plusmn; 4152) and the standing 11 GeV purity caveat applies. <b>t-MEDIAN 266 &plusmn; 37 ps.</b></p>"""}},
 ]
 
 def figblock(path, title, desc):

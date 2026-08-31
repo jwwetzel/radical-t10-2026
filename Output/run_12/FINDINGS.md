@@ -646,3 +646,28 @@ at shower max — not the scintillator. Corrections that follow:
   cancels the MCP event-by-event; sigma(diff)/2 = intrinsic 4-cap
   resolution) ADOPTED into the plan — will yield reference-free trends.
 Site/registry language corrected throughout.
+
+## Campaign complete: EJ199 negative runs + Randy's estimator (2026-08-31)
+
+EJ199 scan complete (runs 39-44): 7 GeV 4658+/-97 t-med 278+/-10;
+9 GeV 5704+/-159, 249+/-17; 11 GeV low-stats/unstable (202 e, standing
+purity caveat). Run 44 at the raised 0.089 bar: tag 2.48% vs 2.17-2.37%
+at 0.060 - modest gain. Pulse shapes now 3 channels at -7 GeV:
+tail tau LuAG 12.5 / EJ199 6.5 / DSB1 4.9 ns (EJ199 fingerprint for
+Mark's contaminant bench comparison).
+
+RANDY'S DIAGONAL DIFFERENCE (DiagDiff.C, all 18 scan runs):
+- VALIDATED on LuAG: implied reference jitter 107-114 ps, constant
+  5-9 GeV, matching the known ~105 ps DRS inter-group + MCP budget.
+  LuAG intrinsic: 226/187/183 ps at 5/7/9 GeV.
+- DISCOVERY: for DSB1 at 5-7 GeV sigma(diff)/2 EXCEEDS the
+  reference-included width - impossible for independent capillaries ->
+  correlated per-capillary timing (shared shower fluctuations /
+  position quadrupole) that the mean averages down but the diagonal
+  difference does not. Diff/2 = upper bound for high-light channels.
+- DSB1 intrinsic via validated 110 ps subtraction: ~145/137 ps at
+  5/7 GeV; ~75 ps at 9 GeV (from the 133 ps median) - to be confirmed
+  with a downstream reference next beam test.
+- EJ199 intrinsic: 356/285/279 ps at 5/7/9.
+Geometry note for Randy's Q1 added to the how-it-works caption (both
+XCETs upstream; 1-AND-1 coincidence correct).

@@ -63,24 +63,28 @@ void PulseShapes()
 {
   SetRadStyle();
   TProfile *pL = new TProfile("pL","",212,-5.0,79.8);   // 0.4 ns bins: 2 samples/bin, no comb  pL->SetDirectory(nullptr);
-  TProfile *pD = new TProfile("pD","",212,-5.0,79.8);  pD->SetDirectory(nullptr);
-  double rL,tauL,tfL,rD,tauD,tfD;
+  TProfile *pD = new TProfile("pD","",212,-5.0,79.8);
+  TProfile *pE = new TProfile("pE","",212,-5.0,79.8);  pE->SetDirectory(nullptr);  pD->SetDirectory(nullptr);
+  double rL,tauL,tfL,rD,tauD,tfD,rE,tauE,tfE;
   meanShape(27, 50, pL, rL, tauL, tfL);   // LuAG,  -7 GeV
   meanShape(33, 40, pD, rD, tauD, tfD);   // DSB1,  -7 GeV
+  meanShape(42, 40, pE, rE, tauE, tfE);   // EJ199, -7 GeV
   TCanvas c("c","c",1500,950);
   TH1F *fr = gPad->DrawFrame(-5, -0.04, 79.8, 1.32,
     ";time from pulse peak [ns];amplitude / peak");
   pL->SetLineColor(rad::cRed());  pL->SetLineWidth(4);
   pD->SetLineColor(rad::cTeal()); pD->SetLineWidth(4);
-  pL->Draw("hist same L"); pD->Draw("hist same L");
-  TLegend *l = new TLegend(0.34,0.58,0.93,0.80); l->SetBorderSize(0); l->SetTextFont(43); l->SetTextSize(24);
+  pE->SetLineColor(rad::cAmber()); pE->SetLineWidth(4);
+  pL->Draw("hist same L"); pD->Draw("hist same L"); pE->Draw("hist same L");
+  TLegend *l = new TLegend(0.34,0.52,0.93,0.80); l->SetBorderSize(0); l->SetTextFont(43); l->SetTextSize(24);
   l->AddEntry(pD, Form("DSB1:  tail #tau = %.0f ns,  %.0f%% of light after 8 ns", tauD, 100*tfD), "l");
   l->AddEntry(pL, Form("LuAG:  tail #tau = %.0f ns,  %.0f%% of light after 8 ns", tauL, 100*tfL), "l");
+  l->AddEntry(pE, Form("EJ199: tail #tau = %.0f ns,  %.0f%% of light after 8 ns", tauE, 100*tfE), "l");
   l->Draw();
   TLatex tx; tx.SetNDC(); tx.SetTextFont(43);
-  tx.SetTextSize(30); tx.DrawLatex(0.13,0.945,"Mean tagged-electron pulse shape, high-gain SiPM channels");
+  tx.SetTextSize(30); tx.DrawLatex(0.13,0.945,"Mean tagged-electron pulse shape by capillary channel");
   tx.SetTextSize(21); tx.SetTextColor(rad::cGrey());
-  tx.DrawLatex(0.13,0.865,"identical rise (4.4 ns, readout-limited) #upoint same #minus7 GeV beam, same readout (LuAG run 27 / DSB1 run 33) #upoint unclipped pulses, peak-aligned, peak-normalized");
+  tx.DrawLatex(0.13,0.865,"same #minus7 GeV beam, same LYSO:Ce tiles, same readout (runs 27/33/42) #upoint unclipped, peak-aligned, peak-normalized");
   gSystem->mkdir("Output/summary", true);
   c.SaveAs("Output/summary/PulseShapes.png");
   gSystem->Exit(0);

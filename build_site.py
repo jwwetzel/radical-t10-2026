@@ -50,7 +50,7 @@ MODULES = {
             "tag": "DSB:Ce glass fibers", "runs":
             ["r31","r32","r33","r34","r35","r36","r37","r38"]},
   "ej199": {"title": "EJ199", "page": "ej199.html",
-            "tag": "mismatched WLS — the finding", "runs": ["r39","r40","r41"]},
+            "tag": "mismatched WLS — the finding", "runs": ["r39","r40","r41","r42","r43","r44"]},
 }
 
 EXTRA_CSS = """
@@ -196,8 +196,8 @@ ej_intro = ('<div class="card"><p><b>This page is the EJ199 module&rsquo;s recor
  'contaminant (seen in fiber testing at Notre Dame) responding to the 425 nm tile light.</p></div>')
 ej_scan = f'''  <div class="runhead">
     <h1>EJ199 energy scan — the mismatched shifter that shouldn&rsquo;t respond, but does</h1>
-    <div class="sub">Runs 39&ndash;41, Aug 30 &middot; +1/+3/+5 GeV &middot; single ~0.4 bar XCET fill (e-only at all three) &middot; negative points next</div>
-    <div class="chips"><span class="chip">3 energies</span><span class="chip">~60k events</span>
+    <div class="sub">Runs 39&ndash;44, Aug 30 &middot; full 1&ndash;11 GeV scan &middot; *11 GeV purity caveat as for the other modules</div>
+    <div class="chips"><span class="chip">6 energies</span><span class="chip">~120k events</span>
     <span class="chip">mismatched WLS — responds anyway</span><span class="pill info">contaminant hypothesis supported</span></div>
   </div>
   <div class="card">
@@ -209,6 +209,9 @@ ej_scan = f'''  <div class="runhead">
       <tr><td>1</td><td class="t">39</td><td>20,000</td><td>9,240</td><td>ridge-merged</td><td>&mdash;</td><td class="num">1269 &plusmn; 21</td><td class="num"><b>1367 &plusmn; 24</b></td></tr>
       <tr><td>3</td><td class="t">40</td><td>20,000</td><td>3,407</td><td class="num">1354 &plusmn; 42</td><td>74.7%</td><td class="num">639 &plusmn; 13</td><td class="num"><b>626 &plusmn; 13</b></td></tr>
       <tr><td>5</td><td class="t">41</td><td>20,000</td><td>812</td><td class="num">2740 &plusmn; 74</td><td>44.9%</td><td class="num">405 &plusmn; 18</td><td class="num"><b>380 &plusmn; 18</b></td></tr>
+      <tr><td>7</td><td class="t">42</td><td>20,000</td><td>917</td><td class="num">4658 &plusmn; 97</td><td>38.2%</td><td class="num">311 &plusmn; 12</td><td class="num"><b>278 &plusmn; 10</b></td></tr>
+      <tr><td>9</td><td class="t">43</td><td>20,000</td><td>525</td><td class="num">5704 &plusmn; 159</td><td>38.3%</td><td class="num">257 &plusmn; 21</td><td class="num"><b>249 &plusmn; 17</b></td></tr>
+      <tr><td>11*</td><td class="t">44</td><td>20,000</td><td>202</td><td class="t">fit unstable (low stats)</td><td>&mdash;</td><td class="num">385 &plusmn; 69</td><td class="num"><b>266 &plusmn; 37</b></td></tr>
     </table></div>
     <p>Response ~<span class="num">550 ADC-eq/GeV</span> — the dimmest module (LuAG ~620, DSB1 ~1,350) — and timing
     ~1.7&times; slower than LuAG at 5 GeV, with the trend fitting pure photostatistics
@@ -266,9 +269,32 @@ index_sec = f'''<section data-content="summary">
     hard electrons — see &ldquo;11 GeV on trial&rdquo; below.</figcaption></figure>
   </div>
 
+  <div class="card" id="sec-intrinsic"><h4>Reference-free timing — Randy&rsquo;s diagonal difference</h4>
+    <p>Every published &sigma;_t includes the MCP+DRS reference jitter. The diagonal-pair estimator — average
+    capillaries NW+SE and NE+SW separately, subtract — cancels the reference event-by-event; for independent
+    capillaries, &sigma;(diff)/2 is the intrinsic 4-capillary resolution. Applied to all 18 scan runs:</p>
+    <div class="tblwrap"><table>
+      <tr><th>E [GeV]</th><th colspan="2">LuAG: incl-ref &rarr; intrinsic</th><th colspan="2">DSB1</th><th colspan="2">EJ199</th></tr>
+      <tr><td>5</td><td class="num">251</td><td class="num"><b>226</b></td><td class="num">182</td><td class="num"><b>&le;187</b></td><td class="num">405</td><td class="num"><b>356</b></td></tr>
+      <tr><td>7</td><td class="num">216</td><td class="num"><b>187</b></td><td class="num">176</td><td class="num"><b>&le;198</b></td><td class="num">349</td><td class="num"><b>285</b></td></tr>
+      <tr><td>9</td><td class="num">215</td><td class="num"><b>183</b></td><td class="num" colspan="2">(daytime-noise run)</td><td class="num">303</td><td class="num"><b>279</b></td></tr>
+    </table></div>
+    <p><b>Validation:</b> for LuAG the implied reference jitter comes out at <span class="num">107&ndash;114 ps,
+    energy-independent from 5&ndash;9 GeV</span> — matching the independently measured ~105 ps DRS inter-group +
+    MCP budget. The method works. <b>And it found something:</b> for DSB1 at 5&ndash;7 GeV,
+    &sigma;(diff)/2 slightly <em>exceeds</em> the reference-included width — impossible for independent
+    capillaries — revealing correlated per-capillary timing terms (shared shower fluctuations / position
+    quadrupole) that the 4-capillary mean averages down but the diagonal difference does not. For the
+    high-light channel the diagonal estimate is therefore an upper bound; subtracting the validated 110 ps
+    reference instead gives DSB1 intrinsic estimates of <span class="num">~145 ps at 5 GeV, ~137 ps at 7 GeV,
+    and ~75 ps at 9 GeV</span> (from the 133 ps median) — the last to be confirmed with the downstream
+    reference planned for the next beam test, exactly the &ldquo;rich man&rsquo;s version&rdquo; of this estimator.</p></div>
+
   <div class="card" id="sec-how"><h4>How the measurement works — one real event</h4>
-    <figure><img src="{how}" alt="Annotated tagged-electron event in four steps"><figcaption>A single 5 GeV electron
-    from LuAG run 15, in four steps: the two Cherenkov counters identify it, the MCP timestamps it, the four
+    <figure><img src="{how}" alt="Annotated tagged-electron event in four steps"><figcaption><b>Both Cherenkov counters are beamline
+    elements upstream of the module</b> (XCET040 ends at 39.7 m, XCET043 just behind it; the module sits in the
+    zone beyond ~45 m) — the electron radiates in both, then showers and dies in the module, which is why the
+    two-counter coincidence works. Shown: mean waveforms over 704 tagged 5 GeV electrons from LuAG run 15, in four steps: the two Cherenkov counters identify it, the MCP timestamps it, the four
     low-gain channels measure the shower energy, and the high-gain copy&rsquo;s threshold crossing gives the
     per-capillary time. The shower time is the median of the four capillaries.</figcaption></figure></div>
 
@@ -291,7 +317,7 @@ index_sec = f'''<section data-content="summary">
     efficiently per shower GeV than LuAG while collecting less per crossing MIP — a ~3.5&times; difference in
     response-per-MIP between the two channels.
     An absolute photoelectron scale (dark-pulse calibration) is possible from existing data and planned.</p>
-    <figure><img src="{pulse}" alt="Mean pulse shape per material"><figcaption><b>Why DSB1 is faster.</b>
+    <figure><img src="{pulse}" alt="Mean pulse shape per material"><figcaption><b>The three collection channels, same beam, same tiles.</b> EJ199&rsquo;s 6.5 ns tail — between DSB1&rsquo;s 4.9 and LuAG&rsquo;s 12.5 — is the bench-comparable fingerprint for the contaminant question.
     Mean tagged-electron pulse on the same &minus;7 GeV beam: identical readout-limited 4.4 ns rise, but LuAG&rsquo;s
     scintillation tail (&tau; &asymp; 12.5 ns, 32% of light after 8 ns) is nearly three times longer than DSB1&rsquo;s
     (&tau; &asymp; 4.9 ns, 16%). Less late light &rarr; a smaller timing constant term.</figcaption></figure></div>
@@ -357,6 +383,7 @@ index_sec = f'''<section data-content="summary">
 SUMMARY_TOC = [
   ("sec-tested",      "What we tested",   "modules · beam · readout"),
   ("sec-headline",    "The headline",     "timing vs energy"),
+  ("sec-intrinsic",   "Intrinsic timing", "the reference removed"),
   ("sec-how",         "How it works",     "one event, four steps"),
   ("sec-materials",   "Materials",        "light · speed · pulse shape"),
   ("sec-beam",        "The T10 beam",     "in-situ composition"),

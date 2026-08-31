@@ -94,14 +94,14 @@ void EnergyScanEJ199()
     fflush(sum); fflush(stdout);
   };
 
-  const int NP = 3;  // EJ199 positive-beam points; negative points join later  // timing computed BOTH ways: mean (original) and median (robust) — diffed in the summary
-  int runs[NP] = {39, 40, 41};
-  double E[NP] = {1.0, 3.0, 5.0};
+  const int NP = 6;  // full EJ199 scan  // timing computed BOTH ways: mean (original) and median (robust) — diffed in the summary
+  int runs[NP] = {39, 40, 41, 42, 43, 44};
+  double E[NP] = {1.0, 3.0, 5.0, 7.0, 9.0, 11.0};
   // XCET tag threshold per point: at 7 GeV the counters run at 0.21 bar
   // (~5 pe) and the electron spectrum sits at 40-200 ADC-eq — a 150 cut
   // throws away ~5x the electrons (measured with XCETCheck.C).
-  double cthr[NP] = {100, 100, 100};  // per XCETCheck scans  // on-plateau per XCETCheck (9 GeV: ~3 pe, threshold floor)
-  int cols[NP] = {rad::cTeal(), rad::cAmber(), rad::cRed()};
+  double cthr[NP] = {100, 100, 100, 40, 40, 40};  // per XCETCheck scans  // on-plateau per XCETCheck (9 GeV: ~3 pe, threshold floor)
+  int cols[NP] = {rad::cTeal(), rad::cAmber(), rad::cRed(), rad::cBlue(), rad::cInk(), rad::cViolet()};
   double pkE[NP], pkEe[NP], sgE[NP], sgEe[NP], tS[NP], tSe[NP], tSM[NP], tSMe[NP];
   long nE[NP];
   TH1F *hS[NP];
@@ -151,7 +151,7 @@ void EnergyScanEJ199()
     hS[ip]->SetDirectory(nullptr);          // survive f->Close(): the crash was a use-after-free here
     std::vector<double> dtA;
     long nOnMod = 0;
-    static const double SMIN_OV[NP] = {0, 500, 1200};  // containment floors from the measured EJ199 spectra (response ~490 ADC-eq/GeV)
+    static const double SMIN_OV[NP] = {0, 500, 1200, 1700, 2200, 2500};  // floors ~45% of expected peak (~500 ADC-eq/GeV response)
     const double SMIN = SMIN_OV[ip] > 0 ? SMIN_OV[ip] : 60.0 * E[ip] + 120;    // miss/noise floor, scales mildly
     for (Long64_t i = 0; i < nEnt; ++i) {
       if (i % 2000 == 0) { printf("  [%d GeV] pass2 %lld/%lld\n", (int)E[ip], i, nEnt); fflush(stdout); }
@@ -283,7 +283,7 @@ void EnergyScanEJ199()
   lgt->AddEntry(gm, "mean of capillaries", "p");
   lgt->Draw();
   // closed-form a/sqrt(E) (+) b from the MEDIAN 1 and 9 GeV points
-  const int IA = 1, IB = 2;  // 3&5 GeV anchors (only positive points so far)  // 1&9 GeV anchors, fixed regardless of NP
+  const int IA = 1, IB = 4;  // 3&9 GeV anchors, matching the other modules  // 1&9 GeV anchors, fixed regardless of NP
   double a2 = (tSM[IA]*tSM[IA] - tSM[IB]*tSM[IB]) * E[IA]*E[IB] / (E[IB]-E[IA]);
   double b2 = tSM[IB]*tSM[IB] - a2/E[IB];
   TF1 *ft = new TF1("ft","sqrt([0]*[0]/x+[1]*[1])",0.5,12);

@@ -299,6 +299,45 @@
       "ended_utc": "2026-08-30T11:11:08Z",
       "purpose": "EJ199 module scan, 5 GeV",
       "notes": "XCETs ~0.4 bar (single setting, e-only at +1/+3/+5). MODULE NOTE (corrected 2026-08-31): module is the standard shashlik W/LYSO:Ce tile stack; only the capillary set changes between campaigns. EJ-199 WLS absorption is tuned for LuO:Yb - spectrally mismatched to the LYSO:Ce 425 nm emission BY SPEC, so a to-spec EJ-199 should be nearly blind here. The observed response (~550 ADC-eq/GeV, slow) is in-beam support for the suspected Eljen contaminant (Notre Dame fiber testing) responding at 425 nm. Tag plateau 5.6% (1,121 e). Miss 12.0%. Peak ~2440 => ~490 ADC-eq/GeV (dimmest module). t-med 432+/-17 ps."
+    },
+    {
+      "run_number": 42,
+      "run_name": "EJ199_7GEV",
+      "file": "data/DATA/EJ199_7GEV-2026-08-30-131333/run_42.root",
+      "tree": "pulse",
+      "events": 20000,
+      "beam": "CERN T10, -7 GeV",
+      "crystal": "EJ199 capillaries in LYSO:Ce/W shashlik",
+      "started_utc": "2026-08-30T11:13:33Z",
+      "ended_utc": "2026-08-30T11:41:10Z",
+      "purpose": "EJ199 scan, 7 GeV",
+      "notes": "XCETs 0.21 bar. Tag 7.77% at thr 40 (1,554 e). Mean timing 347+/-14 ps."
+    },
+    {
+      "run_number": 43,
+      "run_name": "EJ199_9GEV",
+      "file": "data/DATA/EJ199_9GEV-2026-08-30-134259/run_43.root",
+      "tree": "pulse",
+      "events": 20000,
+      "beam": "CERN T10, -9 GeV",
+      "crystal": "EJ199 capillaries in LYSO:Ce/W shashlik",
+      "started_utc": "2026-08-30T11:42:59Z",
+      "ended_utc": "2026-08-30T14:37:13Z",
+      "purpose": "EJ199 scan, 9 GeV",
+      "notes": "XCETs ~0.150 bar. Tag 5.17% at thr 40 (1,034 e). Mean timing 325+/-23 ps. Long wall-clock (2.9 h for 20k)."
+    },
+    {
+      "run_number": 44,
+      "run_name": "EJ199_11GEV",
+      "file": "data/DATA/EJ199_11GEV-2026-08-30-164404/run_44.root",
+      "tree": "pulse",
+      "events": 20000,
+      "beam": "CERN T10, -11 GeV",
+      "crystal": "EJ199 capillaries in LYSO:Ce/W shashlik",
+      "started_utc": "2026-08-30T14:44:04Z",
+      "ended_utc": "2026-08-30T15:42:32Z",
+      "purpose": "EJ199 scan, 11 GeV",
+      "notes": "XCETs at the agreed raised 0.089 bar setting. Tag 2.48% at thr 40 (496; LuAG/DSB1 at 0.06 bar: 2.17/2.37% - modest efficiency gain). 11 GeV purity caveat applies as for the other modules."
     }
   ]
 }
