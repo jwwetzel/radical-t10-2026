@@ -41,7 +41,7 @@
         "xcet_nominal_bar": "0.4",
         "source": "operator run manifest (runs/RunManifest_operator.csv); DAQ experiment blocks absent for this era"
       },
-      "sipm_bias_note": "28 V (operator manifest); raised to 29 V from run 13 onward per manifest — NOTE: conflicts with the earlier '+1 V at run 15' attribution of the run-14-to-15 MIP jump; unresolved, see FINDINGS"
+      "sipm_bias_note": "28 V. RESOLVED (CodiMD logbook, Aug 28 entry): bias raised 28->29 V on the morning of Aug 28, i.e. from run 13 onward - the manifest was right."
     },
     {
       "run_number": 14,
@@ -75,7 +75,7 @@
       "ended_utc": "2026-08-28T13:47:39Z",
       "purpose": "First 20k production run at 5 GeV, position same as run 14",
       "notes": "COMPLETE: 20,000 events, zero event-number gaps. QC clean (QCv2.C): all channels healthy, HG clipping in beam events 0.2-0.6% (was 1-12% in run 12 - offset fix worked), Cherenkov coincidence 9.08% (1,816 e). MIP MPVs 329-404 ADC-eq (+25% vs run 14: SiPM bias raised +1 V on all LG and HG channels for this run - FINAL operating point for the campaign; run-15 MIPs are the reference calibration). ALIGNMENT: miss 7.9+/-0.6%; residual offset now significant: bottom/top 1.255+/-0.014, left/right 0.909+/-0.010 => beam ~2-3 mm low, ~1 mm right of module center. NEW: centered beam produces a real electron response peak in SumLG: mean 2992+/-36, sigma/E = 33.6+/-1.4% (position-smearing dominated; run-12 edge bound says intrinsic ~10%). Green light for energy scan with geometry/gains frozen.",
-      "bias_note": "CONFLICT, unresolved: campaign log attributed the run-14-to-15 MIP jump (+25%) to a '+1 V bias step at run 15'; the operator manifest instead records 28 V only for pre-run-13 and 29 V from run 13 onward (runs 14 and 15 both 29 V). If the manifest is right, the 14-to-15 MIP jump needs another explanation. See FINDINGS 2026-08-31.",
+      "bias_note": "RESOLVED (CodiMD logbook): bias was already 29 V from run 13 - runs 14 and 15 ran at the SAME bias, so the '+1 V at run 15' attribution of the run-14-to-15 MIP jump was wrong. Leading explanation for the +25% MPV shift: run 14 had only 1,000 events (~200 off-coincidence MIPs per channel) - a low-statistics Landau-fit artifact, not a gain change. Run-15 MIPs remain the campaign reference.",
       "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)",
       "beam_file": "T10 RADiCAL 002",
       "conditions": {
@@ -542,14 +542,15 @@
       "beam": "CERN T10, 5 GeV",
       "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik",
       "purpose": "Alignment discovery run",
-      "notes": "Operator manifest: found MCP and RADiCAL module misaligned; stand y shifted by -7 mm afterwards. SiPM bias 29 V (first run at the raised bias per manifest). XCETs 0.4 bar nominal, beam file T10 RADiCAL 002."
+      "notes": "Operator manifest: found MCP and RADiCAL module misaligned; stand y shifted by -7 mm afterwards. SiPM bias 29 V (first run at the raised bias per manifest). XCETs 0.4 bar nominal, beam file T10 RADiCAL 002. Logbook: stand position photos before/after; bias 29 V from this run (the 28->29 V step, logbook Aug 28)."
     }
   ],
   "module_architecture": "Shashlik calorimeter: alternating tungsten + LYSO:Ce tile layers (FIXED all campaign), sampled at shower max by an interchangeable 2x2 capillary set (14x14 mm face) = the light-collection channel. Campaigns differ ONLY in the capillary set: LuAG:Ce fibers (runs 12-30), DSB:Ce glass (31-38), EJ-199 WLS (39-44). Both XCET threshold Cherenkovs are beamline elements UPSTREAM of the module.",
   "unregistered_runs": {
-    "pre-12 (RUN_LUAG-2026-08-27-180136)": "10,000 ev at 5 GeV, 28 V bias - Cherenkov/scint counters NOT yet cabled (channels 0-3 empty); commissioning only (operator manifest)",
-    "1-11": "commissioning / DAQ numbering ramp-up, not analyzed",
-    "16-21": "no data files exist under these numbers - still unexplained (not in the operator manifest either)"
+    "1-9": "DAQ numbering ramp-up / commissioning attempts Aug 25-27 (logbook)",
+    "10": "10,000 ev, 10 GeV pions, upstream-card-only (Aug 27, logbook: 'run #10 in file system') - not in local dataset",
+    "11 (probable = RUN_LUAG-2026-08-27-180136)": "10,000 ev at 5 GeV, 28 V, Cherenkov/scint not yet cabled (manifest)",
+    "16-21": "probable short DAQ/trigger-threshold test starts, Aug 28 afternoon between run 15 (ended 13:47Z) and run 22 (~16:05Z) - the logbook records threshold + USB-adapter work in that window (80->500 ev/spill); files not kept. INFERENCE - operator confirmation still welcome"
   },
   "derived_files": {
     "run_2223.root": "hadd of runs 22+23 (2,263 ev) - MCP threshold study",
@@ -558,5 +559,14 @@
     "run_9001.root": "run 28 (all 6,028) + run 29 DQ-good slices (entries 0-10k, 20-25k, 30-35k; 26,028 ev total) - LuAG 9 GeV scan point",
     "run_29good.root": "run 29 DQ-good slices alone (20,000 ev) - intermediate product of run_9001",
     "generator": "macros/MakeMergedRuns.C reproduces all five"
+  },
+  "hardware_log": {
+    "capillary_incident": "Aug 25: one of the 4 corner timing capillaries (T115) broke during installation; replaced with spare T114 ('brightest of the remaining') - WHICH capillary configuration this belongs to needs James's confirmation",
+    "hv_supply": "iseg CEP-0582 (rented from CERN electronics pool Aug 26 after original supplies failing)",
+    "mcp_note": "MCP appeared unable to reach 3000 V on Aug 26 - fix was raising the current limit to 0.15 mA, not a broken MCP",
+    "downstream_card": "connector desoldered and replaced with wires Aug 27; channels 9 & 11 still unstable afterwards - downstream card excluded from the campaign",
+    "stand_position": "moved before run 13 (y -7 mm after run-13 alignment discovery); runs <=12 and >=14 have different stand positions (photos in CodiMD logbook)",
+    "rate_history": "Aug 28: USB3 adapter (Konet 25511) + lowered trigger threshold took rates from ~80 to ~500 events/spill",
+    "source": "runs/Logbook_CodiMD_extracted.txt (CodiMD shift log; original PDF with photos in James's Downloads)"
   }
 }

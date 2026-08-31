@@ -754,3 +754,26 @@ separately. Consequences:
 - Run 37: 0.400/0.405; run 42: 0.225/0.220; run 43: 0.152/0.156.
 Remaining open items: the bias-timeline conflict (28->29 V at run 13
 per manifest vs '+1 V at run 15' in the log), and runs 16-21.
+
+## CodiMD shift log ingested (runs/Logbook_CodiMD_extracted.txt, 2026-08-31)
+
+BIAS CONFLICT RESOLVED: logbook Aug 28 entry states the SiPM bias was
+raised 28 -> 29 V that morning, all runs from then on at 29 V. So the
+step came at RUN 13, the manifest was right, and the campaign log's
+"+1 V at run 15" attribution was WRONG. The run-14->15 MIP MPV shift
+(+25%) at CONSTANT bias is most plausibly a low-statistics fit artifact
+(run 14 = 1,000 events => ~200 off-coincidence MIPs/channel). Run-15
+MIPs remain the reference; nothing downstream changes (all scan points
+use per-run calibration).
+
+RUN-NUMBER GAPS closed (mostly): runs 1-9 commissioning; run 10 = 10 GeV
+pion upstream-only 10k (Aug 27, not in local data); run 11 probably the
+manifest's unnumbered 5 GeV 10k (counters uncabled); 16-21 = probable
+trigger-threshold/USB test starts Aug 28 afternoon (logbook records that
+work in exactly that window; 80 -> 500 ev/spill) - inference, flagged.
+
+HARDWARE PROVENANCE: T115 corner timing capillary broke at installation
+(Aug 25), replaced with spare T114 (question for James: which set?);
+iseg CEP-0582 HV supply rented Aug 26; "broken" MCP was a 0.15 mA
+current-limit setting; downstream-card connector rewired Aug 27 but
+chs 9 & 11 remained unstable -> card excluded.

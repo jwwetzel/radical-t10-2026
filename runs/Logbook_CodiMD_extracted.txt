@@ -1,0 +1,144 @@
+RADiCAL Aug-2026 T10 TB
+
+25 Aug 2026
+
+  Safety inspection is done!
+
+  We installed the 4 corner timing capillaries. We accidentally broke one, which was
+  the T115 timing capillary. We then replaced it with the T114 timing capillary that we
+  brought as a spare, since it was the brightest of the remaining capillaries.
+
+  The capillary that broke (not the broken one, this is the replacement):
+26 Aug 2026
+
+  Since the power supplies we had seemed to be failing, we rented a new one from
+  the electronics pool. The part ID is CEP-0582 manufactured by iseg High Voltage.
+  link to part here. (https://epool.cern.ch/catalog?
+  filter=%7B%22code%22%3A%220582%22%7D&equipmentTypeCode=CEP-0582)
+
+
+  We thought the MCP was broken since it wouldn’t go up to the required 3000
+  volts, but we just had to raise the current limit to .15 mA
+
+  For CESAR beam finding (downstream card used):
+       LG DRS1 (top left) --> cable #25, B19
+       LG DRS3 (bottom left)–> cable #24, B18
+       LG DRS0 (top right) --> cable #22, B17
+       MCP --> B10
+
+  Approximate location of DESY table when we took the beam scan:
+
+
+
+
+        USERKEY OFF                HORIZONTAL                        VERTICAL
+
+
+                                     13.319 Cm                          :952 On
+                                   Rubler                          KubleFen
+                   ON          ll
+                           Towa RIGGCO          TT。 HLT            "냄"포지선 손
+      MASTERKEY
+  ⼈
+                  Master
+                                                                                      LPr은 태이
+                    OFF                                                               올린다방
+
+                  Master+User         FAST                 Downi       FAST     uPf
+
+
+                                MaximumVoltage5kV
+         A03            A04       A05        A06          A07        A08        A09      A10
+
+  Discovered
+         A13 that the
+                    A14electronic card connectors
+                                A15       A16 on the
+                                                  A17RADiCAL module have
+                                                           A18       A19some A20
+  issues. Not getting output from all channels
+
+
+Aug 27 2026
+To address the connector issue, we completely desoldered the connector and
+replaced it with wires:
+
+
+
+
+However, even with the connector replaced with just wires, channels 9 & 11 still do
+not have a stable output
+
+Recorded a 10,000 event run with 10 GeV pions, but the beam still has a bunch of
+different particles in it. This is an upstream-card-only run (run #10 in file system).
+
+We decided to recorded a 25,000 event run with 5 GeV pions, and the beam had a
+bunch of different particles in it again. We chose to replace the downstream card
+channels in the CAEN module with the Cherenkov & scintillator detectors to enable
+electron-event selection later on. This is an upstream-card-only run (run12.root in
+the file system).
+
+    Replaced inputs in the CAEN module: DRS0 --> 40 (cherenkov counter), DRS1
+    --> 43 (cherenkov counter), DRS2 --> 36 (scintillator counter), DRS3 --> 44
+    (scintillator counter). The other downstream-card inputs were just unplugged
+    from the CAEN module
+    Main goal is now to compare the capillaries to one another at a low GeV
+
+         Trying to extrapolate to higher energies
+
+    Run plan: 10,000 events per run, in steps (of ?) up to 6 GeV (since electron density
+    in beam composition decreases significantly as GeV increases. ~5% electroncs
+    already at 6 GeV).
+
+
+Aug 28 2026
+The Test Beam spreadsheet can be accessed anytime at this link.
+(https://docs.google.com/spreadsheets/d/1S6e6wayFtsbnf4uxGnrZjy_YHCZYjfZiCfzo22dxEZs/edit?
+usp=sharing)
+
+
+    SiPM bias voltage was raised by 1 volt from 28 volts to 29 volts. All runs, starting
+    today, have 29 volts for SiPM bias unless otherwise indicated. Run-by-run records
+    are located in the spreadsheet above
+
+    to do:
+
+         measure multiple capillary configuarations
+         check SiPM bias level (looks like we can increase the bias voltage as things
+         stand now)
+         check if there is an optical contact between the SiPMs and the capillaries!!!
+         check the downstream board with thermal camera
+
+    Seems like we only need ~20,000 events for results to be statistically significant
+Stand location for runs BEFORE RUN_LUAG_GeV-2026-08-27-115303 (run 13) on
+8/28/2026:
+Stand location for runs RUN_LUAG_GeV-2026-08-27-125507 (run 14) and AFTER:
+
+
+
+
+Run plan:
+      2.5 hours per run, running over 24 hours for 2 days, 5 GeV beam, all capillary
+      configurations ⟹ ~19 available runs (48/2.5)
+      2 types of capillaries: LuAG and DSB1
+      4 – 7 – 10 – 1 shifts (4 pm to 7 pm, 7 pm to 10 pm)
+      plan:
+          LuAG: 5 GeV gets done @ 4 pm, so 4 pm --> 1 GeV, 7 pm --> 3 GeV then
+          switch capillaries to DSB1
+          DSB1: 10 pm --> 5 GeV, 1 am --> 3 GeV, 4 am --> 1 GeV, and then do more
+          tomorrow
+
+
+
+
+  USB to USB3 adapter: Konet PID 25511
+
+  USB adapter and lowering the threshold to trigger an event significantly increased
+  the rate of events/spill, going from ~80/spill to ~500/spill
+
+
+Aug 29 2026
+
+  finished running data up to 11 GeV on LuAG—swapped to DSB1 capillaries (details
+  outlined in spreadsheet)
+
