@@ -376,3 +376,40 @@ Also structural, already documented but with engineering consequences: no tracke
 **Open questions:** What is DSB:Ce glass's induced absorption and timing performance after 0.1-1 MGy gamma and 1e15-1e16 neq/cm^2 — and does LuAG:Ce overtake it post-irradiation? (Gates the channel down-select; nothing in this campaign informs it.) • Where do the SiPMs sit in the real module geometry, what lifetime dose/fluence do they see, and what is the cooling + annealing plan for the photodetector plane given dark-current growth already visible from bias raises alone (lines 252-254)? • What is the absolute photoelectron yield per GeV for the DSB1 channel (dark-pulse calibration 'planned', index.html), and hence the SiPM pixel-count budget for linearity at 100-500 GeV shower-max light — x30-100 today's maximum? • What front-end architecture replaces the DRS4 — TOA/TOT ASIC vs on-chip CFD — and what clock-distribution jitter budget preserves a <100 ps constant term across 1e5-1e6 channels? • Is the DSB1 correlated per-capillary timing physical (shower fluctuations / position quadrupole) or instrumental (common-mode in the digitizer group)? A downstream independent time reference plus channel-shuffled cabling would separate them. • Can the ~75 ps DSB1 figure at 9 GeV be confirmed with a reference whose jitter is well below it (the log's own to-confirm item, line 669) — e.g., a second MCP downstream on an independent digitizer? • What are capillary fabrication yield, unit cost, and assembly time — and does the correlated-timing finding allow fewer timing channels per module without performance loss? • What beam program covers the actual operating point — SPS H2/H4 for 50-300 GeV (dynamic range, saturation, containment with a matrix of modules) and a tracker for intrinsic sigma/E — since T10 has delivered what it can at 1-11 GeV?
 
 **Recommendation:** Proceed to the next phase — the DSB:Ce timing result earns it — but gate the program on engineering, not more T10 statistics. Concretely, in priority order: (1) Launch the irradiation campaign NOW (gamma + hadron, on real capillary assemblies including couplings and SiPMs, for both DSB:Ce and LuAG:Ce): it is the longest-lead, highest-leverage item and it, not this beam test, decides the channel down-select for a rad-hard calorimeter. (2) Before any further beam time, install the minimum monitoring plane the log itself prescribes (line 493-494): per-channel/board temperature logging, an LED/laser pulser, light-tight enclosure verification, and frozen bias with compensation — otherwise the next campaign inherits the same +/-15% linearity ceiling. (3) Next beam test must carry a downstream independent time reference (to confirm ~75 ps and resolve the capillary-correlation question) and impact-position tagging (tracker) to finally measure intrinsic sigma/E; both are prerequisites for publishable system numbers, not upgrades. (4) Produce a dynamic-range design note — pe/GeV from the planned dark-pulse calibration, pixel budget, front-end range split — targeted at 300 GeV showers, and identify the front-end ASIC candidate and clock-distribution scheme that replace the DRS4; without these the timing result does not transfer to any real detector. (5) Institute per-batch incoming-materials bench QA (absorption/emission + decay-time fingerprint) as a standing rule — the EJ-199 episode should be the last time a beam test discovers a supply-chain defect. Classify the present result honestly in the paper: a TRL 3-4 validation of an interchangeable light-collection channel at shower max, with system-level readiness (radiation, monitoring, range, DAQ, cost) still ahead of, not behind, the collaboration.
+
+---
+
+## Addendum — Lens 1 (continued): Pipeline reproducibility audit (14th reviewer)
+
+Summary: the two-stage HTML pipeline is clever but structurally fragile, with one CONFIRMED
+LIVE CORRUPTION BUG and drift already live on the public index page.
+
+- **[F1 CRITICAL]** build_runbook.py's section-matching regex omits the `hidden` attribute its own
+  insertion code writes → every rebuild silently duplicates every post-run-30 run's sidebar button and
+  appends an empty duplicate section (run 30 now exists 5x in the store; r31-36 4x; r37/38 3x; r39-41 2x).
+  Worse: the "stage-4 notes preserved verbatim" contract is FALSE for all runs added via the "new"
+  template — their notes are silently re-stamped from the Python dict on every rebuild (two invisible
+  authority regimes: legacy runs store-authoritative, r30+ dict-authoritative).
+  FIX: match `[^>]*>` at build_runbook.py:317; one-time dedup pass; end-of-build invariant assert.
+- **[F2 CRITICAL]** Headline numbers hand-typed in 5+ places (DSB1 133±5 ps lives in ≥8 in-repo
+  locations); LIVE DRIFT on the published index: "~300k events", "two modules fully analyzed",
+  "EJ199 negative points next", "EJ199 scan (today)" — all contradicting ej199.html on the same site.
+  FIX: parse Output/scan_*/*_summary.txt as the single source; consistency check in the build.
+- **[F3 MAJOR]** build_site.py:410 hardcodes the ephemeral Claude-session scratchpad path for the
+  artifact variant — FileNotFoundError on any other machine/fresh clone (after pages written: half-success).
+- **[F4 MAJOR]** README + build_runbook.py docstring still instruct the PRE-SPLIT publish flow
+  (`cp run_summary.html docs/index.html`) which today would clobber the live summary page with the
+  19.5 MB internal store. No dependency documentation (Pillow, ROOT).
+- **[F5 MAJOR]** Repo bloat: .git already 178 MB; 237 MB of history is generated base64 HTML;
+  ~40 MB added per publish cycle. FIX: track only docs/, later publish images as files not data-URIs.
+- **[F6 MINOR]** docs/run_summary.html (14.5 MB, Aug 30) is a stale orphan STILL SERVED on the public
+  site with outdated results; nothing links it; build never refreshes it. FIX: git rm.
+- **[F7 MINOR]** Silent-loss patterns: legacy harvest drops figures/headings; missing PNGs skip with
+  console print only; CSS guard tests the whole document for ".stdfig".
+- **[F8 MINOR]** Three disconnected run registries (RUNS dict, MODULES lists, runs.json — which no
+  script reads). FIX: make runs.json authoritative.
+- **[F9 NIT]** Tracked ACLiC temp files; .gitignore gaps.
+
+Fresh-clone verdict: site viewable offline from git, but pipeline NOT reproducible — build_runbook
+injects duplicates, build_site crashes at the artifact step, no macro runnable (data pointer absent).
+Priority: F1 → F3 → F2's live stale statements → F4 → F2 parser → F5/F6 → F7/F8/F9.
