@@ -1,0 +1,117 @@
+{
+ "summary": "Cross-checked FINDINGS.md, the three DiagDiff summaries, the three EnergyScan summaries, runs/runs.json, and all four site pages. The headline numbers (DSB1 133\u00b15/156\u00b18 ps, trends 389/sqrt(E)+138 and 323/sqrt(E)+79, DiagDiff intrinsic table, 11 GeV trial numbers, MIP 4-cap sums ~1480/~920/~1850) are consistent and traceable. But index.html's campaign-state block is badly stale (says ~300k events, two modules analyzed, EJ199 negative points 'next' \u2014 while its own intrinsic-timing and pulse-shape cards already use the completed EJ199 negative-run data, and ej199.html says runs 39-44 / ~120k / full scan). Three LuAG run cards carry superseded numbers that contradict the scan table on the same page (run 24: 1742\u00b130 & 64.7% vs 1686\u00b125 & 54.2%; run 27: 4874\u00b148 & 20.4% vs 4814\u00b151 & 22.5%; runs 28+29: 212\u00b111 'predicts 218' vs 204/189 and the retired 406+171 trend). The T10 guide-table values quoted on run pages (~87% at +1, ~29% at +3) contradict the index beam table (80.6%, 18.0%) and would invert the site's 'more electrons than the tables' headline. ej199.html quotes the stale 3-point trend 1360/sqrt(E) vs the summary file's 1218/sqrt(E). The 2.1x-vs-2.2x DSB1 light ratio (and ~660 vs ~620 LuAG response behind it) is internally inconsistent across index prose, index table, conclusions, and dsb1.html. The index beam-composition ranges exclude all four EJ199 measurements (22.8/5.6/7.77/2.48/5.17%). Minor items: the run-15 electron fraction quoted at the superseded 150 threshold (9.08/9.1% vs the audited 10.0% plateau), dsb1.html claiming 3&9 GeV trend anchors vs the summary's 1&9, the intrinsic-card 'incl-ref' column silently using mean-combination widths beside headline medians, 'EJ199 ~2x slower at every point' (actually 1.3-1.5x at 7-9 GeV), and irreconcilable event-count bookkeeping (index ~168k / luag.html ~141k / registry 184,555 for LuAG; registry total 534,555 also disagrees with the campaign-context ~700k figure).",
+ "findings": [
+  {
+   "item": "index.html campaign-state block stale: EJ199 completion missing",
+   "severity": "critical",
+   "detail": "index.html L144 header stat says '~300k events' and L146 'two modules fully analyzed'; L160 module table says EJ199 'runs 39\u201341 | ~60k | +1/+3/+5 done; negative points next'; L281 Next card says 'EJ199 scan (today)'; the campaign log (L264-266) ends at 'EJ199 up next'. Reality: runs/runs.json registers EJ199 runs 39\u201344 = 120,000 events (total registered 534,555), Output/scan_ej199/EnergyScanEJ199_summary.txt holds the full 6-point scan, and ej199.html L151-152 already says 'Runs 39\u201344 \u00b7 full 1\u201311 GeV scan \u00b7 6 energies | ~120k events'. Worse, index.html is internally contradictory: its intrinsic-timing card (L177-180) uses DiagDiff_EJ199.txt values from the negative runs (285/279 ps at 7/9) and its pulse-shape card (L223) cites EJ199's \u22127 GeV tail \u03c4=6.5 ns \u2014 both from the data the same page says doesn't exist yet. The '~300k' header is off ~1.8x vs the registry and vs the page's own module table (which sums to ~458k even with the stale ~60k).",
+   "fix": "Update index.html: header stats (~535k registered events, three modules analyzed), EJ199 module-table row (39\u201344, ~120k, 6-point scan complete), delete/replace the 'Next: EJ199 scan (today)' card, extend the campaign log through Aug 30\u201331 (EJ199 negative runs, shashlik correction, Randy's estimator).",
+   "already_documented": false
+  },
+  {
+   "item": "luag.html run-24 card contradicts same-page scan table (1742\u00b130 / 64.7% vs 1686\u00b125 / 54.2%)",
+   "severity": "major",
+   "detail": "luag.html run-24 results block quotes '\u03a3LG peak 1742 \u00b1 30 ADC-eq' and '\u03c3/E (position-smeared) 64.7 \u00b1 2.6%'. The current Output/scan/EnergyScan_summary.txt line 2 says peak 1686 \u00b1 25, sigma 914 => \u03c3/E 54.2 \u00b1 1.4% \u2014 and the scan table higher on the SAME page (luag.html scan section) shows 1686 \u00b1 25 / 54.2%. 1742\u00b130 is the retired EnergyScan-v1 value (FINDINGS.md 'Energy scan v1' entry, superseded by the per-energy XCET plateau thresholds); 64.7\u00b12.6% appears in no summary file at all (grep over Output/run_24/*.txt and scan/ finds nothing). The 19%-relative \u03c3/E discrepancy is genuinely misleading. The card's electron count (4,129) IS current \u2014 the card was half-updated.",
+   "fix": "Rebuild the run-24 card numbers from EnergyScan_summary.txt: peak 1686 \u00b1 25, \u03c3/E 54.2 \u00b1 1.4%, and label the 300\u00b16 ps value as t-MEAN (median 274\u00b15).",
+   "already_documented": false
+  },
+  {
+   "item": "luag.html run-27 card contradicts same-page scan table (4874\u00b148 / 20.4% vs 4814\u00b151 / 22.5%)",
+   "severity": "major",
+   "detail": "luag.html run-27 results block quotes '\u03a3LG peak 4874 \u00b1 48 \u2014 on trend' and '\u03c3/E 20.4 \u00b1 1.1% \u2014 best width point of the scan'. Current Output/scan/EnergyScan_summary.txt line 4: peak 4814 \u00b1 51, \u03c3/E 22.5 \u00b1 1.2% \u2014 matching the scan table on the same page (luag.html L173). 4874/20.4 are the 7 GeV recount-era values (FINDINGS.md '7 GeV recount' entry, cthr=50 before the final per-energy threshold audit); 'best width point' is also stale \u2014 in the current scan the best \u03c3/E is 18.5% at 11 GeV (open) or 21.6% (DSB1 7 GeV).",
+   "fix": "Update run-27 card to 4814 \u00b1 51 and 22.5 \u00b1 1.2% and drop/reword 'best width point'.",
+   "already_documented": false
+  },
+  {
+   "item": "luag.html runs-28+29 card quotes superseded 9 GeV timing (212\u00b111, 'predicts 218') vs current 204/189",
+   "severity": "major",
+   "detail": "luag.html runs-28+29 card: 'srCFD shower-time \u03c3 212 \u00b1 11 ps \u2014 trend predicts 218' and verdict 'The 9 GeV point stands (212 \u00b1 11 ps...)'. FINDINGS.md run-30 entry documents the change: after timing was gated on containment at every energy, 9 GeV moved mean 212\u2192204 and median 176\u2192189; Output/scan/EnergyScan_summary.txt line 5 gives t-MEAN 204 \u00b1 11 / t-MEDIAN 189 \u00b1 12, as does the scan table on the same luag.html page (L174). 'Predicts 218' comes from the retired 406/\u221aE \u2295 171 trend; the current trend 389/\u221aE \u2295 138 predicts ~189 (median). The correction is documented in FINDINGS but the run card was never updated.",
+   "fix": "Update the runs-28+29 card to 204 \u00b1 11 (mean) / 189 \u00b1 12 (median), predicted 189 from 389/\u221aE \u2295 138.",
+   "already_documented": false
+  },
+  {
+   "item": "T10 guide-table values contradict each other across pages (+1: 80.6% vs ~87%; +3: 18.0% vs ~29%)",
+   "severity": "major",
+   "detail": "index.html beam-composition table (L234) quotes 'T10 guide tables: +1 80.6%, +3 18.0%, +5 4.1%, \u22127 2.3%'. But luag.html run-25+26 note says 'the 1 GeV beam is ~87% electrons by composition' and the run-24 note says the 23.5% coincidence 'matches the T10 composition table for 3 GeV (~29% e\u207b) times tag efficiency'. Under the index numbers the measured fractions (85.9%, 23.5%) are ABOVE the tables \u2014 the site's headline beam-knowledge claim; under the run-page numbers they are BELOW them and the run-24 note explicitly frames agreement-after-inefficiency. Neither set is traceable to any repo summary file (FINDINGS.md gives table values only for \u22127 (2.3\u00b11.6%) and \u22129 (~2%)). One of the two sets is wrong and the wrong one undermines the 'more electrons than the published tables' conclusion.",
+   "fix": "Pick the authoritative T10 table values once (cite the source), reconcile the index table and the run-25+26/run-24 notes, and reword run-24's 'matches the table' if 18.0% is correct.",
+   "already_documented": false
+  },
+  {
+   "item": "ej199.html quotes stale timing trend 1360/\u221aE vs summary file's 1218/\u221aE",
+   "severity": "major",
+   "detail": "ej199.html L169-170: 'the trend fitting pure photostatistics (\u03c3_t \u2248 1360/\u221aE ps, constant term unresolved)'. Output/scan_ej199/EnergyScanEJ199_summary.txt line 8: 'timing trend (MEDIAN, 1&9 solve): sigma_t = 1218 ps/sqrt(E) (+) 0 ps'. 1360 is the 3-point positive-beam fit from FINDINGS.md 'EJ199 first beam (runs 39-41)'; the same ej199.html card's scan table already contains all six points, and the card even still ends 'Negative-beam points (\u22127/\u22129/\u221211 GeV) follow' below a table that includes them. Campaign memory quotes 1218.",
+   "fix": "Change to \u03c3_t \u2248 1218/\u221aE ps (6-point fit, constant term ~0) and delete the 'negative points follow' sentence.",
+   "already_documented": false
+  },
+  {
+   "item": "DSB1 light ratio internally inconsistent: ~2.1\u00d7/~660 (prose, dsb1.html) vs 2.2\u00d7/~620 (index table, conclusions)",
+   "severity": "minor",
+   "detail": "index.html L203 prose: '~2.1\u00d7 the light (~1,250\u20131,390 vs ~660 ADC-eq/GeV)'; index table L212: '~620 | ~1,350 | 2.2\u00d7'; index L219 and conclusions L275: '~2.2\u00d7'; dsb1.html L159/L177: '~2.1\u00d7 the LuAG light (~1,250\u20131,390)'. FINDINGS.md 'DSB1 first scan' says ~2.1x with ~660; the table's 1350/620 = 2.18 \u2248 2.2\u00d7. Root cause is the LuAG per-GeV response being quoted as both ~660 (scan-v1 era) and ~620 (current) \u2014 neither number is written in any Output summary file (the current peaks give 562\u2013688 per point). Same page carries both ratios.",
+   "fix": "Standardize on one LuAG ADC-eq/GeV value (state where the fit lives) and one ratio (2.2\u00d7 if ~620 stands) across index prose, table, conclusions, and dsb1.html.",
+   "already_documented": false
+  },
+  {
+   "item": "index beam-composition ranges exclude every EJ199 measurement",
+   "severity": "minor",
+   "detail": "index.html L233: +3 '23.3\u201323.5%' excludes EJ199 run 40's 22.8% (ej199.html L222, FINDINGS 'Tag plateaus 88.7/22.8/5.6'); +5 '5.7\u20139.1%' excludes run 41's 5.6%; \u22127 '8.6\u20138.8%' excludes run 42's 7.77% (Output/run_42/QCv2_summary.txt: 1554/20000 = 7.77%); \u221211 '2.2\u20132.4%' excludes run 44's 2.48% at the raised 0.089 bar working point (ej199.html run-44 card); \u22129 '\u22654.9%' predates run 43's 5.17%. The caption also still says 'reproducible ... across two modules' while ej199.html claims 'across all three modules'. Consistent with the stale-EJ199 finding: the table was frozen before the EJ199 runs.",
+   "fix": "Extend the ranges to include the EJ199 runs (+3: 22.8\u201323.5, +5: 5.6\u20139.1, \u22127: 7.8\u20138.8, \u22129: 4.9\u20135.2, \u221211: 2.2\u20132.5 noting the pressure difference) and change 'two modules' to 'three'.",
+   "already_documented": false
+  },
+  {
+   "item": "Run-15 electron fraction quoted at the superseded 150 threshold (9.08/9.1% vs audited 10.0% plateau)",
+   "severity": "minor",
+   "detail": "luag.html run-15 card: '1,816 / 20,000 = 9.08%'; index.html L233/L236: '9.1% with the early tight-acceptance settings (run 15)'. FINDINGS.md 'XCET threshold audit' documents that the common 150 cut was clipping ~9% of 5 GeV electrons and the plateau (thr 80\u2013100) coincidence is 10.0% (N on-module 1638\u21921790; EnergyScan uses 1790). Both the index beam table ('coincidence at the per-energy working points') and luag.html ('thresholds set per energy on the coincidence plateau') claim plateau methodology, yet quote the pre-audit threshold-150 value \u2014 understating the site's own above-the-tables claim. The 9.08-vs-9.1 spread across surfaces is itself trivial rounding.",
+   "fix": "Quote 10.0% (plateau threshold) for run 15 in the beam table, or explicitly label 9.08% as the thr-150 value; make index and luag.html agree on one number.",
+   "already_documented": false
+  },
+  {
+   "item": "dsb1.html trend caption says '3&9 GeV anchors'; summary file and FINDINGS say 1&9",
+   "severity": "minor",
+   "detail": "dsb1.html L174: 'Timing trend (median, contained showers, 3&9 GeV anchors): \u03c3_t \u2248 323/\u221aE \u2295 79 ps'. Output/scan_dsb1/EnergyScanDSB1_summary.txt line 8: '(MEDIAN, 1&9 solve) ... 3 GeV median 202 ps, predicted 202' \u2014 3 GeV is the cross-check, not an anchor; FINDINGS run-30 entry: 'trend anchors fixed at 1&9 GeV'. The coefficients match; the stated method doesn't, and it silently converts the trend's only independent validation point into an input.",
+   "fix": "Change dsb1.html to '1&9 GeV anchors (3 GeV as cross-check: 202 predicted, 202 measured)'.",
+   "already_documented": false
+  },
+  {
+   "item": "index intrinsic-timing card's 'incl-ref' column silently uses mean-combination widths beside headline medians",
+   "severity": "minor",
+   "detail": "index.html L178-179: LuAG 5 GeV 'incl-ref 251', DSB1 '182', EJ199 '405' \u2014 these are the sigma_meanIncl values from DiagDiff_*.txt (250.6/182.1/404.9), i.e. mean 4-capillary combination, while two cards up the same page quotes the adopted-median reference-included values 228/156/380 for the identical runs. No label distinguishes them, so the same physical quantity appears twice with different values on one page (251 vs 228; 182 vs 156). The DiagDiff files label the column explicitly.",
+   "fix": "Add '(mean combination \u2014 the estimator's basis)' to the intrinsic-card column header or footnote the median equivalents.",
+   "already_documented": false
+  },
+  {
+   "item": "index claim 'EJ199 runs ~2\u00d7 slower than LuAG at every point' fails at 7\u20139 GeV",
+   "severity": "minor",
+   "detail": "index.html L204: EJ199 'runs ~2\u00d7 slower than LuAG at every point'. Median ratios from EnergyScanEJ199 vs EnergyScan summaries: 1367/412=3.3 (1 GeV), 626/274=2.3 (3), 380/228=1.7 (5), 278/191=1.5 (7), 249/189=1.3 (9). ej199.html is accurate ('~1.7\u00d7 slower at 5 GeV'). The blanket ~2\u00d7 overstates the high-energy gap and understates the low-energy one.",
+   "fix": "Reword to 'between ~3\u00d7 (1 GeV) and ~1.3\u00d7 (9 GeV) slower' or '\u22651.3\u00d7 slower at every point'.",
+   "already_documented": false
+  },
+  {
+   "item": "Event-count bookkeeping irreconcilable across surfaces (LuAG ~168k vs ~141k vs 184,555)",
+   "severity": "minor",
+   "detail": "index.html L158: LuAG runs 12\u201330 '~168k'. runs/runs.json sums 184,555 for runs 12\u201330 (164,555 if the 20k discarded run-29 drift events are excluded \u2014 neither rounds to 168k). luag.html scan header L161: '~141k events | ~14k tagged e\u207b' \u2014 scan runs sum 156,292 raw or 136,292 DQ-kept; on-module electrons total 13,076 and actual tags ~20k, so both numbers sit between defensible values without matching any. DSB1 '~230k' matches the registry exactly (230,000). NEW observation while checking: total registered events = 534,555 across 26 runs, which also disagrees with the ~700k figure carried in the campaign context/memory \u2014 worth reconciling whichever way is right.",
+   "fix": "Recompute the three headline counts from runs.json (LuAG 184,555 raw / 164,555 kept; scan 136,292 kept; on-module e\u207b 13,076) and state the convention (raw vs DQ-kept); check the ~700k memory figure against the registry.",
+   "already_documented": false
+  },
+  {
+   "item": "Run-15 card quotes 2992\u00b136 / 33.6% beside scan-table 2962\u00b137 / 35.0% without explanation",
+   "severity": "nit",
+   "detail": "luag.html run-15 card: 'mean 2992 \u00b1 36, \u03c3/E 33.6 \u00b1 1.4%' (ResolutionV2, thr-150 tag; traceable to Output/run_15/ResolutionV2_summary.txt and FINDINGS). Scan table on the same page and EnergyScan_summary.txt line 3: 2962 \u00b1 37, 35.0 \u00b1 1.6% (plateau threshold). Both are legitimate analyses of the same run/quantity but appear unreconciled on one page.",
+   "fix": "Footnote the run-15 card value as the ResolutionV2 (thr-150) fit, scan value from the plateau threshold.",
+   "already_documented": false
+  },
+  {
+   "item": "Run cards label the MEAN timing as 'srCFD shower-time \u03c3' without the mean/median tag",
+   "severity": "nit",
+   "detail": "luag.html run-24 card '300 \u00b1 6 ps (N=3,851)' and runs-25+26 card '440 \u00b1 12 ps (N=2,253)' are the t-MEAN values from EnergyScan_summary.txt; the campaign-adopted estimator is the median (274 \u00b1 5, 412 \u00b1 11). Unlabeled, they read as the official numbers and differ from the trend inputs.",
+   "fix": "Append '(mean; median 274/412)' or switch the cards to the median values.",
+   "already_documented": false
+  },
+  {
+   "item": "index dates/guide-table gaps: 'Aug 27\u201330' subtitle and '\u2014' for the \u22129 GeV table value",
+   "severity": "nit",
+   "detail": "index.html L143 says 'Aug 27\u201330'; data-taking did end Aug 30 (run 44 ended 2026-08-30 per runs.json) but campaign records and memory run through Aug 31 (corrections + Randy's estimator) \u2014 defensible but inconsistent with the established Aug 27\u201331 framing. The beam table's T10-guide row shows '\u2014' at \u22129 GeV while FINDINGS ('9 GeV point + overnight drift') says 'table said ~2%', a value the site could quote to strengthen the \u22655% comparison.",
+   "fix": "Either extend to Aug 27\u201331 or caption 'beam days Aug 27\u201330'; put ~2% in the \u22129 guide-table cell with a source note.",
+   "already_documented": false
+  }
+ ]
+}

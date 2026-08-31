@@ -1,0 +1,124 @@
+{
+ "summary": "Data-curation audit of runs/runs.json (26 runs, sum 534,555 events) against data/DATA/, data/download/, per-run DAQ run_metadata.json files, and Output/run_12/FINDINGS.md. VERIFIED CLEAN: all 26 registered file paths resolve (3 via symlinks, all valid); every registry event count matches both the DAQ metadata and in-file TTree entries for 10 files spot-checked with ROOT (including all four merged files: run_2223=2,263=22+23; run_2526=10,264=25+26; run_9001=26,028; run_2829=46,028=28+29); all registry timestamps match DAQ epoch values where both exist; timeline ordering is sane throughout. MAIN FLAGS a preservation board would raise: (1) registry+FINDINGS record wrong XCET pressures for EJ199 runs 39-41 (\"single ~0.4 bar fill\" vs DAQ-recorded 0.593/0.593 and 0.452/0.439); (2) run 27's registry note quotes numbers the campaign log explicitly superseded; (3) two derived ROOT files (run_2829.root, run_29good.root, ~2.1 GB) have zero documented provenance and run_9001 has no registry entry; (4) no checksums/fixity manifest anywhere, with un-hashed duplicate copies of runs 15/25/26; (5) shashlik-architecture correction only partially propagated into the registry despite FINDINGS claiming \"registry language corrected throughout\"; (6) run-number gaps 13, 16-21 unexplained anywhere; (7) systematic mean-vs-median timing drift between registry notes and adopted campaign numbers; (8) capillary serials, biases, and several XCET pressures live only in DAQ metadata (LuAG capillary serials recorded nowhere at all).",
+ "findings": [
+  {
+   "item": "Registry XCET pressures for EJ199 runs 39-41 contradict the DAQ metadata",
+   "severity": "critical",
+   "detail": "runs.json notes for runs 39/40/41 (lines 275, 288, 301) and FINDINGS.md line 618 claim a 'single ~0.4 bar XCET fill for all three positive energies'. The DAQ metadata records XCET40/43 = 0.593/0.593 bar for run 39 (data/DATA/EJ199_1GEV-2026-08-30-120816/run_metadata.json) and run 40 (EJ199_3GEV-.../run_metadata.json), but 0.452/0.439 bar for run 41 (EJ199_5GEV-.../run_metadata.json) \u2014 neither single nor ~0.4. Physics survives (0.452 < 0.518 bar mu threshold at 5 GeV; 0.593 is fine at 1/3 GeV) but the +5 GeV purity margin is 13% below mu threshold, not the ~23% the registry implies, and the recorded beamline conditions are simply wrong for three runs. NEW finding.",
+   "fix": "Replace the three notes with the metadata values (39/40: 0.593/0.593; 41: 0.452/0.439), delete the 'single setting' claim, and add a corresponding correction entry to FINDINGS.md. Recompute the stated purity margin for run 41.",
+   "already_documented": false
+  },
+  {
+   "item": "Run 27 registry note quotes superseded (retired) results",
+   "severity": "major",
+   "detail": "runs.json line 126 states coincidence 1.74% (347 e), '~2.3% e- content x ~60-75% tag eff', peak 4400+/-97, shower-time 242+/-28 ps. FINDINGS.md '7 GeV recount' (lines 332-342) explicitly retires all of these: the 150-ADC threshold was a cut artifact; correct values are 8.77% coincidence at thr 40, beam ~9% electrons (superseding the 2.3% table value), 1,200 e on module, peak 4874+/-48, shower-time 223+/-9 (mean; adopted median 191+/-7). The registry is the first thing a future analyst reads and it currently contradicts the campaign log. NEW finding.",
+   "fix": "Rewrite run 27's note with the recount numbers and add 'superseded: initial thr-150 pass gave 347 e / peak 4400 \u2014 see FINDINGS 7 GeV recount'.",
+   "already_documented": false
+  },
+  {
+   "item": "Derived files run_2829.root and run_29good.root have no documented provenance; run_9001.root has no registry entry",
+   "severity": "major",
+   "detail": "data/download/run_2829.root (1.46 GB; verified 46,028 entries = plain concat of runs 28+29 pre-DQ) is read by macros/DriftStudy.C (lines 67-454) and macros/XCETScanPlot.C line 28 but appears nowhere in runs.json. data/download/run_29good.root (636 MB; verified 20,000 entries = run 29 DQ-good slices) is referenced by NOTHING \u2014 a fully orphaned file. run_9001.root is described only inside run 29's note (runs.json line 146) with no file path, tree, or entry of its own, and the exact slice-boundary definition (slices 0/1/4/6 of how many, by trigger_time_tag?) plus the merge commands (hadd?) are unrecorded. Risk: a future analyst uses the un-DQ'd run_2829 for physics, or deletes run_29good not knowing what it is. NEW finding (run_9001's composition, 26,028 events, IS documented in FINDINGS line 361-362 and matches the file).",
+   "fix": "Add a 'derived_files' section to runs.json (or a DERIVED.md next to the files) listing run_2223/2526/2829/9001/29good with parent runs, event counts, selection applied, creating macro/command, and intended use ('2829 = QC/drift studies only, NOT for physics').",
+   "already_documented": false
+  },
+  {
+   "item": "No checksums or fixity manifest; duplicate un-hashed copies with inconsistent canonical paths",
+   "severity": "major",
+   "detail": "find over the workspace returns zero .md5/.sha/manifest files. Primary data lives in Dropbox (sync-mutable). run_15.root, run_25.root, run_26.root each exist twice (data/download/ AND data/DATA/RUN_LUAG_*/, identical sizes, differing mtimes e.g. run_25: Aug 28 20:15 vs 20:10) with no way to prove the copies are identical; the registry points at the download/ copies for runs 15/25/26 but at the DATA/ originals for runs 29-44, and at symlinks for 12/24/27/28 \u2014 three different conventions. Stray convenience symlinks data/run_12.root and data/run_30.root add a fourth access path. NEW finding.",
+   "fix": "Generate a SHA-256 manifest of every .root and run_metadata.json (one shasum -a 256 sweep, committed next to runs.json), deduplicate or symlink the run 15/25/26 copies, and settle one canonical-path convention (DATA/ originals) in the registry.",
+   "already_documented": false
+  },
+  {
+   "item": "Shashlik-architecture correction only partially propagated into runs.json",
+   "severity": "major",
+   "detail": "FINDINGS.md line 648 claims 'Site/registry language corrected throughout', but in runs.json the MODULE NOTE (corrected 2026-08-31) appears only in runs 39-41; runs 42/43/44 lack it. The 'crystal' field still reads bare 'LuAG' (runs 12/14/15) and 'DSB1' (runs 31-38) \u2014 pre-correction semantics implying the crystal is the module \u2014 while EJ199 entries use the corrected 'EJ199 capillaries in LYSO:Ce/W shashlik'. Runs 22-30 have no crystal/channel field at all. NEW finding.",
+   "fix": "Rename the field to 'capillary_set' (or normalize all values to 'X capillaries in LYSO:Ce/W shashlik'), add it to runs 22-30, and put one campaign-level module-architecture note at the top of runs.json instead of repeating it per-run.",
+   "already_documented": false
+  },
+  {
+   "item": "Registry timing notes systematically quote retired mean-combination values instead of adopted medians",
+   "severity": "major",
+   "detail": "FINDINGS (lines 411-431) adopted per-event MEDIAN combination campaign-wide, and containment-gated timing. runs.json still quotes: run 24 '300+/-6 ps' (unlabeled mean; adopted median 274+/-5), run 29/9001 '212+/-11' (post-gating adopted 189 median), run 37 'Mean timing 214+/-9' (FINDINGS median 156+/-8), run 42 '347+/-14' (median 278+/-10), run 43 '325+/-23' (median 249+/-17). Registry run 30 additionally quotes 'standalone timing (mean combo) 328+/-28 ps, N=357' which matches nothing in FINDINGS (contained mean 547+/-32, median 227+/-32) and 'miss fraction 41.5%' vs FINDINGS' 54% \u2014 two irreconcilable numbers for the same run. NEW finding.",
+   "fix": "One pass over runs.json notes replacing every timing number with the adopted contained-median value (labeled 'median, ref included') and reconciling run 30's miss fraction and standalone timing against FINDINGS or deleting them.",
+   "already_documented": false
+  },
+  {
+   "item": "EJ199 result numbers in registry disagree with FINDINGS for runs 39-41",
+   "severity": "major",
+   "detail": "Run 41 registry (runs.json line 301): 'Peak ~2440 => ~490 ADC-eq/GeV (dimmest module)'; FINDINGS line 619-620: '5 GeV 2740+/-74 (~550 ADC-eq/GeV)'. Run 40 registry t-med 666+/-14 vs FINDINGS 626+/-13 at 3 GeV; run 41 registry 432+/-17 vs FINDINGS 380+/-18. Likely an early quick-pass vs final contained fit, but the registry and the campaign log now quote different values for the same quantities with no cross-reference; the '~490 vs ~550' spread also propagates into the campaign summary's '~550-650 ADC-eq/GeV' range. NEW finding.",
+   "fix": "Re-quote runs 39-41 notes from the final EnergyScanEJ199.C outputs and mark superseded quick-pass numbers as such.",
+   "already_documented": false
+  },
+  {
+   "item": "XCET pressures missing from registry (or drifted) where DAQ metadata records them; unrecorded entirely for runs 12-26",
+   "severity": "major",
+   "detail": "Run 31 registry still says 'presumably 0.062/0.060 - verify from spectra' although its own run_metadata.json records exactly 0.062/0.060 \u2014 the placeholder was never closed. Pressures present in metadata but absent from registry: run 32 (0.149/0.146), run 33 (0.206/0.194), run 35 (1.313/1.303 \u2014 analytically relevant: only ~9% below the 1.44 bar mu threshold at 3 GeV), run 38 (0.406/0.406). Drifted values: run 34 registry '1.5 bar' vs metadata 1.314/1.304 (FINDINGS also says 1.5; conclusion unchanged but numbers disagree); run 37 '0.400/0.405' vs metadata 0.406/0.406; run 42 '0.21' vs metadata 0.225/0.220. Run 36 registry 'XCET40 bled 11 -> 4 bar' conflates XCET43's static 4.123 bar with XCET40's post-bleed pressure (FINDINGS line 514: bled to ~3 bar) and omits XCET43 entirely. For runs 12-26 (all LuAG 1/3/5 GeV points + tests) no XCET pressure is recorded anywhere \u2014 the metadata experiment block only exists from run 31 on. NEW finding (run 34's tag invalidity itself is documented; the 1.5-vs-1.31 number is not).",
+   "fix": "Copy the metadata experiment-block pressures verbatim into every registry entry (runs 31-44), correct 34/36/37/42, close run 31's 'presumably', and reconstruct runs 12-26 pressures from the e-log/FINDINGS where possible, explicitly marking 'unrecorded' where not.",
+   "already_documented": false
+  },
+  {
+   "item": "Run-number gaps 13 and 16-21 unexplained anywhere",
+   "severity": "major",
+   "detail": "Grep over runs.json, FINDINGS.md, index.html, and run_summary.html finds no explanation for missing runs 13 and 16-21 (nor a note that runs 1-11 predate the registry). No files for these runs exist in data/DATA/ or data/download/. Seven consecutive missing run numbers (16-21) with no annotation is exactly what a preservation board reads as 'possibly lost data'. Presumably aborted/junk DAQ starts, but that must be stated. NEW finding.",
+   "fix": "Add a top-level 'unregistered_runs' map to runs.json: {13: reason, 16-21: reason, 1-11: 'commissioning, pre-campaign'} \u2014 one line each from the operators' memory while it is fresh.",
+   "already_documented": false
+  },
+  {
+   "item": "Runs 22/23 have no preserved DAQ metadata and an unresolved beam-energy caveat",
+   "severity": "major",
+   "detail": "No run_metadata.json, no DATA/ folder, no timestamps exist for runs 22/23 (the only two runs with zero DAQ provenance); registry entries carry no record_length/post_trigger/run_name/crystal. FINDINGS line 294 flags 'Caveat: confirm runs 22/23 were 5 GeV' (the MCP-threshold composition comparison assumed same-energy) while the registry asserts '3 GeV (per James)'. The 3 GeV reading is well supported (run 22/23 coincidences 25.9/21.8% match run 24's 23.5% at 3 GeV) but then the FINDINGS interpretation that the 240 mV trigger 'preferentially rejected electrons' (9.1%->25.9%) is partly confounded by the 5->3 GeV energy change \u2014 the caveat was never closed on either side. NEW finding.",
+   "fix": "Close the loop: state 3 GeV as confirmed in both files, annotate the FINDINGS composition section that the r15-vs-r22/23 comparison mixes a threshold change with an energy change, and reconstruct run 22/23 timestamps from file mtimes (Aug 28 ~16:05/16:12 UTC) marked as approximate.",
+   "already_documented": false
+  },
+  {
+   "item": "Capillary serials, corner mapping, and absolute biases exist only in DAQ metadata; LuAG capillary serials recorded nowhere",
+   "severity": "minor",
+   "detail": "From run 31 onward, run_metadata.json records cap TL/TR/LL/LR serials (DSB1 T093/T091/T096/T099; EJ199 132/131/133/134) plus SiPM 29 V / Amp 7 V / MCP 3000 V. None of this reaches runs.json. The LuAG runs (12-30) predate the experiment block, so the LuAG capillary serial numbers and corner placement are recorded NOWHERE in the workspace \u2014 hardware traceability for the flagship dataset depends on memory. Registry bias info is only relative ('+1 V vs runs 12-14'). NEW finding.",
+   "fix": "Add capillary_serials (with corner map) and bias fields to each registry entry; reconstruct the LuAG set from lab records now, before the physical capillaries are re-sorted.",
+   "already_documented": false
+  },
+  {
+   "item": "Stale 'Beam' fields in DAQ metadata for runs 37 and 43 (registry correct, raw metadata wrong)",
+   "severity": "minor",
+   "detail": "data/DATA/DSB1_5GEV-2026-08-29-234315/run_metadata.json experiment block says 'Beam: 1 GeV' for run 37 (actually +5 GeV; its own note says re-running 5 GeV) and EJ199_9GEV-2026-08-30-134259/run_metadata.json says 'Beam: -7 GeV' for run 43 (actually -9; its note field says -9 GeV). The experiment block is evidently carried over between runs and edited late. Any future auto-ingest trusting it would mislabel two runs; nothing anywhere flags these two fields as wrong. NEW finding.",
+   "fix": "Add a one-line 'metadata_errata' note to the run 37 and 43 registry entries stating the experiment-block Beam value is stale and the registry value is authoritative. Do not edit the raw DAQ files.",
+   "already_documented": false
+  },
+  {
+   "item": "Registry timestamps missing for runs 14 and 24-29 although DAQ metadata provides them",
+   "severity": "minor",
+   "detail": "started_utc/ended_utc are absent from registry entries 14, 22-29. Metadata supplies them for all but 22/23: run 14 = 2026-08-28T10:55:10-11:00:48Z, run 24 = 16:13:13-16:39:29Z, run 25 = 16:57:06-17:48:23Z, run 26 = 18:16:43-19:13:36Z, run 27 = 20:42:50-21:34:57Z, run 28 = 21:40:16Z-, run 29 = 22:57:23Z-2026-08-29T06:57:11Z. All verified sane and monotone (run 29's overnight window also corroborates the 'worst in the morning' drift narrative). Where both registry and metadata have timestamps (runs 12, 15, 30-44) they agree exactly. NEW finding (the values above are ready to paste).",
+   "fix": "Copy the listed UTC values into runs.json.",
+   "already_documented": false
+  },
+  {
+   "item": "Channel-map provenance is fragmented across one registry entry and a note buried in another",
+   "severity": "minor",
+   "detail": "A full channel_map exists only on run 12 (old array layout); the run>=14 layout lives solely in run 14's channel_map_note (runs.json line 52). Runs 15-44 rely on that buried note; runs 22/23 (no metadata) have no explicit layout statement at all, though they fall under 'run>=14'. The DAQ metadata does carry named per-channel maps with root_slot from run 15 on (e.g. DATA/RUN_LUAG_5_GeV/run_metadata.json 'channels' + 'root_channel_layout'), which is good ground truth, but the registry never points to it. The HG pairing (4-13, 5-12, 6-15, 7-14) similarly appears only in run 14's note and FINDINGS line 78. NEW finding.",
+   "fix": "Promote the two array layouts and the LG-HG pairing to a top-level 'formats' block in runs.json with per-run applicability ranges (12 = v1; >=14 = v2), and state explicitly that 22/23 are v2.",
+   "already_documented": false
+  },
+  {
+   "item": "Run 35 note 'post-fix collimator settings' contradicts the FINDINGS timeline",
+   "severity": "minor",
+   "detail": "runs.json line 223 says run 35 (started 2026-08-29T18:06:53Z) ran 'at post-fix collimator settings', but the collimator/XCET-material fix happened MID-run-36, which started later (18:51:09Z) per both the registry's own run 36 note and FINDINGS' rate-mystery section. Run 35 was necessarily pre-fix. NEW finding.",
+   "fix": "Correct run 35's note (pre-fix tight-beam config) or specify which 'fix' is meant.",
+   "already_documented": false
+  },
+  {
+   "item": "Campaign event-total claim (~700k) vs registry sum 534,555",
+   "severity": "minor",
+   "detail": "The registry's 26 runs sum to exactly 534,555 events (verified against in-file TTree entries for 10 files). The campaign summary circulates '~700k events'. The gap (~165k) is not explained by merged duplicates alone (2223+2526+2829+9001+29good add ~104k derived duplicates); it may include unregistered junk runs 13/16-21 or be a stale estimate. NEW cross-check.",
+   "fix": "Either quote 534,555 registered physics events, or footnote what the ~700k counts (e.g. including derived/aborted/duplicate triggers).",
+   "already_documented": false
+  },
+  {
+   "item": "Fragile filenames for irreplaceable early-run DAQ metadata",
+   "severity": "nit",
+   "detail": "Run 12's only DAQ metadata is data/download/'run_metadata copy.json' (space in name, 'copy' suggests deletable); run 14's is the generically named data/download/run_metadata.json (overwrite-prone); run 15's is duplicated as download/run_metadata_Run15.json and DATA/RUN_LUAG_5_GeV/run_metadata.json. Registry array order also lists runs 25, 26 before 24. NEW finding.",
+   "fix": "Rename to run12_metadata.json / run14_metadata.json, and sort the registry array by run number.",
+   "already_documented": false
+  }
+ ]
+}

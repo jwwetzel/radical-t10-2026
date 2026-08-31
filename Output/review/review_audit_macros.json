@@ -1,0 +1,110 @@
+{
+ "findings": [
+  {
+   "item": "DiagDiff.C EJ199 containment floors diverge from EnergyScanEJ199.C \u2014 published EJ199 intrinsic numbers derived from a different event selection",
+   "severity": "critical",
+   "detail": "macros/DiagDiff.C:89 hardcodes FL[2] (EJ199) = {180,500,1200,540,660,780}. The 7/9/11 GeV values (540/660/780) are the LuAG formula values (60*E+120), not the EJ199 scan floors in macros/EnergyScanEJ199.C:154 SMIN_OV = {0,500,1200,1700,2200,2500}. Confirmed in outputs: Output/summary/DiagDiff_EJ199.txt has N4=1028/624/243 at 7/9/11 GeV vs the scan's N=916/525/201 (Output/scan_ej199/EnergyScanEJ199_summary.txt) \u2014 the DiagDiff EJ199 sample at 7-11 GeV includes partial-containment events the scan's 'contained' definition excludes. The EJ199 intrinsic values already on the campaign record (Output/run_12/FINDINGS.md line 671: 'EJ199 intrinsic: 356/285/279 ps at 5/7/9') take the 7 and 9 GeV entries (285.3/279.4 ps) from this inconsistent selection; only the 5 GeV value (356, floor 1200) used a floor matching the scan. LuAG and DSB1 FL rows do match their scan macros.",
+   "fix": "Set FL[2][3..5] = {1700,2200,2500} in DiagDiff.C:89, rerun DiagDiff(2), and re-log the EJ199 7/9 GeV intrinsic values; longer term, define the floors once (shared header or a config the scan macros and DiagDiff both read) so DiagDiff cannot drift from the scans.",
+   "already_documented": false
+  },
+  {
+   "item": "Persisted summary record mislabels the timing-trend anchors for DSB1 and EJ199 ('1&9 solve' printed, 3&9 used)",
+   "severity": "major",
+   "detail": "EnergyScanDSB1.C:286 and EnergyScanEJ199.C:286 set IA=1,IB=4 (3&9 GeV anchors, per the trailing comment), but the summary line at line 292 of both files still prints 'timing trend (MEDIAN, 1&9 solve)'. The wrong label is in the persisted records: Output/scan_dsb1/EnergyScanDSB1_summary.txt and Output/scan_ej199/EnergyScanEJ199_summary.txt both say '1&9 solve'. FINDINGS.md also only ever documents '1&9 GeV anchors ... fixed' (lines 455, 466), so the campaign log's anchor statement is wrong for the DSB1 323/79 and EJ199 1218 trends. Additionally the block comment at line 285 ('from the MEDIAN 1 and 9 GeV points') is stale in both files. Related circularity: with IA=1, the printed '3 GeV median %f, predicted %f' cross-check evaluates the curve at its own anchor \u2014 DSB1 prints 'median 202, predicted 202' as if it were a validation.",
+   "fix": "Print the actual anchor energies (E[IA], E[IB]) in the out() format string instead of a literal '1&9'; make the cross-check energy a non-anchor point (5 or 7 GeV); correct the anchor statement in FINDINGS.md for DSB1/EJ199.",
+   "already_documented": false
+  },
+  {
+   "item": "EJ199 trend: negative b^2 silently clamped to 0 \u2014 recorded curve '1218/sqrt(E) (+) 0 ps' passes through neither anchor",
+   "severity": "major",
+   "detail": "EnergyScanEJ199.C:287-294: the closed-form 2-point solve gives a2=1.48e6 (a=1218 ps) and b2=-1.03e5 (negative). std::max(b2,0.0) clamps it for both the drawn TF1 and the printed trend, with no warning that b2<0. Consequences visible in Output/scan_ej199/EnergyScanEJ199_summary.txt: 'sigma_t = 1218 ps/sqrt(E) (+) 0 ps; 3 GeV median 626 ps, predicted 703' \u2014 the clamped curve reproduces neither the 3 GeV anchor (626 measured vs 703) nor the 9 GeV anchor (249 measured vs 406), and misses the 5/7 GeV points by 40-65%. The campaign-level claim 'EJ199 photostat-limited ~1218/sqrt(E)' rests on this 2-point solve; no least-squares fit to all points, no chi2, and no uncertainty on a or b is ever computed in any of the three scan macros (the trend is drawn over the data without a goodness-of-fit statement). ModuleCompare.C:71 hardcodes fJ='1218/sqrt(x)' but never draws it (dead object; legend says 'no stable trend').",
+   "fix": "Replace the closed-form 2-anchor solve with a weighted fit of sqrt(a^2/E + b^2) to the non-11-GeV points (TGraphErrors::Fit), report a and b with errors and chi2/ndf, and print an explicit warning (or refuse the oplus form) when b^2 < 0. Remove or actually draw fJ in ModuleCompare.C.",
+   "already_documented": false
+  },
+  {
+   "item": "Derived input files (run_9001.root, run_2526.root, run_2223.root, run_2829.root, run_29good.root) have no generating code in the repo",
+   "severity": "major",
+   "detail": "grep for hadd/CloneTree/CopyTree across macros/*.C, *.py and README.md finds nothing: the merged 1 GeV (run_2526), 3 GeV (run_2223), 9 GeV concatenation (run_2829) and especially the DQ-selected run_9001.root ('run 28 + run 29 good slices 0,1,4,6', runs/runs.json line 146) exist only as binary files in data/download/. The slice boundaries are 2000-event slices defined inside DriftStudy.C, but no script maps 'slices 0,1,4,6' to an event-range selection and writes run_9001.root. The published LuAG 9 GeV point (peak 5782+/-160, t-median 189+/-12 ps, and its role as the IB trend anchor) and the 1/3 GeV LuAG points are therefore not reproducible from the repo plus raw runs \u2014 a new collaborator cannot regenerate the exact input datasets.",
+   "fix": "Add a small MakeMergedRuns.C (or .py) that produces run_2526/run_2223/run_2829 via hadd-equivalent and run_9001 via the explicit event ranges (entry windows per run), and reference it from runs.json notes.",
+   "already_documented": false
+  },
+  {
+   "item": "mkdir/fopen mismatches crash the DSB1/EJ199 scans and SaturationStudy on a fresh checkout; fopen never NULL-checked anywhere",
+   "severity": "major",
+   "detail": "EnergyScanDSB1.C:88-89 calls gSystem->mkdir(\"Output/scan\") but fopen(\"Output/scan_dsb1/EnergyScanDSB1_summary.txt\"); EnergyScanEJ199.C:88-89 same pattern with Output/scan_ej199; SaturationStudy.C:144 fopens Output/saturation/... while the matching mkdir only happens at line 349, after all writes. On a clean clone the target directories do not exist, fopen returns NULL, and the very first out() (fputs/vfprintf on NULL) is undefined behavior/crash \u2014 these macros only run today because the directories already exist on the author's machine. Also the canvas SaveAs targets (Output/scan_dsb1/EnergyScanDSB1.png etc.) would silently fail. No macro in the set checks the fopen return value. Cosmetic sibling: EnergyScanDSB1.C:298 and EnergyScanEJ199.C:298 print 'Wrote Output/scan/EnergyScan.png, EnergyScan_summary.txt' \u2014 the wrong filenames.",
+   "fix": "mkdir the actual output directory before fopen in all three macros (and move SaturationStudy's mkdir to the top); add a one-line guard: if (!sum) { fatal }; fix the final printf strings.",
+   "already_documented": false
+  },
+  {
+   "item": "1 GeV 'peak' values in all three scan summaries are the fit railed at its lower parameter bound (exactly SMIN+30 = 210), recorded without any at-limit flag",
+   "severity": "major",
+   "detail": "EnergyScan*.C:195 sets g->SetParLimits(1, SMIN+30, ...). At 1 GeV SMIN=180 (formula 60*E+120) in all three macros, and all three summary files record the 1 GeV peak as exactly 210: LuAG '210 +/- 4' (sigma/E 157.8%), DSB1 '210 +/- 1' (155.3%), EJ199 '210 +/- 1' \u2014 i.e. the Gaussian mean pinned at the lower limit because the miss ridge and the 1 GeV peak merge. Nothing in the macros detects or annotates a parameter at its bound; the meaningless values are written into the summary text files that feed the content store. ModuleCompare.C mitigates by hand (pL[0]=pD[0]=0, line 20/24) and FINDINGS.md line 556 says 'ridge-merged' for DSB1 1 GeV, but the rail mechanism is undocumented and the LuAG/EJ199 1 GeV rows carry no caveat. Similarly the EJ199 11 GeV row records 'peak 8655 +/- 4152' (fit unstable; omitted from ModuleCompare with a comment, and FINDINGS notes it).",
+   "fix": "After the fit, test fabs(mean - lowerLimit) < binwidth (or use the fit status/IsParameterFixed-at-limit check) and print 'RIDGE-MERGED / fit railed' instead of a number; propagate the same flag to the sigma/E line.",
+   "already_documented": false
+  },
+  {
+   "item": "Hand-transcribed result numbers: ModuleCompare.C arrays and Tertiary11.C constants, with stale provenance comments and mixed bases",
+   "severity": "major",
+   "detail": "ModuleCompare.C:18-29 hardcodes 40+ numbers. I verified every value (tL/tLe/pL/pLe, tD/tDe/pD/pDe, tJ/tJe/pJ/pJe, and the 389/138, 323/79 trend constants at lines 41-42/58-59/81-82) against the current Output/scan*/EnergyScan*_summary.txt \u2014 all match today, so the figures are currently correct. But the linkage is manual: the DSB1 comment at line 21 still reads '(runs 36,35,33,32,31) \u2014 5 GeV pending run 37' although the array values are from the run-38/37 rerun, proving the comments already went stale once; any scan rerun silently invalidates the figures. Tertiary11.C:123 hardcodes slopes 618.2 (LuAG) and 1353.8 (DSB1) ADC-eq/GeV with no comment on provenance: 618.2 is SaturationStudy's CENTERED 5 GeV slope (Output/saturation/SaturationStudy_summary.txt: 'slope 618.2', centered peak 3091/5), while 1353.8 is the raw DSB1 scan peak 6769/5 \u2014 two different definitions (centered subset vs raw scan) feeding the cross-module E-equivalent comparison (9.7 vs 8.0 GeV in FINDINGS.md), and there is no LuAG raw-based or DSB1 centered-based variant to test sensitivity. Tertiary11.C:128 also hardcodes 227/181/412/366 ps into its summary output ('from scans').",
+   "fix": "Have the scan macros additionally emit a machine-readable file (CSV/JSON of E, peak, err, sigma, tmed, terr, trend a/b) and make ModuleCompare.C and Tertiary11.C read it; at minimum, add 'transcribed from <file> on <date>' comments, fix the stale run-list comment, and state in Tertiary11.C which slope definition each module uses (or use the same definition for both).",
+   "already_documented": false
+  },
+  {
+   "item": "pulseOf/leTime/tebSigma copied into 5+ macros with three already-divergent tebSigma variants",
+   "severity": "major",
+   "detail": "tebSigma is duplicated in EnergyScan.C:59, EnergyScanDSB1.C:59, EnergyScanEJ199.C:59, DiagDiff.C:55, BestTiming.C:71 \u2014 and the copies are NOT identical: the EnergyScan* variant guards '!(rw>1e-6) || !isfinite(rc) || !isfinite(rw)' (line 72); DiagDiff.C:68 dropped the isfinite(rw) test; BestTiming.C dropped the degenerate-rw guard entirely (no early -1 between the truncation loop and 'robust = rw*1000/0.9546'). pulseOf exists in three forms (EnergyScan* with pkS starting at s=0; DiagDiff.C:35 starting at s=1 without pkS; SaturationStudy ampFull/pkSample; Tertiary11 ampOf; inline lambdas in TransferFit.C:46 and PulseShapes.C:29) \u2014 semantics currently agree, but the drift in tebSigma shows the failure mode is real. leTime is quadruplicated (EnergyScan*x3, DiagDiff, BestTiming, plus Diag9's 'le'). A width-estimator change made in one scan macro would not propagate to the others or to DiagDiff, silently decoupling published trends from the diagnostic that validates them.",
+   "fix": "Extract pulseOf/leTime/tebSigma (and the wall-aware transfer-calibration pass-1 block, itself copied verbatim into 5 macros) into a shared header next to radStyle.h (e.g. macros/radPulse.h), include it everywhere, and delete the local copies.",
+   "already_documented": false
+  },
+  {
+   "item": "Stale/copy-pasted header and inline comments across the three scan macros",
+   "severity": "minor",
+   "detail": "EnergyScanDSB1.C:1-10 and EnergyScanEJ199.C:1-10 are verbatim copies of the EnergyScan.C header: they name the macro 'EnergyScan.C', list LuAG datasets (run 2526/2223/15) and the wrong usage line. EnergyScan.C's own header (lines 1-3) is also stale \u2014 it describes the original 3-point version (3 GeV = merged run 2223) while runs[]={2526,24,15,27,9001,30} uses run 24. EnergyScanEJ199.C:149 comments the spectrum axis with 'DSB1: ~2.1x the LuAG response' inside the EJ199 macro. The cthr comment block (lines 100-103) about '0.21 bar / a 150 cut' is copy-pasted into all three regardless of applicability. EnergyScanDSB1.C:98 retains dead LuAG comments ('30 = 11 GeV...', '9001 = run 28+29...') after the DSB1 run list. For a correctness-of-record audit these comments are the traceability layer, and they currently mislead.",
+   "fix": "Rewrite each macro's header to name its own module, run list and output paths; delete the inherited LuAG comments.",
+   "already_documented": false
+  },
+  {
+   "item": "tebSigma errOut left uninitialized on early return, then printed (DiagDiff); even-count median takes the upper element",
+   "severity": "minor",
+   "detail": "tebSigma returns -1 without touching *errOut when v.size()<50. DiagDiff.C:162-168 declares 'double eM, eD;' uninitialized, calls tebSigma(dMean,&eM)/tebSigma(dDiag,&eD), then unconditionally computes intrE=eD/2.0 and prints eM and intrE \u2014 undefined values whenever a point has <50 four-cap events (did not trigger in the current outputs, smallest N=187, but any sparse rerun prints garbage into the record). Same latent pattern in the scan macros (EnergyScan*.C:204-206). Separately, the per-event capillary median at EnergyScan*.C:181 uses tcv[tcv.size()/2]: for the common nOK=2 case this is the LATER of the two times, not their average \u2014 a small systematic late bias for 2-cap events relative to 3/4-cap events; undocumented. All internal 'QRN' fits (tebSigma core fit, transfer pol1, peak Gaussian) ignore the returned fit status.",
+   "fix": "Initialize errOut to 0 at tebSigma entry (or set it on every return path); use 0.5*(tcv[n/2-1]+tcv[n/2]) for even n or document the choice; check TH1::Fit return status on the fits that feed published numbers.",
+   "already_documented": false
+  },
+  {
+   "item": "PulseShapes.C: pL->SetDirectory(nullptr) accidentally swallowed into a comment",
+   "severity": "minor",
+   "detail": "PulseShapes.C:65 reads 'TProfile *pL = new TProfile(...);   // 0.4 ns bins: 2 samples/bin, no comb  pL->SetDirectory(nullptr);' \u2014 the detach call was pasted onto the comment line and never executes; line 67 detaches pE and pD only. Currently harmless (all three profiles are created before any TFile::Open, so they belong to gROOT and survive f->Close()), but the asymmetry is a trap: if the construction order ever moves after a file open, pL would be deleted at Close and the macro would crash or lose the LuAG curve.",
+   "fix": "Move pL->SetDirectory(nullptr) out of the comment onto its own statement (and group the three detach calls together).",
+   "already_documented": false
+  },
+  {
+   "item": "BestTiming.C default cthr=150 contradicts the campaign's per-energy tag thresholds",
+   "severity": "minor",
+   "detail": "BestTiming.C:98 defaults to cthr=150, while the scan macros document (EnergyScan.C:100-103) that a 150 cut at 7 GeV 'throws away ~5x the electrons' and the adopted per-point thresholds are 100/100/100/50-40/40/40. Anyone reproducing per-run timing with 'root -q macros/BestTiming.C+(27)' silently gets a much smaller, biased electron sample than the published scan uses. TransferFit.C:33 has the same default.",
+   "fix": "Default cthr to the registry value for the run (or at least add a comment at the parameter pointing at the per-energy threshold table / XCETCheck).",
+   "already_documented": false
+  },
+  {
+   "item": "SaturationStudy gain-factor denominator not guarded against failed MIP fits",
+   "severity": "nit",
+   "detail": "SaturationStudy.C:248-253: mipFit failures set mpvW[ir][j]=-1, and these sentinel values would be summed into sum15/s without any check, silently corrupting the printed gain ladder (gW). Did not trigger in the current summary (all fits succeeded), but a sparse rerun would record wrong factors with no warning. Same file line 145-147: out() writes via vfprintf(sum,...) with unchecked fopen (covered by the mkdir/fopen finding).",
+   "fix": "Skip or flag entries with mpv<0 when forming the sums, and print 'n/a' for that run's gain factor.",
+   "already_documented": false
+  },
+  {
+   "item": "gSystem->Exit(0) at the end of the batch macros skips ROOT teardown",
+   "severity": "nit",
+   "detail": "EnergyScan*.C:300, DiagDiff.C:172, SaturationStudy.C:366, Tertiary11.C:178, PulseShapes.C:90, ModuleCompare.C:98 all end with gSystem->Exit(0), documented in-code (EnergyScan.C:300-301) as a workaround for a TCanvas-cleanup livelock. Acceptable for batch use, but it means the macros can never be chained inside one ROOT session and any buffered I/O not explicitly fflushed before Exit could in principle be lost (the summaries are fflushed per line in the scans, but ModuleCompare/PulseShapes rely on SaveAs having completed).",
+   "fix": "Keep, but note the constraint in each usage line ('must run as separate root -b -q invocations'); already partly documented in the EnergyScan comment.",
+   "already_documented": true
+  },
+  {
+   "item": "11 GeV purity, DSB1 diag-diff upper bound, gain ladder, LG ceiling \u2014 handled correctly in the macros",
+   "severity": "nit",
+   "detail": "For completeness of the audit: the known caveats are properly reflected in code \u2014 11 GeV drawn open via demote11/open11 in all figures (EnergyScan*.C:239-247, ModuleCompare.C:50-55) and excluded from trend anchors; DiagDiff's DSB1 implied_ref=-1 rows (Output/summary/DiagDiff_DSB1.txt at 5/7/11 GeV) are the documented correlated-capillary discovery, not a bug (the guard at DiagDiff.C:166 correctly refuses sqrt of a negative); the DSB1 peak-mean upper bound 13400 (EnergyScanDSB1.C:195) is commented against the ~13.6k LG ceiling; floors and thresholds carry inline justifications in the scan macros. These are already documented in Output/run_12/FINDINGS.md.",
+   "fix": "None needed.",
+   "already_documented": true
+  }
+ ],
+ "summary": "Audited macros/EnergyScan.C, EnergyScanDSB1.C, EnergyScanEJ199.C, DiagDiff.C, ModuleCompare.C, PulseShapes.C, SaturationStudy.C, Tertiary11.C (plus BestTiming.C/TransferFit.C for duplication) against the persisted Output summaries, runs.json and FINDINGS.md. Headline NEW problems: (1) CRITICAL \u2014 DiagDiff.C:89 uses wrong EJ199 containment floors at 7/9/11 GeV (540/660/780 instead of the scan's 1700/2200/2500), and the EJ199 intrinsic timing numbers already logged in FINDINGS.md (285/279 ps at 7/9 GeV) come from that inconsistent selection; (2) the DSB1/EJ199 summary records mislabel the trend anchors ('1&9 solve' printed, 3&9 used) and the DSB1 3-GeV 'prediction' check is circular; (3) the EJ199 trend's negative b\u00b2 is silently clamped, so the recorded '1218/sqrt(E) \u2295 0 ps' curve passes through neither anchor; (4) the merged/DQ input files (run_9001, run_2526, run_2223, run_2829) have no generating code in the repo \u2014 the LuAG 9 GeV published point is not reproducible from code; (5) fresh-checkout crashes from mkdir/fopen mismatches in EnergyScanDSB1/EJ199 and SaturationStudy; (6) all three 1-GeV 'peak 210' summary entries are Gaussian fits railed at the lower parameter bound (SMIN+30), recorded without flags; (7) ModuleCompare/Tertiary11 hardcode ~50 hand-transcribed result numbers (verified current today, but with an already-stale provenance comment, and Tertiary11's two slopes 618.2/1353.8 mix centered-subset and raw-scan definitions); (8) tebSigma exists in three silently divergent copies. ModuleCompare's arrays and trend constants do match the current summary files, and the documented campaign caveats (11 GeV open markers, DSB1 diag upper bound, LG ceiling, gain ladder) are correctly implemented in code."
+}
