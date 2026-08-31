@@ -741,3 +741,16 @@ TWO UNRESOLVED CONFLICTS (flagged, not adjudicated):
 2. Run 38 pressures: manifest note says 0.59/0.553 bar; the DAQ
    experiment block says 0.406/0.406. Both e-only at 1 GeV; tag
    unaffected; true value unknown.
+
+## Pressure-conflict RESOLVED (James, 2026-08-31)
+
+Ruling: the operator manifest's NOTES column (per-counter values) is
+authoritative over both the manifest's single-value nominal column and
+the DAQ experiment blocks, because the notes recorded XCET40 and XCET43
+separately. Consequences:
+- Run 38: XCETs 0.590/0.553 bar (the DAQ block's 0.406/0.406 was a
+  stale carry-over from run 37's fill). e-only at 1 GeV either way;
+  no analysis impact.
+- Run 37: 0.400/0.405; run 42: 0.225/0.220; run 43: 0.152/0.156.
+Remaining open items: the bias-timeline conflict (28->29 V at run 13
+per manifest vs '+1 V at run 15' in the log), and runs 16-21.

@@ -363,15 +363,16 @@
       "started_utc": "2026-08-29T21:43:15Z",
       "ended_utc": "2026-08-29T21:55:07Z",
       "purpose": "DSB1 5 GeV point, corrected XCET pressure (replaces run 34)",
-      "notes": "XCETs 0.406/0.406 bar (DAQ metadata; chat-quoted 0.400/0.405 superseded) (below 0.518 bar mu threshold - clean e+ tag). Coincidence plateau 5.7% (T10 table: 4.1% e+ - in-situ again above tables). 1,132 tagged e+, miss fraction 7.8% (BEST containment of the campaign - post-fix beam config). Mean timing 214+/-9 ps. MIP MPVs 282/200/168/267. cthr 100. Timing 214+/-9 mean / 156+/-8 MEDIAN (adopted, ref included). NOTE: DAQ 'Beam' field says '1 GeV' - operator typo, this is the +5 GeV run (5.66% tag plateau confirms).",
+      "notes": "XCETs 0.400/0.405 bar (operator manifest notes, authoritative; DAQ block 0.406/0.406 consistent) (below 0.518 bar mu threshold - clean e+ tag). Coincidence plateau 5.7% (T10 table: 4.1% e+ - in-situ again above tables). 1,132 tagged e+, miss fraction 7.8% (BEST containment of the campaign - post-fix beam config). Mean timing 214+/-9 ps. MIP MPVs 282/200/168/267. cthr 100. Timing 214+/-9 mean / 156+/-8 MEDIAN (adopted, ref included). NOTE: DAQ 'Beam' field says '1 GeV' - operator typo, this is the +5 GeV run (5.66% tag plateau confirms).",
       "capillary_set": "DSB:Ce capillaries T093/T091/T096/T099 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
       "conditions": {
-        "xcet40_bar": ".406",
-        "xcet43_bar": ".406",
+        "xcet40_bar": "0.400",
+        "xcet43_bar": "0.405",
         "sipm_bias": "29 V",
         "amp_bias": "7 V",
         "mcp_bias": "3000 V",
-        "daq_beam_field": "1 GeV"
+        "daq_beam_field": "1 GeV",
+        "pressure_source": "manifest notes (DAQ block 0.406/0.406 consistent)"
       },
       "beam_file": "T10 RADiCAL 002"
     },
@@ -385,15 +386,16 @@
       "started_utc": "2026-08-29T21:57:20Z",
       "ended_utc": "2026-08-29T22:24:33Z",
       "purpose": "DSB1 1 GeV stable retake (replaces mixed-config run 36)",
-      "notes": "XCETs 0.406/0.406 bar (DAQ metadata). James's note: re-run because pressures/collimators changed mid-run-36. Stable config throughout: 50,000 events in 27 minutes (~1850/min - the fixed beam config delivers ~30x run 36's pre-fix rate). Coincidence plateau 88.8% = 44,408 tagged e. Miss 57.7% (1 GeV material-scattering floor; run 36 overall was 66%). 12,575 timed electrons. cthr 100. Timing 416+/-4 mean / 366+/-4 MEDIAN.",
+      "notes": "XCETs 0.590/0.553 bar (operator manifest notes, AUTHORITATIVE; the DAQ block's 0.406/0.406 was a stale carry-over from run 37 - resolved by James). James's note: re-run because pressures/collimators changed mid-run-36. Stable config throughout: 50,000 events in 27 minutes (~1850/min - the fixed beam config delivers ~30x run 36's pre-fix rate). Coincidence plateau 88.8% = 44,408 tagged e. Miss 57.7% (1 GeV material-scattering floor; run 36 overall was 66%). 12,575 timed electrons. cthr 100. Timing 416+/-4 mean / 366+/-4 MEDIAN.",
       "capillary_set": "DSB:Ce capillaries T093/T091/T096/T099 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
       "conditions": {
-        "xcet40_bar": ".406",
-        "xcet43_bar": ".406",
+        "xcet40_bar": "0.590",
+        "xcet43_bar": "0.553",
         "sipm_bias": "29 V",
         "amp_bias": "7 V",
         "mcp_bias": "3000 V",
-        "daq_beam_field": "1 GeV"
+        "daq_beam_field": "1 GeV",
+        "pressure_source": "manifest notes AUTHORITATIVE - DAQ block 0.406/0.406 was a stale carry-over from run 37's fill (conflict resolved by James 2026-08-31)"
       },
       "beam_file": "T10 RADiCAL 004"
     },
@@ -476,12 +478,13 @@
       "notes": "XCETs 0.225/0.220 bar (DAQ metadata). Tag 7.77% at thr 40 (1,554 e). Timing 347+/-14 mean / 278+/-10 MEDIAN (adopted).",
       "capillary_set": "EJ-199 WLS capillaries 132/131/133/134 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
       "conditions": {
-        "xcet40_bar": ".225",
-        "xcet43_bar": ".220",
+        "xcet40_bar": "0.225",
+        "xcet43_bar": "0.220",
         "sipm_bias": "29 V",
         "amp_bias": "7 V",
         "mcp_bias": "3000 V",
-        "daq_beam_field": "-7 GeV"
+        "daq_beam_field": "-7 GeV",
+        "pressure_source": "manifest notes (= DAQ block)"
       },
       "beam_file": "T10 RADiCAL 005"
     },
@@ -495,15 +498,16 @@
       "started_utc": "2026-08-30T11:42:59Z",
       "ended_utc": "2026-08-30T14:37:13Z",
       "purpose": "EJ199 scan, 9 GeV",
-      "notes": "XCETs 0.151/0.156 bar (DAQ metadata; its 'Beam: -7 GeV' field is an operator typo - this is the -9 GeV run). Tag 5.17% at thr 40 (1,034 e). Timing 325+/-23 mean / 249+/-17 MEDIAN (adopted). Long wall-clock (2.9 h for 20k).",
+      "notes": "XCETs 0.152/0.156 bar (operator manifest notes; its 'Beam: -7 GeV' field is an operator typo - this is the -9 GeV run). Tag 5.17% at thr 40 (1,034 e). Timing 325+/-23 mean / 249+/-17 MEDIAN (adopted). Long wall-clock (2.9 h for 20k).",
       "capillary_set": "EJ-199 WLS capillaries 132/131/133/134 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
       "conditions": {
-        "xcet40_bar": ".151",
-        "xcet43_bar": ".156",
+        "xcet40_bar": "0.152",
+        "xcet43_bar": "0.156",
         "sipm_bias": "29 V",
         "amp_bias": "7 V",
         "mcp_bias": "3000 V",
-        "daq_beam_field": "-7 GeV"
+        "daq_beam_field": "-7 GeV",
+        "pressure_source": "manifest notes (DAQ block 0.151/0.156 consistent)"
       },
       "beam_file": "T10 RADiCAL 006"
     },
