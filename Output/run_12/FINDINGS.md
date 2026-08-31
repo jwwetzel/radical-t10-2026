@@ -827,15 +827,56 @@ The sharp peak IS the single-photoelectron response - a per-counter gain
 ruler. Tag-and-probe (probe counter tagged by the other; unbiased) with
 two <Npe> estimators (Poisson-exact mean incl. zeros; resolved-hump
 peak) across 18 runs and 0.06-1.3 bar:
-  XCET40: A1pe = 40.2 ADC-eq (+-5% over 5 days, 15 runs);
-          <Npe> = (19.0 +/- 0.4) pe/bar * P, chi2/ndf 24/17.
-  XCET43: A1pe ~ 21.8 ADC-eq (1-pe rides the pedestal edge; PMT gain
-          ~half of XCET40's - explains its compressed spectra);
-          <Npe> = (26.0 +/- 0.5) pe/bar * P (+-15% scale systematic).
-Predicted coincidence efficiencies (Poisson zero-suppression):
-54% @0.06 bar / 74% @0.09 / 92% @0.15 / 98% @0.21 / ~100% >=0.4 bar -
-retroactively explaining the -11 GeV tag deficits, run 44's modest
-gain, and the 9 GeV ">=5%" content hedge (true content ~5.3%); the
--7 GeV corrected content matches the in-situ ~9%.
-Run 34 excluded (pion-contaminated probe). Run-to-run ~10% scatter =
-beam optics. Future pressure choices can now TARGET a tag efficiency.
+  XCET40: A1pe = 40.2 ADC-eq (+-5% RMS over 3 days, 15 runs);
+          <Npe> = (19.0 +/- 0.4 fit +/- 0.9 scale) pe/bar * P,
+          chi2/ndf 24/17.
+  XCET43: A1pe ~ 21.8 ADC-eq (1-pe rides the pedestal edge; single-run
+          ruler; PMT gain ~half of XCET40's - explains its compressed
+          spectra);
+          <Npe> = (26.0 +/- 1.1 fit +/- 3.9 scale) pe/bar * P,
+          chi2/ndf 79/17 (fit err chi2-scaled x2.15; 15% ruler term).
+Run 34 excluded (pion-contaminated probe).
+
+## Committee review of XCETCalib + revisions (2026-09-01)
+
+Four-lens board (production editor / Cherenkov expert / T10 beamline /
+statistics referee) reviewed the figure. Verdicts: method sound, XCET40
+real metrology (implied Cherenkov quality factor N0 ~ 72-77 /cm over
+~3 m CO2 - top-decile but sane); XCET43's bare "+/-0.5" indefensible;
+figure clipped its own fitted points. Executed the same day:
+  1. Frame raised 32 -> 42: the three XCET43 1.3-bar points (Npe ~ 37)
+     are now VISIBLE (they were in the fit but outside the frame - the
+     "missing 1.3 bar points" and the orphan dashed fragment were both
+     this one bug). Fit lines drawn over the data range only; legend
+     transparent, 2+2 layout with the open-marker glyph shown.
+  2. Two-term errors everywhere (legend/caption/summary): fit error
+     chi2-scaled, 1-pe ruler scale systematic quoted separately (5%
+     XCET40 from 15-run RMS, 15% XCET43 single-run ruler).
+  3. Efficiency panel rebuilt: Poisson zero-suppression demoted to a
+     labeled no-threshold UPPER BOUND; solid curves now fold the 1-pe
+     ruler (+ sqrt(n) x sigma1 width, 14.5/7.9 ADC-eq) with the
+     40 ADC-eq software tag threshold the physics analyses used at low
+     pressure (per XCETCheck); MEASURED per-run tag-and-probe
+     efficiencies overlaid; campaign operating pressures marked;
+     x-range 0-0.65 bar.
+  4. Retroactive campaign numbers re-derived from MEASURED points:
+     coincidence ~41% @0.06 bar / ~44% @0.09 / 60-80% @0.15 /
+     76-94% @0.21 - the -11 GeV tag deficit and run 44's modest yield
+     are MORE expected than the old Poisson-only 54%/74% suggested;
+     -7 GeV stays consistent with in-situ ~9% content. Note: measured
+     XCET40 eff rides ABOVE its folded curve (its 1-pe peak sits at
+     the threshold, amplitude noise carries borderline events over)
+     and near the bound; XCET43 measured sits between folded and
+     bound. "Beam optics" scatter claim RETIRED for XCET43: residuals
+     are pressure-structured (committee ratio diagnostic <A43>/<A40>
+     climbs 0.62 -> 0.90 vs constant 0.74 predicted - genuine relative
+     channel effect, under investigation).
+OPEN (committee, not yet done): ruler-free zero-fraction cross-check
+of XCET43's A1pe (lambda = -ln f0 on tagged electrons at low P);
+uniform-cthr refit + tag-threshold scan on runs 38-40; floating-
+intercept fits (referee found XCET43 b = -0.37 +/- 0.11, 3.4 sigma,
+slope +8.5% when floated; XCET40 passes clean); run 38 registry
+pressure audit (XCET43 probe means of 38/39 statistically identical,
+426.2 vs 425.2 ADC-eq, but registry says 0.553 vs 0.593 bar - James
+checking e-log); derive the error floor from repeat pairs (5-6%, not
+8%); T10 beam-instrumentation note.

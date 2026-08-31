@@ -37,16 +37,57 @@
    43  43  0.156    --       65.6+/-1.4 (probeN 1587)
    44  40  0.090   42.8+/-1.4     62.4+/-1.6 (probeN 607)
    44  43  0.088    --       39.5+/-1.1 (probeN 916)
-A1pe median XCET40 = 40.2 ADC-eq (15 runs fitted)
+A1pe median XCET40 = 40.2 ADC-eq, sigma1pe = 14.5 ADC-eq (15 runs fitted)
 NOTE XCET43: 1-pe resolved in only 1 run(s) — ruler carries a ~15% absolute-scale systematic
-A1pe median XCET43 = 21.8 ADC-eq (1 runs fitted)
-XCET40: <Npe> = (19.0 +/- 0.4) pe/bar * P   (mean estimator, chi2/ndf 24.0/17)
-XCET43: <Npe> = (26.0 +/- 0.5) pe/bar * P   (mean estimator, chi2/ndf 78.7/17)
+A1pe median XCET43 = 21.8 ADC-eq, sigma1pe = 7.9 ADC-eq (1 runs fitted)
+XCET40: <Npe> = (19.0 +/- 0.4 fit +/- 0.9 scale) pe/bar * P   (mean estimator, chi2/ndf 24.0/17, fit err x1.19 chi2-scaled; scale = 5% 1-pe ruler)
+XCET43: <Npe> = (26.0 +/- 1.1 fit +/- 3.9 scale) pe/bar * P   (mean estimator, chi2/ndf 78.7/17, fit err x2.15 chi2-scaled; scale = 15% 1-pe ruler)
+CAVEAT XCET43: residuals are pressure-structured (not random run-to-run scatter) — under investigation; see FINDINGS
 
-# predicted tag efficiency UPPER BOUND (Poisson zero-suppression only; software threshold not folded in)
-P=0.06 bar: eff40 68.0%  eff43 78.9%  coincidence 53.7%
-P=0.09 bar: eff40 81.9%  eff43 90.3%  coincidence 74.0%
-P=0.15 bar: eff40 94.2%  eff43 98.0%  coincidence 92.3%
-P=0.21 bar: eff40 98.1%  eff43 99.6%  coincidence 97.7%
-P=0.40 bar: eff40 99.9%  eff43 100.0%  coincidence 99.9%
-P=0.60 bar: eff40 100.0%  eff43 100.0%  coincidence 100.0%
+# tag efficiency: Poisson-only UPPER BOUND vs FOLDED (1-pe ruler x sqrt(n) width, 40 ADC-eq software threshold)
+P=0.06 bar: bound 40/43/coinc  68.0/ 78.9/ 53.7%   folded  49.4/ 36.4/ 18.0%
+P=0.09 bar: bound 40/43/coinc  81.9/ 90.3/ 74.0%   folded  65.9/ 57.4/ 37.8%
+P=0.15 bar: bound 40/43/coinc  94.2/ 98.0/ 92.3%   folded  85.5/ 83.6/ 71.5%
+P=0.21 bar: bound 40/43/coinc  98.1/ 99.6/ 97.7%   folded  94.1/ 94.5/ 88.9%
+P=0.40 bar: bound 40/43/coinc  99.9/100.0/ 99.9%   folded  99.7/ 99.9/ 99.6%
+P=0.60 bar: bound 40/43/coinc 100.0/100.0/100.0%   folded 100.0/100.0/100.0%
+
+# MEASURED probe efficiency above 40 ADC-eq (tag-and-probe; run 34 pion-contaminated, excluded from fit/plot)
+   15  XCET40  P=0.400  eff = 0.995 +/- 0.002  (N=2020)
+   15  XCET43  P=0.400  eff = 0.998 +/- 0.001  (N=1994)
+   24  XCET40  P=1.300  eff = 0.999 +/- 0.001  (N=4712)
+   24  XCET43  P=1.300  eff = 0.999 +/- 0.001  (N=4714)
+ 2526  XCET40  P=1.300  eff = 1.000 +/- 0.000  (N=8818)
+ 2526  XCET43  P=1.300  eff = 0.999 +/- 0.000  (N=8830)
+   27  XCET40  P=0.210  eff = 0.972 +/- 0.004  (N=1781)
+   27  XCET43  P=0.210  eff = 0.966 +/- 0.004  (N=1789)
+ 9001  XCET40  P=0.150  eff = 0.916 +/- 0.009  (N=1027)
+ 9001  XCET43  P=0.156  eff = 0.865 +/- 0.010  (N=1088)
+   30  XCET40  P=0.062  eff = 0.788 +/- 0.017  (N=552)
+   30  XCET43  P=0.060  eff = 0.540 +/- 0.018  (N=806)
+   31  XCET40  P=0.062  eff = 0.800 +/- 0.017  (N=566)
+   31  XCET43  P=0.060  eff = 0.493 +/- 0.016  (N=919)
+   32  XCET40  P=0.149  eff = 0.907 +/- 0.009  (N=1056)
+   32  XCET43  P=0.146  eff = 0.753 +/- 0.012  (N=1273)
+   33  XCET40  P=0.206  eff = 0.957 +/- 0.005  (N=1799)
+   33  XCET43  P=0.194  eff = 0.833 +/- 0.008  (N=2066)
+   34  XCET40  P=1.314  eff = 0.998 +/- 0.000  (N=13697)  [excluded]
+   34  XCET43  P=1.304  eff = 0.999 +/- 0.000  (N=13480)  [excluded]
+   35  XCET40  P=1.313  eff = 0.998 +/- 0.001  (N=4681)
+   35  XCET43  P=1.303  eff = 0.997 +/- 0.001  (N=4684)
+   37  XCET40  P=0.400  eff = 0.994 +/- 0.002  (N=1151)
+   37  XCET43  P=0.405  eff = 0.996 +/- 0.002  (N=1142)
+   38  XCET40  P=0.590  eff = 0.999 +/- 0.000  (N=17762)
+   38  XCET43  P=0.553  eff = 0.999 +/- 0.000  (N=17774)
+   39  XCET40  P=0.593  eff = 1.000 +/- 0.000  (N=17748)
+   39  XCET43  P=0.593  eff = 0.998 +/- 0.000  (N=17771)
+   40  XCET40  P=0.593  eff = 0.999 +/- 0.000  (N=4565)
+   40  XCET43  P=0.593  eff = 0.998 +/- 0.001  (N=4566)
+   41  XCET40  P=0.452  eff = 0.994 +/- 0.002  (N=1135)
+   41  XCET43  P=0.439  eff = 0.994 +/- 0.002  (N=1131)
+   42  XCET40  P=0.225  eff = 0.966 +/- 0.005  (N=1609)
+   42  XCET43  P=0.220  eff = 0.788 +/- 0.009  (N=1973)
+   43  XCET40  P=0.152  eff = 0.925 +/- 0.008  (N=1118)
+   43  XCET43  P=0.156  eff = 0.652 +/- 0.012  (N=1587)
+   44  XCET40  P=0.090  eff = 0.817 +/- 0.016  (N=607)
+   44  XCET43  P=0.088  eff = 0.541 +/- 0.016  (N=916)

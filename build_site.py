@@ -347,16 +347,25 @@ index_sec = f'''<section data-content="summary">
   <div class="card" id="sec-pecal"><h4>The XCETs, absolutely calibrated — pe/bar from the 1-pe ruler</h4>
     <figure><img src="{pecal}" alt="XCET photoelectron calibration"><figcaption><b>The counters&rsquo; own single-photoelectron
     peaks turn every spectrum into an absolute photon count.</b> Left: tag-and-probe electron yield (probe counter tagged by
-    the other) divided by the 1-pe position — <span class="num">XCET40: (19.0 &plusmn; 0.4) pe/bar</span> (1-pe ruler
-    40.2 ADC-eq, stable to &plusmn;5% over five days and 15 runs), <span class="num">XCET43: (26.0 &plusmn; 0.5) pe/bar</span>
-    (&plusmn;15% scale systematic — its 1-pe peak at ~22 ADC-eq rides the pedestal edge; the PMT runs at roughly half
-    XCET40&rsquo;s gain, which is why its spectra always looked compressed). Filled: Poisson-exact mean estimator (valid even
-    at 0.06 bar where the electron hump dissolves into counting); open: resolved-hump fits — the two agree throughout.
-    Residual ~10% scatter is run-to-run beam optics. Right: predicted tag efficiency vs pressure. The predictions
-    retroactively explain the campaign: <span class="num">54% coincidence at 0.06 bar</span> (the &minus;11 GeV tag deficit),
-    74% at 0.09 (run 44&rsquo;s modest gain), 92% at 0.15 (why 9 GeV content was quoted as a lower bound), 98% at 0.21
-    (the &minus;7 GeV points, whose corrected content then matches our in-situ ~9%). Future runs can now <em>choose</em> a
-    tag efficiency instead of discovering it. Excluded from the fit: run 34 (pion-contaminated probe).</figcaption></figure></div>
+    the other) divided by the 1-pe position — <span class="num">XCET40: (19.0 &plusmn; 0.4<sub>fit</sub> &plusmn; 0.9<sub>scale</sub>) pe/bar</span>
+    (1-pe ruler 40.2 ADC-eq, stable to &plusmn;5% RMS over three days and 15 runs),
+    <span class="num">XCET43: (26.0 &plusmn; 1.1<sub>fit</sub> &plusmn; 3.9<sub>scale</sub>) pe/bar</span> (fit error &chi;&sup2;-scaled
+    &times;2.15; the &plusmn;15% ruler term dominates — its 1-pe peak at ~22 ADC-eq was resolved in a single run, riding the
+    pedestal edge; the PMT runs at roughly half XCET40&rsquo;s gain, which is why its spectra always looked compressed).
+    Filled: Poisson-exact mean estimator (valid even at 0.06 bar where the electron hump dissolves into counting); open:
+    resolved-hump fits — the two agree to ~10% above ~0.2 bar, with the expected mode-below-mean offset. XCET43&rsquo;s
+    residuals are pressure-structured, not random scatter — under investigation (internal review flagged a relative-channel
+    trend that beam optics cannot produce). Right: tag efficiency vs pressure — solid curves fold the 1-pe ruler and width
+    with the <span class="num">40 ADC-eq software threshold</span> the analyses used at low pressure; <b>points are measured</b>
+    tag-and-probe efficiencies; grey dash-dot is the no-threshold Poisson bound the earlier version of this figure showed
+    alone; red dashed is the same threshold fold applied to the two-counter coincidence (it undershoots the measured
+    coincidence at low pressure for the same reason XCET40&rsquo;s curve does). Measured coincidence at the campaign
+    operating points: <span class="num">~41% at 0.06 bar</span> (the &minus;11 GeV
+    tag deficit was even more expected than the old 54% bound suggested), ~44% at 0.09 (run 44&rsquo;s modest yield), ~60&ndash;80%
+    at 0.15, ~76&ndash;94% at 0.21 (the &minus;7 GeV points, still consistent with the in-situ ~9% content). XCET40&rsquo;s measured
+    points ride above its folded curve — its 1-pe peak sits exactly at the threshold, so amplitude noise carries borderline
+    events over. Future runs should choose pressures from the measured points, not the bound. Excluded from the fit: run 34
+    (pion-contaminated probe).</figcaption></figure></div>
 
   <div class="card" id="sec-trial"><h4>&ldquo;11 GeV on trial&rdquo; — are the tags real electrons?</h4>
     <figure><img src="{t11}" alt="11 GeV tagged spectra and MCP pulse heights by class"><figcaption><b>Verdict: the
