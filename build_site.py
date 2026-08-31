@@ -299,16 +299,19 @@ index_sec = f'''<section data-content="summary">
     per-capillary time. The shower time is the median of the four capillaries.</figcaption></figure></div>
 
   <div class="card" id="sec-materials"><h4>Materials, compared</h4>
-    <figure><img src="{comp}" alt="Timing and response for both modules"><figcaption><b>Timing and response.</b>
-    DSB1 is faster at every energy and delivers ~2.1&times; the light (~1,250&ndash;1,390 vs ~660 ADC-eq/GeV).
+    <figure><img src="{comp}" alt="Timing and response for both modules"><figcaption><b>Timing and response, all three channels.</b>
+    DSB1 is faster at every energy and delivers ~2.1&times; the light (~1,250&ndash;1,390 vs ~660 ADC-eq/GeV);
+    EJ199 — the spec-mismatched shifter — collects LuAG-comparable light per shower GeV yet runs ~2&times; slower
+    than LuAG at every point, photostatistics-limited throughout (timing panel log-scaled to hold all three;
+    open markers: the standing 11 GeV purity caveat).
     Response linearity for both modules is established to the &plusmn;15% cross-run gain envelope (see the LuAG
     page&rsquo;s linearity forensics: the apparent high-energy &ldquo;saturation&rdquo; is a SiPM temperature-gain ladder
     plus calculable shower-max migration, not the detectors).</figcaption></figure>
     <div class="tblwrap"><table>
-      <tr><th>unit</th><th>LuAG</th><th>DSB1</th><th>DSB1 / LuAG</th></tr>
-      <tr><td class="t">shower response [ADC-eq / GeV]</td><td class="num">~620</td><td class="num">~1,350</td><td class="num">2.2&times;</td></tr>
-      <tr><td class="t">MIP signal, 4-capillary sum [ADC-eq]&sect;</td><td class="num">~1,480</td><td class="num">~920</td><td class="num">0.62&times;</td></tr>
-      <tr><td class="t">shower response [MIP-sums / GeV]</td><td class="num">0.42</td><td class="num">1.48</td><td class="num">3.5&times;</td></tr>
+      <tr><th>unit</th><th>LuAG</th><th>DSB1</th><th>EJ199</th><th>DSB1 / LuAG</th></tr>
+      <tr><td class="t">shower response [ADC-eq / GeV]</td><td class="num">~620</td><td class="num">~1,350</td><td class="num">~550&ndash;650</td><td class="num">2.2&times;</td></tr>
+      <tr><td class="t">MIP signal, 4-capillary sum [ADC-eq]&sect;</td><td class="num">~1,480</td><td class="num">~920</td><td class="num">~1,850</td><td class="num">0.62&times;</td></tr>
+      <tr><td class="t">shower response [MIP-sums / GeV]</td><td class="num">0.42</td><td class="num">1.48</td><td class="num">~0.32</td><td class="num">3.5&times;</td></tr>
     </table></div>
     <p>&sect;Units caveat, stated plainly: ADC-eq is a readout-relative unit, and the MIP MPVs carry estimator and
     beam-species systematics (see the LuAG linearity forensics) — both MIP sets here are same-beam +5 GeV runs, so the
