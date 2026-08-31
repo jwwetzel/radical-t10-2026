@@ -720,3 +720,24 @@ Registry conditions recovered from DAQ experiment blocks (runs 31-44);
 figure set regenerated campaign-wide with per-energy tag thresholds and
 the review board's fixes (titles, legends, EMPTY watermarks, unified
 XCET colors, axis margins, caption corrections x7, subtitle collisions).
+
+## Operator run manifest ingested (runs/RunManifest_operator.csv, 2026-08-31)
+
+RESOLVES: run 13 = 1k-event alignment-discovery run (MCP/module
+misaligned; stand y shifted -7 mm) - file not in the local dataset.
+Pre-run-12 unnumbered 10k run: counters not yet cabled (chs 0-3 empty).
+Beam files per energy recorded (T10 RADiCAL 002-007 for 5/3/1/7/9/11).
+LuAG-era XCET pressures recovered: 0.4 bar at 5 GeV (runs 12-15;
+NOT the 0.44 T10 nominal), 1.3 bar at 3 GeV (run 24), and 1.3 bar at
+1 GeV (runs 25/26) - the earlier "~11 bar by 1/p^2 scaling" inference
+for the LuAG 1 GeV point was WRONG; only DSB1 run 36 ever ran at 11 bar.
+Runs 16-21 remain unexplained (absent from the manifest too).
+
+TWO UNRESOLVED CONFLICTS (flagged, not adjudicated):
+1. SiPM bias: manifest says 29 V from run 13 onward (28 V only for
+   pre-13), which contradicts the campaign log's attribution of the
+   run-14-to-15 MIP jump (+25%) to a "+1 V step at run 15". If the
+   manifest is right, that jump needs another explanation.
+2. Run 38 pressures: manifest note says 0.59/0.553 bar; the DAQ
+   experiment block says 0.406/0.406. Both e-only at 1 GeV; tag
+   unaffected; true value unknown.
