@@ -228,12 +228,12 @@ RUNS = [
   "new": {"btnname": "Run 39 · EJ199", "dot": "good",
           "meta": ["20,000 ev · +1 GeV · Aug 30", "EJ199 · first run of the module"],
           "title": "Run 39 — EJ199 at 1 GeV",
-          "sub":   "Aug 30, 12:08&ndash;12:20 CEST · WLS-only baseline: tuned for LuO:Yb, crystals not yet in hand",
+          "sub":   "Aug 30, 12:08&ndash;12:20 CEST · EJ-199 tuned for LuO:Yb — spectrally mismatched to the module&rsquo;s LYSO:Ce tiles by spec",
           "chips": ["20,000 events", "+1 GeV", "XCET tag (100)", "EJ199 WLS-only"],
           "pill":  ("good", "complete"),
           "notes": """<p>First EJ199 beam. Tag plateau <span class="num">88.7%</span> (17,732 e). Miss 69.5%
-      (1 GeV material floor). Timing reflects the missing fast component: <b>t-MEDIAN 1367 &plusmn; 24 ps</b> —
-      the WLS re-emission delay with no LuO:Yb light to shift.</p>"""}},
+      (1 GeV material floor). Timing is slow — <b>t-MEDIAN 1367 &plusmn; 24 ps</b> — consistent with fluorescence-like re-emission of the
+      LYSO:Ce tile light by the suspected contaminant (EJ-199&rsquo;s spec absorption band excludes 425 nm).</p>"""}},
  {"key": "r40", "dir": "run_40", "extras": [],
   "new": {"btnname": "Run 40 · EJ199", "dot": "good",
           "meta": ["20,000 ev · +3 GeV · Aug 30", "EJ199 · 3 GeV scan point"],
@@ -253,9 +253,8 @@ RUNS = [
           "pill":  ("good", "complete"),
           "notes": """<p>Tag plateau <span class="num">5.6%</span> (1,121 e). Miss 12.0%. Scan point
       (&Sigma;LG &gt; 1200): peak <span class="num">2740 &plusmn; 74</span> — ~550 ADC-eq/GeV, the dimmest module
-      (LuAG ~620, DSB1 ~1,350) — and <b>t-MEDIAN 380 &plusmn; 18 ps</b> (LuAG 228, DSB1 156). Both exactly as
-      expected for the WLS carrier without its LuO:Yb crystals: this run is the baseline the crystal-loaded
-      module will be measured against.</p>"""}},
+      (LuAG ~620, DSB1 ~1,350) — and <b>t-MEDIAN 380 &plusmn; 18 ps</b> (LuAG 228, DSB1 156). By spec this channel should be nearly blind to the LYSO:Ce tiles&rsquo; 425 nm light — the observed response
+      is in-beam support for the suspected Eljen contaminant, and this run quantifies it.</p>"""}},
 ]
 
 def figblock(path, title, desc):

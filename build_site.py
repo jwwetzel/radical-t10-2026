@@ -50,7 +50,7 @@ MODULES = {
             "tag": "DSB:Ce glass fibers", "runs":
             ["r31","r32","r33","r34","r35","r36","r37","r38"]},
   "ej199": {"title": "EJ199", "page": "ej199.html",
-            "tag": "WLS carrier (awaiting LuO:Yb)", "runs": ["r39","r40","r41"]},
+            "tag": "mismatched WLS — the finding", "runs": ["r39","r40","r41"]},
 }
 
 EXTRA_CSS = """
@@ -189,15 +189,16 @@ page("dsb1.html", "DSB1 — RADiCAL T10", "DSB:Ce · CERN PS T10 · Aug 2026",
      "dsb1", MODULES["dsb1"]["runs"], "\n".join(dsb1_secs), scan_btn_dsb1)
 
 # ---------------- EJ199 skeleton ----------------
-ej_intro = ('<div class="card"><p><b>This page is the EJ199 module&rsquo;s record — with one caveat that frames '
- 'every number:</b> EJ199 is the wavelength-shifting carrier tuned to capture LuO:Yb emission, and the LuO:Yb '
- 'crystals were not yet in hand. These runs measure the WLS-only baseline — expect dimmer, slower a priori, '
- 'and that is what we find.</p></div>')
+ej_intro = ('<div class="card"><p><b>This page is the EJ199 module&rsquo;s record — with one fact that frames '
+ 'every number:</b> EJ-199 is a wavelength shifter whose absorption is tuned for LuO:Yb emission — spectrally '
+ 'mismatched, by spec, to the LYSO:Ce tiles installed in the module. A to-spec EJ-199 should therefore be nearly '
+ 'blind here. It is not — and that response is itself the measurement: consistent with the suspected Eljen '
+ 'contaminant (seen in fiber testing at Notre Dame) responding to the 425 nm tile light.</p></div>')
 ej_scan = f'''  <div class="runhead">
-    <h1>EJ199 energy scan — WLS-only baseline</h1>
+    <h1>EJ199 energy scan — the mismatched shifter that shouldn&rsquo;t respond, but does</h1>
     <div class="sub">Runs 39&ndash;41, Aug 30 &middot; +1/+3/+5 GeV &middot; single ~0.4 bar XCET fill (e-only at all three) &middot; negative points next</div>
     <div class="chips"><span class="chip">3 energies</span><span class="chip">~60k events</span>
-    <span class="chip">WLS-only — LuO:Yb pending</span><span class="pill info">baseline established</span></div>
+    <span class="chip">mismatched WLS — responds anyway</span><span class="pill info">contaminant hypothesis supported</span></div>
   </div>
   <div class="card">
     <figure><img src="{enc('Output/scan_ej199/EnergyScanEJ199.png', 1600, 82)}" alt="EJ199 energy scan trends"><figcaption>Tagged-electron spectra, response, width, and shower-time trend for the EJ199 WLS-only module.</figcaption></figure>
@@ -211,17 +212,18 @@ ej_scan = f'''  <div class="runhead">
     </table></div>
     <p>Response ~<span class="num">550 ADC-eq/GeV</span> — the dimmest module (LuAG ~620, DSB1 ~1,350) — and timing
     ~1.7&times; slower than LuAG at 5 GeV, with the trend fitting pure photostatistics
-    (<span class="num">&sigma;_t &asymp; 1360/&radic;E ps</span>, constant term unresolved): both are the expected
-    signature of the WLS carrier running without its LuO:Yb light source, where the shifter&rsquo;s own re-emission
-    time and reduced light yield dominate. These three points are the <b>baseline</b> the crystal-loaded module
-    will be compared against. Tag plateaus (88.7/22.8/5.6%) match DSB1&rsquo;s to a fraction of a percent — the beam
+    (<span class="num">&sigma;_t &asymp; 1360/&radic;E ps</span>, constant term unresolved). Read against the spec,
+    this response should barely exist: the LYSO:Ce tiles emit at 425 nm, outside EJ-199&rsquo;s intended absorption
+    band. That the channel still collects ~550 ADC-eq/GeV — with slow, fluorescence-like time structure — is in-beam,
+    quantified support for the contaminant hypothesis from Notre Dame fiber testing: something in this EJ-199 batch
+    responds to 425 nm. The pulse-shape decay constant (in work) is the fingerprint to compare against the bench. Tag plateaus (88.7/22.8/5.6%) match DSB1&rsquo;s to a fraction of a percent — the beam
     is reproducible across all three modules. Negative-beam points (&minus;7/&minus;9/&minus;11 GeV) follow.</p>
   </div>'''
 ej_secs = [f'<section data-content="scan">{ej_intro}{ej_scan}</section>']
 for rk in MODULES["ej199"]["runs"]:
     ej_secs.append(f'<section data-content="{rk}" hidden>{section(rk)}</section>')
 ej_scan_btn = ('<button class="runbtn" data-run="scan"><span class="rn"><span class="dot info"></span>Energy scan</span>'
-               '<div class="rm">+1/+3/+5 GeV baseline</div><div class="rm">WLS-only &middot; LuO:Yb pending</div></button>')
+               '<div class="rm">+1/+3/+5 GeV baseline</div><div class="rm">mismatched WLS &middot; responds anyway</div></button>')
 page("ej199.html", "EJ199 — RADiCAL T10", "EJ-199 WLS · CERN PS T10 · Aug 2026",
      "ej199", MODULES["ej199"]["runs"], "\n".join(ej_secs), ej_scan_btn)
 
@@ -242,15 +244,17 @@ index_sec = f'''<section data-content="summary">
   </div>
 
   <div class="card" id="sec-tested"><h4>What we tested</h4>
-    <p>RADiCAL modules sample an electromagnetic shower at its maximum with a 2&times;2 array of scintillating
-    capillaries (14&times;14 mm face) read out by dual-gain SiPMs into a CAEN DT5742 (DRS4, 5 GS/s). A micro-channel
-    plate upstream provides the ~10 ps time reference; two threshold Cherenkov counters tag electrons in hardware
-    at every energy. Three capillary materials share identical geometry and readout — only the material changes.</p>
+    <p>The RADiCAL module is a shashlik calorimeter — alternating tungsten and LYSO:Ce tile layers — sampled at
+    shower maximum by an interchangeable 2&times;2 array of capillaries (14&times;14 mm face) that collect the tiles&rsquo;
+    scintillation light into dual-gain SiPMs and a CAEN DT5742 (DRS4, 5 GS/s). A micro-channel plate upstream provides
+    the ~10 ps time reference; two threshold Cherenkov counters tag electrons in hardware at every energy. The
+    tungsten/LYSO:Ce stack is identical in every configuration; between campaigns only the capillary set was swapped —
+    so every difference between the three datasets is the <b>light-collection channel</b>, not the calorimeter.</p>
     <div class="tblwrap"><table>
       <tr><th>module</th><th>capillary material</th><th>runs</th><th>events</th><th>status</th></tr>
       <tr><td class="t">LuAG</td><td>LuAG:Ce crystal fibers</td><td>12&ndash;30</td><td class="num">~168k</td><td>6-point scan complete</td></tr>
       <tr><td class="t">DSB1</td><td>DSB:Ce glass fibers</td><td>31&ndash;38</td><td class="num">~230k</td><td>6-point scan complete</td></tr>
-      <tr><td class="t">EJ199</td><td>EJ-199 WLS carrier, tuned for LuO:Yb (crystals pending)</td><td>39&ndash;41</td><td class="num">~60k</td><td>+1/+3/+5 done; negative points next</td></tr>
+      <tr><td class="t">EJ199</td><td>EJ-199 WLS, tuned for LuO:Yb — spectrally mismatched to the LYSO:Ce tiles by design spec</td><td>39&ndash;41</td><td class="num">~60k</td><td>+1/+3/+5 done; negative points next</td></tr>
     </table></div></div>
 
   <div class="card" id="sec-headline">
@@ -282,8 +286,10 @@ index_sec = f'''<section data-content="summary">
     </table></div>
     <p>&sect;Units caveat, stated plainly: ADC-eq is a readout-relative unit, and the MIP MPVs carry estimator and
     beam-species systematics (see the LuAG linearity forensics) — both MIP sets here are same-beam +5 GeV runs, so the
-    <em>ratio</em> is meaningful even where the absolute scale is soft. DSB1 delivers less light per crossing MIP
-    (lower-density glass) but far more per shower GeV — its shower response per MIP unit is ~3.5&times; LuAG&rsquo;s.
+    <em>ratio</em> is meaningful even where the absolute scale is soft. With the LYSO:Ce tiles fixed, these ratios measure the capillaries as
+    <em>light-collection channels</em>: the DSB:Ce channel captures/converts the tile light ~2.2&times; more
+    efficiently per shower GeV than LuAG while collecting less per crossing MIP — a ~3.5&times; difference in
+    response-per-MIP between the two channels.
     An absolute photoelectron scale (dark-pulse calibration) is possible from existing data and planned.</p>
     <figure><img src="{pulse}" alt="Mean pulse shape per material"><figcaption><b>Why DSB1 is faster.</b>
     Mean tagged-electron pulse on the same &minus;7 GeV beam: identical readout-limited 4.4 ns rise, but LuAG&rsquo;s

@@ -624,3 +624,25 @@ Negative points next (pressures: 0.21 / 0.150 / 0.089-agreed).
 
 Site: nav restructured - module tabs (Summary|LuAG|DSB1|EJ199) across
 the top, run-context nav in the sidebar; EJ199 module page live.
+
+## CORRECTION — module architecture (2026-08-31, from James + Randy's review)
+
+The RADiCAL module is a SHASHLIK: alternating tungsten and LYSO:Ce tile
+layers, FIXED across all campaigns. What was swapped between LuAG / DSB1
+/ EJ199 datasets is the 2x2 CAPILLARY SET — the light-collection channel
+at shower max — not the scintillator. Corrections that follow:
+- "DSB1 2.1x brighter" = 2.1x better capture/conversion of the SAME
+  LYSO:Ce tile light (numbers unchanged; my bulk-brightness and
+  MIP-density explanations were wrong and are retracted).
+- EJ199 was NOT run "without crystals": it sat in the LYSO:Ce module.
+  Since EJ-199's spec absorption (tuned for LuO:Yb) excludes the tiles'
+  425 nm emission, a to-spec EJ-199 should be nearly blind. Observed
+  ~550 ADC-eq/GeV with slow time structure = in-beam, quantified support
+  for the Eljen-contaminant hypothesis (Mark @ ND, via Randy).
+- Beamline geometry (Randy's Q1): BOTH XCETs are beamline elements
+  upstream of the user zone (040 ends 39.7 m, 043 after it, zone ~45 m+)
+  — the 1-AND-1 coincidence is correct; no downstream veto applies.
+- Randy's diagonal-difference idea (NW+SE vs NE+SW averages, difference
+  cancels the MCP event-by-event; sigma(diff)/2 = intrinsic 4-cap
+  resolution) ADOPTED into the plan — will yield reference-free trends.
+Site/registry language corrected throughout.
