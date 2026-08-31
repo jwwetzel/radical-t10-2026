@@ -172,7 +172,7 @@ dsb1_scan = f'''  <div class="runhead">
       <tr><td>9</td><td class="t">32</td><td>40,000</td><td>847</td><td class="num">9946 &plusmn; 144</td><td>26.5%</td><td class="num">516 &plusmn; 14</td><td class="num"><b>133 &plusmn; 5</b></td></tr>
       <tr><td>11*</td><td class="t">31</td><td>40,000</td><td>303</td><td class="num">10721 &plusmn; 734</td><td>38.6%</td><td class="num">191 &plusmn; 18</td><td class="num"><b>181 &plusmn; 17</b></td></tr>
     </table></div>
-    <p>Timing trend (median, contained showers, 3&amp;9 GeV anchors): <span class="num">&sigma;_t &asymp; 323/&radic;E &oplus; 79 ps</span> —
+    <p>Timing trend (median, contained showers, 3&amp;9 GeV anchors): <span class="num">&sigma;_t &asymp; (361 &plusmn; 4)/&radic;E ps (b unresolved)</span> —
     the constant term nearly half of LuAG&rsquo;s 138 ps, references included unsubtracted. The 9 GeV point
     (<span class="num">133 &plusmn; 5 ps</span>) is the best timing of the campaign; its 516 ps <em>mean</em> against the 133 ps
     <em>median</em> is the strongest daytime-outlier rescue yet. DSB1 delivers ~2.1&times; the LuAG light
@@ -216,7 +216,7 @@ ej_scan = f'''  <div class="runhead">
     </table></div>
     <p>Response ~<span class="num">550 ADC-eq/GeV</span> — the dimmest module (LuAG ~620, DSB1 ~1,350) — and timing
     ~1.7&times; slower than LuAG at 5 GeV, with the trend fitting pure photostatistics
-    (<span class="num">&sigma;_t &asymp; 1360/&radic;E ps</span>, constant term unresolved). Read against the spec,
+    (<span class="num">&sigma;_t</span> falling FASTER than 1/&radic;E (the &radic;E form is rejected, &chi;&sup2;/ndf = 369/3 — consistent with first-photon &tau;/N&#8321; &prop; 1/E scaling of a photon-starved slow fluorophore)). Read against the spec,
     this response should barely exist: the LYSO:Ce tiles emit at 425 nm, outside EJ-199&rsquo;s intended absorption
     band. That the channel still collects ~550 ADC-eq/GeV — with slow, fluorescence-like time structure — is in-beam,
     quantified support for the contaminant hypothesis from Notre Dame fiber testing: something in this EJ-199 batch
@@ -242,9 +242,9 @@ index_sec = f'''<section data-content="summary">
   <div class="runhead">
     <h1>RADiCAL at the CERN PS — August 2026</h1>
     <div class="sub">Shower-max sampling modules with three capillary types &middot; T10 beamline, 1&ndash;11 GeV &middot; Aug 27&ndash;30</div>
-    <div class="chips"><span class="chip">3 modules (LuAG &middot; DSB1 &middot; EJ199)</span><span class="chip">~300k events</span>
+    <div class="chips"><span class="chip">3 modules (LuAG &middot; DSB1 &middot; EJ199)</span><span class="chip">~535k registered events</span>
     <span class="chip">6 beam energies</span><span class="chip">hardware e&#8315; tag at every energy</span>
-    <span class="pill good">two modules fully analyzed</span></div>
+    <span class="pill good">three modules analyzed — campaign complete</span></div>
   </div>
 
   <div class="card" id="sec-tested"><h4>What we tested</h4>
@@ -258,13 +258,13 @@ index_sec = f'''<section data-content="summary">
       <tr><th>module</th><th>capillary material</th><th>runs</th><th>events</th><th>status</th></tr>
       <tr><td class="t">LuAG</td><td>LuAG:Ce crystal fibers</td><td>12&ndash;30</td><td class="num">~168k</td><td>6-point scan complete</td></tr>
       <tr><td class="t">DSB1</td><td>DSB:Ce glass fibers</td><td>31&ndash;38</td><td class="num">~230k</td><td>6-point scan complete</td></tr>
-      <tr><td class="t">EJ199</td><td>EJ-199 WLS, tuned for LuO:Yb — spectrally mismatched to the LYSO:Ce tiles by design spec</td><td>39&ndash;41</td><td class="num">~60k</td><td>+1/+3/+5 done; negative points next</td></tr>
+      <tr><td class="t">EJ199</td><td>EJ-199 WLS, tuned for LuO:Yb — spectrally mismatched to the LYSO:Ce tiles by design spec</td><td>39&ndash;44</td><td class="num">~120k</td><td>6-point scan complete</td></tr>
     </table></div></div>
 
   <div class="card" id="sec-headline">
     <figure><img src="{hero}" alt="Shower timing versus energy for both modules"><figcaption><b>The headline.</b>
     Shower-time resolution vs beam energy for tagged electrons. DSB1 reaches <b>133 &plusmn; 5 ps at 9 GeV</b> and 156 &plusmn; 8 at 5 GeV with the
-    MCP and digitizer reference jitter still included — the trend&rsquo;s constant term is 79 ps vs LuAG&rsquo;s 138 ps.
+    MCP and digitizer reference jitter still included — the weighted-fit trends are (361 &plusmn; 4)/&radic;E ps for DSB1 (constant term unresolved at these energies, b = 32 &plusmn; 17) vs (402 &plusmn; 13)/&radic;E &oplus; (134 &plusmn; 11) ps for LuAG.
     Median 4-capillary combination; no reference subtraction. Open 11 GeV points: the whole-tag purity there was
     on trial (T10 composition: e&rarr;0 above ~10 GeV/c); the contained subset behind these points measures as genuine
     hard electrons — see &ldquo;11 GeV on trial&rdquo; below.</figcaption></figure>
@@ -277,8 +277,8 @@ index_sec = f'''<section data-content="summary">
     <div class="tblwrap"><table>
       <tr><th>E [GeV]</th><th colspan="2">LuAG: incl-ref &rarr; intrinsic</th><th colspan="2">DSB1</th><th colspan="2">EJ199</th></tr>
       <tr><td>5</td><td class="num">251</td><td class="num"><b>226</b></td><td class="num">182</td><td class="num"><b>&le;187</b></td><td class="num">405</td><td class="num"><b>356</b></td></tr>
-      <tr><td>7</td><td class="num">216</td><td class="num"><b>187</b></td><td class="num">176</td><td class="num"><b>&le;198</b></td><td class="num">349</td><td class="num"><b>285</b></td></tr>
-      <tr><td>9</td><td class="num">215</td><td class="num"><b>183</b></td><td class="num" colspan="2">(daytime-noise run)</td><td class="num">303</td><td class="num"><b>279</b></td></tr>
+      <tr><td>7</td><td class="num">216</td><td class="num"><b>187</b></td><td class="num">176</td><td class="num"><b>&le;198</b></td><td class="num">301</td><td class="num"><b>270</b></td></tr>
+      <tr><td>9</td><td class="num">215</td><td class="num"><b>183</b></td><td class="num" colspan="2">(daytime-noise run)</td><td class="num">257</td><td class="num"><b>258&dagger;</b></td></tr>
     </table></div>
     <p><b>Validation:</b> for LuAG the implied reference jitter comes out at <span class="num">107&ndash;114 ps,
     energy-independent from 5&ndash;9 GeV</span> — matching the independently measured ~105 ps DRS inter-group +
@@ -286,7 +286,8 @@ index_sec = f'''<section data-content="summary">
     &sigma;(diff)/2 slightly <em>exceeds</em> the reference-included width — impossible for independent
     capillaries — revealing correlated per-capillary timing terms (shared shower fluctuations / position
     quadrupole) that the 4-capillary mean averages down but the diagonal difference does not. For the
-    high-light channel the diagonal estimate is therefore an upper bound; subtracting the validated 110 ps
+    high-light channel the diagonal estimate is therefore an upper bound (&dagger;same flag at EJ199&rsquo;s 9 GeV point);
+    EJ199 columns use containment floors matched to its scan (re-derived after an audit caught a floor mismatch); subtracting the validated 110 ps
     reference instead gives DSB1 intrinsic estimates of <span class="num">~145 ps at 5 GeV, ~137 ps at 7 GeV,
     and ~75 ps at 9 GeV</span> (from the 133 ps median) — the last to be confirmed with the downstream
     reference planned for the next beam test, exactly the &ldquo;rich man&rsquo;s version&rdquo; of this estimator.</p></div>
@@ -364,25 +365,29 @@ index_sec = f'''<section data-content="summary">
     apparent high-energy saturation investigated and retired (gain ladder + shower-max migration, <a href="luag.html#scan">forensics</a>).
     <a href="dsb1.html">DSB1 module</a>: full 1&ndash;11 GeV scan in one day, fastest timing of the campaign.<br>
     Aug 29&ndash;30 &middot; 1 GeV rate mystery solved at the collimators + XCET gas (<a href="dsb1.html#r36">run 36</a>); clean retakes the same night (<a href="dsb1.html#r37">run 37</a>, <a href="dsb1.html#r38">run 38</a>).
-    EJ199 up next.</p>
+    EJ199 full 1&ndash;11 GeV scan (<a href="ej199.html">runs 39&ndash;44</a>).
+    Aug 31 &middot; shashlik-architecture framing corrected; Randy&rsquo;s review: geometry resolved, EJ-199 contaminant
+    evidence quantified, diagonal-difference estimator adopted (validated the ~110 ps reference, discovered correlated
+    capillary timing); four-lens internal review board; registry, captions, trend fits and figures re-derived.</p>
     <p>Every number above is reproducible from the repo: <code>runs/runs.json</code> (provenance),
     <code>Output/run_12/FINDINGS.md</code> (the full log, including the mistakes), and <code>macros/</code>
     (every plot&rsquo;s source). Run pages carry the complete standard plot set for every run.</p></div>
 
   <div class="card" id="sec-conclusions"><h4>Conclusions so far</h4>
     <p><b>Shower-max sampling times electromagnetic showers at the hundred-picosecond scale from a 14 mm module.</b>
-    DSB1 reaches <span class="num">133 &plusmn; 5 ps at 9 GeV</span> with all reference jitter included, and its trend
-    constant term (79 ps) is nearly half of LuAG&rsquo;s (138 ps) — traced mechanistically to its ~3&times; shorter
-    scintillation tail. <b>Material choice is now a measured trade:</b> DSB:Ce buys ~2.2&times; the light per GeV and the
+    DSB1 reaches <span class="num">133 &plusmn; 5 ps at 9 GeV</span> with all reference jitter included, and its shower-time resolution beats LuAG&rsquo;s at every energy — traced mechanistically to its ~3&times; shorter
+    scintillation tail — and over 1&ndash;9 GeV its trend is pure photostatistics, (361 &plusmn; 4)/&radic;E ps, with the
+    constant term unresolved (the earlier &ldquo;79 ps&rdquo; figure was a two-point-anchor artifact and is retired). <b>Material choice is now a measured trade:</b> DSB:Ce buys ~2.2&times; the light per GeV and the
     faster pulse; LuAG:Ce buys more signal per crossing MIP. <b>And the campaign returned beam knowledge T10 didn&rsquo;t
     have:</b> in-situ electron fractions above the published tables at 5&ndash;9 GeV/c, their dependence on collimation,
     and the XCET radiator gas as unbudgeted beamline material at low momentum.</p></div>
 
   <div class="card" id="sec-next"><h4>Next</h4>
-    <p>EJ199 scan (today); run 37 + stable 1 GeV into the DSB1 scan; connection of all three capillary types to the
-    earlier high-energy campaigns once that data is staged — cross-campaign comparisons will use shape-normalized
-    quantities (timing trends, &sigma;/E) pending a per-run gain reference (planned: temperature logging + pulser,
-    muon-stopper MIP anchor).</p></div>
+    <p>Confirm the DSB1 intrinsic timing (~75 ps-class at 9 GeV) with an independent downstream reference;
+    irradiation campaign on DSB:Ce and LuAG:Ce capillary assemblies (longest-lead item — it decides the down-select);
+    SPS beam test at 20&ndash;150 GeV with tracker, pulser + temperature logging, and a 3&times;3 matrix;
+    dark-pulse photoelectron calibration; connection of all three capillary types to the
+    high-energy datasets from earlier campaigns (pending data access).</p></div>
 </section>'''
 SUMMARY_TOC = [
   ("sec-tested",      "What we tested",   "modules · beam · readout"),

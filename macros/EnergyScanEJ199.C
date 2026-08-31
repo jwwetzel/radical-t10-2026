@@ -243,6 +243,7 @@ void EnergyScanEJ199()
     TGraph *o = new TGraph(1); o->SetPoint(0, x, y);
     o->SetMarkerStyle(24); o->SetMarkerColor(g->GetMarkerColor()); o->SetMarkerSize(1.3); o->Draw("P same");
   };
+  gPad->SetLeftMargin(0.165); gr->GetYaxis()->SetTitleOffset(2.05);
   gr->Draw("AP");
   demote11(gr, NP-1);
   TF1 *lin = new TF1("lin","[0]*x",0,12);
@@ -273,6 +274,8 @@ void EnergyScanEJ199()
   gt->SetTitle(";beam energy [GeV];shower-time #sigma [ps]");
   gt->SetMarkerStyle(20); gt->SetMarkerSize(1.4); gt->SetMarkerColor(rad::cInk()); gt->SetLineWidth(2);
   gt->GetXaxis()->SetLimits(0, 12); gt->SetMinimum(0);
+  { double tmax = 0; for (int ip = 0; ip < NP; ++ip) tmax = std::max(tmax, std::max(tS[ip], tSM[ip]));
+    gt->SetMaximum(1.25*tmax); }
   gt->Draw("AP");
   demote11(gt, NP-1);
   gm->SetMarkerStyle(24); gm->SetMarkerSize(1.3); gm->SetMarkerColor(rad::cGrey());
@@ -282,17 +285,22 @@ void EnergyScanEJ199()
   lgt->AddEntry(gt, "median of capillaries", "p");
   lgt->AddEntry(gm, "mean of capillaries", "p");
   lgt->Draw();
-  // closed-form a/sqrt(E) (+) b from the MEDIAN 1 and 9 GeV points
-  const int IA = 1, IB = 4;  // 3&9 GeV anchors, matching the other modules  // 1&9 GeV anchors, fixed regardless of NP
-  double a2 = (tSM[IA]*tSM[IA] - tSM[IB]*tSM[IB]) * E[IA]*E[IB] / (E[IB]-E[IA]);
-  double b2 = tSM[IB]*tSM[IB] - a2/E[IB];
+  // weighted fit of a/sqrt(E) (+) b to the MEDIAN points, 11 GeV excluded (purity caveat)
+  TGraphErrors *gfit = new TGraphErrors();
+  for (int ip = 0; ip < NP-1; ++ip) { gfit->SetPoint(ip, E[ip], tSM[ip]); gfit->SetPointError(ip, 0, tSMe[ip]); }
   TF1 *ft = new TF1("ft","sqrt([0]*[0]/x+[1]*[1])",0.5,12);
-  ft->SetParameters(std::sqrt(std::max(a2,0.0)), std::sqrt(std::max(b2,0.0)));
+  ft->SetParameters(350, 100); ft->SetParLimits(0, 0, 3000); ft->SetParLimits(1, 0, 1000);
+  gfit->Fit(ft, "QRN");
+  double fa = ft->GetParameter(0), fae = ft->GetParError(0);
+  double fb = ft->GetParameter(1), fbe = ft->GetParError(1);
   ft->SetLineColor(rad::cTeal()); ft->SetLineWidth(3); ft->Draw("same");
-  out("\ntiming trend (MEDIAN, 1&9 solve): sigma_t = %.0f ps/sqrt(E) (+) %.0f ps; 3 GeV median %.0f ps, predicted %.0f\n",
-      std::sqrt(std::max(a2,0.0)), std::sqrt(std::max(b2,0.0)), tSM[1],
-      std::sqrt(a2/E[1] + std::max(b2,0.0)));
-  hx.DrawLatex(0.16,0.86,"srCFD 4-cap shower time  #font[42]{(incl. MCP+DRS)}");
+  if (fb < 2*fbe)
+    out("\\ntiming trend (MEDIAN, weighted fit, 11 GeV excluded): sigma_t = (%.0f+/-%.0f)/sqrt(E) ps; constant term consistent with zero (b = %.0f +/- %.0f), chi2/ndf = %.1f/%d. REF-INCLUDED — never quote b as intrinsic.\\n",
+        fa, fae, fb, fbe, ft->GetChisquare(), ft->GetNDF());
+  else
+    out("\\ntiming trend (MEDIAN, weighted fit, 11 GeV excluded): sigma_t = (%.0f+/-%.0f)/sqrt(E) (+) (%.0f+/-%.0f) ps, chi2/ndf = %.1f/%d. REF-INCLUDED (validated reference floor ~110 ps) — never quote b as intrinsic.\\n",
+        fa, fae, fb, fbe, ft->GetChisquare(), ft->GetNDF());
+  hx.DrawLatex(0.16,0.17,"srCFD 4-cap shower time  #font[42]{(incl. MCP+DRS)}");
   c.SaveAs("Output/scan_ej199/EnergyScanEJ199.png");
   fclose(sum);
   printf("Wrote Output/scan/EnergyScan.png, EnergyScan_summary.txt\n");

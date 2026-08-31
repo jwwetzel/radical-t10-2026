@@ -39,7 +39,7 @@ void XCETScanPlot()
     t->SetBranchStatus("*", 0); t->SetBranchStatus("channel", 1);
     t->SetBranchAddress("channel", ch);
     Long64_t N = t->GetEntries();
-    hx[ip] = new TH1F(Form("hx%d", ip), ";XCET40 amplitude [ADC-eq];fraction / bin", 150, 0, 900);
+    hx[ip] = new TH1F(Form("hx%d", ip), ";XCET40 amplitude [ADC-eq];fraction / bin", 150, 0, 1400);
     hx[ip]->SetDirectory(nullptr);
     long coin[NT] = {0};
     for (Long64_t i = 0; i < N; ++i) {

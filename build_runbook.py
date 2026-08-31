@@ -40,29 +40,33 @@ STD = [
   "One glance confirms channel identity, polarity, and timing windows, and exposes dead or noisy channels."),
  ("Integrity_health.png", 1, "Channel health",
   "Per-channel baseline RMS, signal fraction, rail (clip) fraction, and median pulse peak-time. "
-  "Event gaps and rails surface here first; the LG rail fraction is the bias-headroom watch item."),
+  "Rails surface here first (event-gap counts live in the summary log); the LG rail fraction is the bias-headroom watch item."),
  ("QCv2_MIP.png", 2, "MIP calibration",
-  "Off-coincidence (hadron/muon) HG spectra with Landau fits per capillary. The MIP MPV is the per-run "
-  "gain reference that absorbs day-scale gain drift; run 15 anchors the campaign calibration."),
+  "Off-coincidence (hadron/muon) HG spectra with Landau fits per capillary — this run's MIP reference. "
+  "Caution: cross-run MIP comparisons carry beam-species and noise-estimator systematics (see the LuAG "
+  "linearity forensics) and are NOT a gain monitor."),
  ("TransferFit.png", 2, "HG&harr;LG transfer, wall-aware",
   "HG vs LG amplitude with the linear transfer fit restricted to the region below the HG clip wall — "
   "the fit range is drawn explicitly. The line predicts the true amplitude of clipped pulses, so no "
   "clipped high-gain signal is ever discarded."),
  ("MCPThreshold.png", 2, "MCP trigger threshold",
-  "TR0 amplitude spectrum and trigger turn-on giving the measured hardware threshold. Final working "
-  "point 137 mV — low enough to keep the smaller electron pulses (the old 240 mV rejected them)."),
+  "TR0 amplitude spectrum and trigger turn-on: THIS run's measured hardware threshold, annotated on the "
+  "plot. The campaign working point moved 240 to 137 mV mid-campaign after the species-correlated "
+  "pulse-height discovery — each run page records its own value."),
  ("XCETCheck.png", 2, "XCET spectra &amp; threshold",
-  "Cherenkov photoelectron spectra and coincidence rate vs software threshold. The electron-tag "
-  "threshold is set on the coincidence plateau, per energy."),
+  "Cherenkov amplitude spectra for the two counters (red line: reference software threshold). The "
+  "per-energy tag threshold is chosen on the coincidence plateau from the threshold-scan table in the "
+  "run's summary log."),
  ("ElectronID.png", 2, "Electron ID tag-and-probe",
-  "Selector variables for XCET-tagged electrons vs off-coincidence hadrons. Trained at the tagged "
-  "energies, this carries the electron selection to beam energies the XCETs cannot reach."),
+  "Selector variables for XCET-tagged electrons vs off-coincidence hadrons — the offline cross-check of "
+  "the hardware tag (which, in the end, reached every energy in this campaign)."),
  ("QCv2_align.png", 3, "&Sigma;LG spectrum &amp; containment",
-  "Summed low-gain spectrum, pulse peak-time containment, and row/column balance — shower containment "
-  "and beam alignment on the 2&times;2 capillary module."),
+  "Summed low-gain spectrum of tagged events, and pulse peak-time containment for the key channels "
+  "(legend on plot). Row/column balance and miss-fraction numbers live in the run notes below."),
  ("BestTiming.png", 3, "srCFD shower timing",
   "Per-capillary &Delta;t to the MCP using srCFD (threshold 0.15&times; the LG-predicted true amplitude) "
-  "and the combined shower time. Median combination adopted; mean kept alongside for comparison."),
+  "and the MEAN-combined shower time shown here; the scan tables quote the adopted per-event MEDIAN "
+  "combination, with the mean kept for comparison."),
 ]
 STAGES = {1: ("Channel integrity &amp; identification", "same checks, every production run"),
           2: ("Selection &amp; calibration",            "tag, gain reference, transfer, timing inputs"),

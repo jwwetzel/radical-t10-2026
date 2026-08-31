@@ -49,7 +49,7 @@ void HowItWorks()
   TLatex tx; tx.SetNDC(); tx.SetTextFont(43);
   auto head=[&](const char *a, const char *b){
     tx.SetTextSize(24); tx.SetTextColor(kBlack); tx.DrawLatex(0.13,0.945,a);
-    tx.SetTextSize(18); tx.SetTextColor(rad::cGrey()); tx.DrawLatex(0.13,0.90,b);
+    tx.SetTextSize(18); tx.SetTextColor(rad::cGrey()); tx.DrawLatex(0.13,0.921,b);
     tx.SetTextColor(kBlack); };
 
   c.cd(1);

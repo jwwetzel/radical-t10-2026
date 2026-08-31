@@ -45,7 +45,7 @@ void XCETCheck(int run = 27)
   for (int p=0;p<2;++p){
     c.cd(p+1); gPad->SetLogy();
     TH1F *h = p? h1:h0;
-    h->SetLineColor(p?rad::cAmber():rad::cTeal()); h->SetLineWidth(3); h->Draw("hist");
+    h->SetLineColor(rad::cTeal()); h->SetLineWidth(3); h->Draw("hist");
     TLine *l=new TLine(150,0.7,150,h->GetMaximum()); l->SetLineColor(rad::cRed());
     l->SetLineWidth(3); l->SetLineStyle(2); l->Draw();
     TLatex tx; tx.SetNDC(); tx.SetTextFont(43); tx.SetTextSize(20);

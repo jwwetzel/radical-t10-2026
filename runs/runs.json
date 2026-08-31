@@ -10,7 +10,6 @@
       "ended_utc": "2026-08-27T21:14:18Z",
       "started_local": "2026-08-27 19:57:43 CEST",
       "beam": "CERN T10, 5 GeV",
-      "crystal": "LuAG",
       "record_length": 1024,
       "post_trigger_pct": 70,
       "n_waveform_channels": 18,
@@ -35,7 +34,8 @@
         "15": "High gain upstream",
         "16": "MCP group 0 (TR0 input, CAEN DT5742)",
         "17": "MCP group 1 (TR0 input, CAEN DT5742)"
-      }
+      },
+      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)"
     },
     {
       "run_number": 14,
@@ -44,12 +44,12 @@
       "tree": "pulse",
       "events": 1000,
       "beam": "CERN T10, 5 GeV",
-      "crystal": "LuAG",
       "record_length": 1024,
       "post_trigger_pct": 74,
       "purpose": "1k-event alignment check after moving module ~6.4 mm toward ch 6/7 row",
       "notes": "Waveforms in mV (calibrated), not ADC (x4.096 to ADC-eq). NEW ARRAY LAYOUT (matches historical data; the single MCP TR0 is duplicated into both DRS groups): arrays 0-7 = DT5742 ch 0-7; array 8 = MCP TR0 copy, group 0; arrays 9-16 = DT5742 ch 8-15; array 17 = MCP TR0 copy, group 1. Verified in data: corr(arr8,arr17)=0.998 (same MCP pulse), arr16 = LG6's HG partner (corr 0.90). DT5742-native HG pairing unchanged from run 12 (4-13, 5-12, 6-15, 7-14). Post-trigger 74%: prompt pulses at sample ~52, only ~40 pre-samples for baselines (recommend restoring ~70%). HG gains raised ~2x (MIP MPVs 255-325 ADC-eq vs 121-165 in run 12; reference channels unchanged). ALIGNMENT (correct mapping): miss fraction 7.9% +/- 3.1% (was 42.9%); left/right = 0.96 +/- 0.06 (centered); bottom/top = 1.25 +/- 0.07 (was 1.41) - possibly ~1-2 mm still low, within calibration systematics of centered.",
-      "channel_map_note": "run>=14 array layout: 0-7 DT ch0-7, 8 TR0(grp0), 9-16 DT ch8-15, 17 TR0(grp1)"
+      "channel_map_note": "run>=14 array layout: 0-7 DT ch0-7, 8 TR0(grp0), 9-16 DT ch8-15, 17 TR0(grp1)",
+      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)"
     },
     {
       "run_number": 15,
@@ -58,14 +58,14 @@
       "tree": "pulse",
       "events": 20000,
       "beam": "CERN T10, 5 GeV",
-      "crystal": "LuAG",
       "record_length": 1024,
       "post_trigger_pct": 74,
       "started_utc": "2026-08-28T11:40:10Z",
       "ended_utc": "2026-08-28T13:47:39Z",
       "purpose": "First 20k production run at 5 GeV, position same as run 14",
       "notes": "COMPLETE: 20,000 events, zero event-number gaps. QC clean (QCv2.C): all channels healthy, HG clipping in beam events 0.2-0.6% (was 1-12% in run 12 - offset fix worked), Cherenkov coincidence 9.08% (1,816 e). MIP MPVs 329-404 ADC-eq (+25% vs run 14: SiPM bias raised +1 V on all LG and HG channels for this run - FINAL operating point for the campaign; run-15 MIPs are the reference calibration). ALIGNMENT: miss 7.9+/-0.6%; residual offset now significant: bottom/top 1.255+/-0.014, left/right 0.909+/-0.010 => beam ~2-3 mm low, ~1 mm right of module center. NEW: centered beam produces a real electron response peak in SumLG: mean 2992+/-36, sigma/E = 33.6+/-1.4% (position-smearing dominated; run-12 edge bound says intrinsic ~10%). Green light for energy scan with geometry/gains frozen.",
-      "bias_note": "SiPM bias +1 V vs runs 12-14 (all LG+HG); final setting from run 15 onward"
+      "bias_note": "SiPM bias +1 V vs runs 12-14 (all LG+HG); final setting from run 15 onward",
+      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)"
     },
     {
       "run_number": 22,
@@ -74,7 +74,9 @@
       "beam": "CERN T10, 3 GeV (per James; MCP thr 164 mV)",
       "purpose": "threshold test / first 3 GeV data",
       "notes": "MCP TR0 threshold 164 mV; e-coincidence 25.9%; merged with run 23 as run_2223.root for analysis.",
-      "tree": "pulse"
+      "tree": "pulse",
+      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)",
+      "started_utc_approx": "2026-08-28T16:05Z (file mtime; DAQ metadata not preserved)"
     },
     {
       "run_number": 23,
@@ -83,7 +85,9 @@
       "beam": "CERN T10, 3 GeV (per James; MCP thr 137 mV)",
       "purpose": "threshold test / first 3 GeV data",
       "notes": "MCP TR0 threshold 137 mV (final); e-coincidence 21.8%; merged with run 22 as run_2223.root.",
-      "tree": "pulse"
+      "tree": "pulse",
+      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)",
+      "started_utc_approx": "2026-08-28T16:12Z (file mtime; DAQ metadata not preserved)"
     },
     {
       "run_number": 25,
@@ -93,7 +97,8 @@
       "run_name": "LUAG_1GeV",
       "purpose": "1 GeV scan point (crashed)",
       "notes": "DAQ crashed at 3,264 events; file intact, zero gaps. Continued as run 26.",
-      "tree": "pulse"
+      "tree": "pulse",
+      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)"
     },
     {
       "run_number": 26,
@@ -103,7 +108,8 @@
       "run_name": "LUAG_1GeV",
       "purpose": "1 GeV continuation",
       "notes": "Continuation of run 25. Merged: run_2526.root = 10,264 events, 4,367 tagged e on module (85.8% XCET coincidence).",
-      "tree": "pulse"
+      "tree": "pulse",
+      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)"
     },
     {
       "run_number": 24,
@@ -113,7 +119,8 @@
       "events": 20000,
       "beam": "CERN T10, 3 GeV",
       "purpose": "3 GeV scan point",
-      "notes": "MCP threshold 137 mV. XCET coincidence 23.5% (4,701 e). Peak 1742+/-30, sigma/E 64.7%, shower-time 300+/-6 ps. MIP MPVs 327/297/256/304 (gain drift vs run 15). Alignment 12.2%/1.108/0.967."
+      "notes": "MCP threshold 137 mV. XCET coincidence 23.5% (4,701 e). Peak 1686+/-25, sigma/E 54.2% (current unified-binning fit; earlier 1742/64.7% superseded), timing 300+/-6 mean / 274+/-5 MEDIAN (adopted, ref included). MIP MPVs 327/297/256/304 (gain drift vs run 15). Alignment 12.2%/1.108/0.967.",
+      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)"
     },
     {
       "run_number": 27,
@@ -123,7 +130,8 @@
       "events": 20000,
       "beam": "CERN T10, -7 GeV (negative)",
       "purpose": "7 GeV scan point, marginal XCET tag",
-      "notes": "Both XCETs 0.21 bar (1/p^2-scaled). Coincidence 1.74% (347 e) ~ 2.3% e- content x ~60-75% tag eff. Peak 4400+/-97 (on linear trend), shower-time 242+/-28 ps. MCP thr 133 mV. MIP MPVs 281/239/215/280."
+      "notes": "Both XCETs 0.21 bar. SUPERSEDED initial thr-150 pass gave 347 e / peak 4400 / '2.3% e-' - see FINDINGS 7 GeV recount. Adopted: tag 8.8% at thr 50 (1,200 e on module; beam ~9% electrons, above the T10 table), peak 4814+/-51, sigma/E 22.5%, timing 223+/-9 mean / 191+/-7 MEDIAN (adopted, ref included). MCP thr 133 mV.",
+      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)"
     },
     {
       "run_number": 28,
@@ -133,7 +141,8 @@
       "events": 6028,
       "beam": "CERN T10, -9 GeV",
       "purpose": "9 GeV scan point, part 1",
-      "notes": "XCET40 0.150 / XCET43 0.156 bar (~3 pe: no threshold plateau, tag floor thr=40 ADC-eq, coincidence ~4.9% => beam >=5% e-). Stable; timing 331 ps standalone."
+      "notes": "XCET40 0.150 / XCET43 0.156 bar (~3 pe: no threshold plateau, tag floor thr=40 ADC-eq, coincidence ~4.9% => beam >=5% e-). Stable; timing 331 ps standalone.",
+      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)"
     },
     {
       "run_number": 29,
@@ -143,7 +152,8 @@
       "events": 40000,
       "beam": "CERN T10, -9 GeV",
       "purpose": "9 GeV overnight extension",
-      "notes": "INTERMITTENT TIMING DRIFT (environmental, overnight): chronological slices alternate 330-420 ps (stable) and 536-1218 ps with center jumps to +300 ps, worst in the morning. DQ selection keeps slices 0,1,4,6 (20k of 40k). Excluded events recoverable with time-dependent calibration. DQ dataset = run_9001.root (run 28 + good slices, 26,028 events): peak 5782+/-160, sigma/E 31.9+/-3.8%, shower-time 212+/-11 ps (trend predicts 218)."
+      "notes": "INTERMITTENT TIMING DRIFT (environmental, overnight): chronological slices alternate 330-420 ps (stable) and 536-1218 ps with center jumps to +300 ps, worst in the morning. DQ selection keeps slices 0,1,4,6 (20k of 40k). Excluded events recoverable with time-dependent calibration. DQ dataset = run_9001.root (run 28 + good slices, 26,028 events): peak 5782+/-160, sigma/E 31.9+/-3.8%, timing 204+/-11 mean / 189+/-12 MEDIAN (adopted, containment-gated, ref included; pre-gating 212/176 superseded).",
+      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)"
     },
     {
       "run_number": 30,
@@ -155,7 +165,8 @@
       "purpose": "11 GeV scan point (T10 momentum limit)",
       "started_utc": "2026-08-29T09:12:04Z",
       "ended_utc": "2026-08-29T10:47:59Z",
-      "notes": "XCETs pressurized 0.062/0.060 bar - hardware tag WORKS at threshold floor (cthr 40): coincidence 2.17% (867 tags, accidental rate ~0.11%); pi/mu below Cherenkov threshold at this pressure. Health clean: 0 gaps, LG rail 0.00-0.03% (bias stays frozen), HG clip ~2% (transfer line handles), MCP thr 133 mV, TR0 corr 0.998, pairings verified. MIP MPVs 459/440/376/405 (+13% vs run 15, day-scale gain ladder, absorbed by per-run calibration). WATCH ITEM: tagged-electron miss fraction 41.5% (vs 8-12% at 3-9 GeV) and depressed per-cap response - consistent with wider/halo beam at the T10 momentum limit; per-cap timing asymmetric (right column 5/7 ~600 ps vs left 4/6 ~400 ps). Standalone timing (mean combo) 328+/-28 ps, N=357."
+      "notes": "XCETs pressurized 0.062/0.060 bar - hardware tag WORKS at threshold floor (cthr 40): coincidence 2.17% (867 tags, accidental rate ~0.11%); pi/mu below Cherenkov threshold at this pressure. Health clean: 0 gaps, LG rail 0.00-0.03% (bias stays frozen), HG clip ~2% (transfer line handles), MCP thr 133 mV, TR0 corr 0.998, pairings verified. MIP MPVs 459/440/376/405 (+13% vs run 15, day-scale gain ladder, absorbed by per-run calibration). Miss fractions: 41.5% (QCv2 SumLG<300 definition) / 54% of tags below SumLG=400 (scan class definition) (vs 8-12% at 3-9 GeV) and depressed per-cap response - consistent with wider/halo beam at the T10 momentum limit; per-cap timing asymmetric (right column 5/7 ~600 ps vs left 4/6 ~400 ps). Adopted scan timing (contained, SumLG>3800): 547+/-32 mean / 227+/-32 MEDIAN, ref included. (BestTiming ungated mean 328+/-28 superseded.) 11 GeV trial: contained tags are hard electrons, E-eq 9.7 GeV.",
+      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)"
     },
     {
       "run_number": 31,
@@ -164,11 +175,19 @@
       "tree": "pulse",
       "events": 40000,
       "beam": "CERN T10, -11 GeV",
-      "crystal": "DSB1",
       "started_utc": "2026-08-29T11:43:58Z",
       "ended_utc": "2026-08-29T13:21:03Z",
       "purpose": "DSB1 module scan, 11 GeV point",
-      "notes": "First DSB1 run, straight after LuAG run 30 on the same -11 GeV beam. Same tight-beam era config as run 30 (wide beam at T10 limit expected). XCET pressures presumably 0.062/0.060 as run 30 - verify from spectra."
+      "notes": "First DSB1 run, straight after LuAG run 30 on the same -11 GeV beam. Same tight-beam era config as run 30 (wide beam at T10 limit expected). XCET pressures presumably 0.062/0.060 as run 30 - verify from spectra.",
+      "capillary_set": "DSB:Ce capillaries T093/T091/T096/T099 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
+      "conditions": {
+        "xcet40_bar": "0.062",
+        "xcet43_bar": "0.060",
+        "sipm_bias": "29 V",
+        "amp_bias": "7 V",
+        "mcp_bias": "3000 V",
+        "daq_beam_field": "-11 GeV"
+      }
     },
     {
       "run_number": 32,
@@ -177,11 +196,19 @@
       "tree": "pulse",
       "events": 40000,
       "beam": "CERN T10, -9 GeV",
-      "crystal": "DSB1",
       "started_utc": "2026-08-29T13:26:46Z",
       "ended_utc": "2026-08-29T16:12:10Z",
       "purpose": "DSB1 module scan, 9 GeV point",
-      "notes": "Metadata note: 'DSB1 test at -9 GeV'. Daytime run (light-leak-era noise conditions apply)."
+      "notes": "Metadata note: 'DSB1 test at -9 GeV'. Daytime run (light-leak-era noise conditions apply).",
+      "capillary_set": "DSB:Ce capillaries T093/T091/T096/T099 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
+      "conditions": {
+        "xcet40_bar": "0.149",
+        "xcet43_bar": "0.146",
+        "sipm_bias": "29 V",
+        "amp_bias": "7 V",
+        "mcp_bias": "3000 V",
+        "daq_beam_field": "-9 GeV"
+      }
     },
     {
       "run_number": 33,
@@ -190,11 +217,19 @@
       "tree": "pulse",
       "events": 20000,
       "beam": "CERN T10, -7 GeV",
-      "crystal": "DSB1",
       "started_utc": "2026-08-29T16:16:49Z",
       "ended_utc": "2026-08-29T17:17:16Z",
       "purpose": "DSB1 module scan, 7 GeV point",
-      "notes": "Metadata note: '-7GeV Beam'."
+      "notes": "Metadata note: '-7GeV Beam'.",
+      "capillary_set": "DSB:Ce capillaries T093/T091/T096/T099 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
+      "conditions": {
+        "xcet40_bar": "0.206",
+        "xcet43_bar": "0.194",
+        "sipm_bias": "29 V",
+        "amp_bias": "7 V",
+        "mcp_bias": "3000 V",
+        "daq_beam_field": "-7 GeV"
+      }
     },
     {
       "run_number": 34,
@@ -203,11 +238,19 @@
       "tree": "pulse",
       "events": 20000,
       "beam": "CERN T10, +5 GeV",
-      "crystal": "DSB1",
       "started_utc": "2026-08-29T17:30:33Z",
       "ended_utc": "2026-08-29T17:41:25Z",
-      "purpose": "DSB1 5 GeV point - BAD XCET PRESSURE",
-      "notes": "XCETs at 1.5 bar - ABOVE both the muon (0.518 bar) and PION (0.90 bar) thresholds at 5 GeV: the Cherenkov coincidence tags e+mu+pi (~68% of the positive beam), useless as an electron tag. Superseded by run 37 (0.4/0.405 bar). Still useful as: proton-depleted sample, pi-enriched control (tag minus ElectronID), and a fast full-statistics MIP set (11-minute run, highest rate of campaign)."
+      "purpose": "DSB1 5 GeV point - BAD XCET PRESSURE (pion tag)",
+      "notes": "XCETs at 1.314/1.304 bar (DAQ metadata; '1.5 bar' quoted at the time) - ABOVE both the muon (0.518 bar) and PION (0.90 bar) thresholds at 5 GeV: the Cherenkov coincidence tags e+mu+pi (~68% of the positive beam), useless as an electron tag. Superseded by run 37 (0.4/0.405 bar). Still useful as: proton-depleted sample, pi-enriched control (tag minus ElectronID), and a fast full-statistics MIP set (11-minute run, highest rate of campaign).",
+      "capillary_set": "DSB:Ce capillaries T093/T091/T096/T099 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
+      "conditions": {
+        "xcet40_bar": "1.314",
+        "xcet43_bar": "1.304",
+        "sipm_bias": "29 V",
+        "amp_bias": "7 V",
+        "mcp_bias": "3000 V",
+        "daq_beam_field": "5 GeV"
+      }
     },
     {
       "run_number": 35,
@@ -216,11 +259,19 @@
       "tree": "pulse",
       "events": 20000,
       "beam": "CERN T10, +3 GeV",
-      "crystal": "DSB1",
       "started_utc": "2026-08-29T18:06:53Z",
       "ended_utc": "2026-08-29T18:26:09Z",
       "purpose": "DSB1 module scan, 3 GeV point",
-      "notes": "19-minute run at post-fix collimator settings."
+      "notes": "19-minute run at post-fix collimator settings.",
+      "capillary_set": "DSB:Ce capillaries T093/T091/T096/T099 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
+      "conditions": {
+        "xcet40_bar": "1.313",
+        "xcet43_bar": "1.303",
+        "sipm_bias": "29 V",
+        "amp_bias": "7 V",
+        "mcp_bias": "3000 V",
+        "daq_beam_field": "3 GeV"
+      }
     },
     {
       "run_number": 36,
@@ -229,11 +280,19 @@
       "tree": "pulse",
       "events": 20000,
       "beam": "CERN T10, +1 GeV",
-      "crystal": "DSB1",
       "started_utc": "2026-08-29T18:51:09Z",
       "ended_utc": "2026-08-29T20:50:00Z",
       "purpose": "DSB1 module scan, 1 GeV point - CONDITIONS CHANGED MID-RUN",
-      "notes": "The rate-mystery run (see FINDINGS 2026-08-29 night): started in the 11 GeV tight-beam config (collimators +/-10/+/-10/+/-3/+/-20, XCET40 at 11 bar = ~17% X0 of gas) at ~33 trig/min; mid-run XCET40 bled 11 -> 4 bar and collimators opened (+/-35/+/-15/+/-15-20), rates recovered. ANALYSIS MUST SLICE BY trigger_time_tag: XCET40 amplitude scale changes by ~x2.75 at the pressure change (thresholds cannot span the boundary), and beam width/rate differ across it. Locate the boundary from the XCET40 amplitude-vs-time profile."
+      "notes": "DAQ metadata: XCET40 11.041 / XCET43 4.123 bar at start. The rate-mystery run (see FINDINGS 2026-08-29 night): started in the 11 GeV tight-beam config (collimators +/-10/+/-10/+/-3/+/-20, XCET40 at 11 bar = ~17% X0 of gas) at ~33 trig/min; mid-run XCET40 bled 11 -> 4 bar and collimators opened (+/-35/+/-15/+/-15-20), rates recovered. ANALYSIS MUST SLICE BY trigger_time_tag: XCET40 amplitude scale changes by ~x2.75 at the pressure change (thresholds cannot span the boundary), and beam width/rate differ across it. Locate the boundary from the XCET40 amplitude-vs-time profile.",
+      "capillary_set": "DSB:Ce capillaries T093/T091/T096/T099 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
+      "conditions": {
+        "xcet40_bar": "11.041",
+        "xcet43_bar": "4.123",
+        "sipm_bias": "29 V",
+        "amp_bias": "7 V",
+        "mcp_bias": "3000 V",
+        "daq_beam_field": "1 GeV"
+      }
     },
     {
       "run_number": 37,
@@ -242,11 +301,19 @@
       "tree": "pulse",
       "events": 20000,
       "beam": "CERN T10, +5 GeV",
-      "crystal": "DSB1",
       "started_utc": "2026-08-29T21:43:15Z",
       "ended_utc": "2026-08-29T21:55:07Z",
       "purpose": "DSB1 5 GeV point, corrected XCET pressure (replaces run 34)",
-      "notes": "XCET40 0.400 / XCET43 0.405 bar (below 0.518 bar mu threshold - clean e+ tag). Coincidence plateau 5.7% (T10 table: 4.1% e+ - in-situ again above tables). 1,132 tagged e+, miss fraction 7.8% (BEST containment of the campaign - post-fix beam config). Mean timing 214+/-9 ps. MIP MPVs 282/200/168/267. cthr 100."
+      "notes": "XCETs 0.406/0.406 bar (DAQ metadata; chat-quoted 0.400/0.405 superseded) (below 0.518 bar mu threshold - clean e+ tag). Coincidence plateau 5.7% (T10 table: 4.1% e+ - in-situ again above tables). 1,132 tagged e+, miss fraction 7.8% (BEST containment of the campaign - post-fix beam config). Mean timing 214+/-9 ps. MIP MPVs 282/200/168/267. cthr 100. Timing 214+/-9 mean / 156+/-8 MEDIAN (adopted, ref included). NOTE: DAQ 'Beam' field says '1 GeV' - operator typo, this is the +5 GeV run (5.66% tag plateau confirms).",
+      "capillary_set": "DSB:Ce capillaries T093/T091/T096/T099 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
+      "conditions": {
+        "xcet40_bar": ".406",
+        "xcet43_bar": ".406",
+        "sipm_bias": "29 V",
+        "amp_bias": "7 V",
+        "mcp_bias": "3000 V",
+        "daq_beam_field": "1 GeV"
+      }
     },
     {
       "run_number": 38,
@@ -255,11 +322,19 @@
       "tree": "pulse",
       "events": 50000,
       "beam": "CERN T10, +1 GeV",
-      "crystal": "DSB1",
       "started_utc": "2026-08-29T21:57:20Z",
       "ended_utc": "2026-08-29T22:24:33Z",
       "purpose": "DSB1 1 GeV stable retake (replaces mixed-config run 36)",
-      "notes": "James's note: re-run because pressures/collimators changed mid-run-36. Stable config throughout: 50,000 events in 27 minutes (~1850/min - the fixed beam config delivers ~30x run 36's pre-fix rate). Coincidence plateau 88.8% = 44,408 tagged e. Miss 57.7% (1 GeV material-scattering floor; run 36 overall was 66%). 12,575 timed electrons. cthr 100."
+      "notes": "XCETs 0.406/0.406 bar (DAQ metadata). James's note: re-run because pressures/collimators changed mid-run-36. Stable config throughout: 50,000 events in 27 minutes (~1850/min - the fixed beam config delivers ~30x run 36's pre-fix rate). Coincidence plateau 88.8% = 44,408 tagged e. Miss 57.7% (1 GeV material-scattering floor; run 36 overall was 66%). 12,575 timed electrons. cthr 100. Timing 416+/-4 mean / 366+/-4 MEDIAN.",
+      "capillary_set": "DSB:Ce capillaries T093/T091/T096/T099 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
+      "conditions": {
+        "xcet40_bar": ".406",
+        "xcet43_bar": ".406",
+        "sipm_bias": "29 V",
+        "amp_bias": "7 V",
+        "mcp_bias": "3000 V",
+        "daq_beam_field": "1 GeV"
+      }
     },
     {
       "run_number": 39,
@@ -268,11 +343,19 @@
       "tree": "pulse",
       "events": 20000,
       "beam": "CERN T10, +1 GeV",
-      "crystal": "EJ199 capillaries in LYSO:Ce/W shashlik",
       "started_utc": "2026-08-30T10:08:16Z",
       "ended_utc": "2026-08-30T10:20:32Z",
       "purpose": "EJ199 module scan, 1 GeV",
-      "notes": "XCETs ~0.4 bar (single setting, e-only at +1/+3/+5). MODULE NOTE (corrected 2026-08-31): module is the standard shashlik W/LYSO:Ce tile stack; only the capillary set changes between campaigns. EJ-199 WLS absorption is tuned for LuO:Yb - spectrally mismatched to the LYSO:Ce 425 nm emission BY SPEC, so a to-spec EJ-199 should be nearly blind here. The observed response (~550 ADC-eq/GeV, slow) is in-beam support for the suspected Eljen contaminant (Notre Dame fiber testing) responding at 425 nm. Tag plateau 88.7% (17,732 e). Miss 69.5%. t-med 1367+/-24 ps."
+      "notes": "XCETs 0.593/0.593 bar (DAQ metadata; earlier 'single ~0.4 bar fill' note was WRONG - see FINDINGS correction). MODULE NOTE (corrected 2026-08-31): module is the standard shashlik W/LYSO:Ce tile stack; only the capillary set changes between campaigns. EJ-199 WLS absorption is tuned for LuO:Yb - spectrally mismatched to the LYSO:Ce 425 nm emission BY SPEC, so a to-spec EJ-199 should be nearly blind here. The observed response (~550 ADC-eq/GeV, slow) is in-beam support for the suspected Eljen contaminant (Notre Dame fiber testing) responding at 425 nm. Tag plateau 88.7% (17,732 e). Miss 69.5%. t-med 1367+/-24 ps.",
+      "capillary_set": "EJ-199 WLS capillaries 132/131/133/134 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
+      "conditions": {
+        "xcet40_bar": ".593",
+        "xcet43_bar": ".593",
+        "sipm_bias": "29 V",
+        "amp_bias": "7 V",
+        "mcp_bias": "3000 V",
+        "daq_beam_field": "1 GeV"
+      }
     },
     {
       "run_number": 40,
@@ -281,11 +364,19 @@
       "tree": "pulse",
       "events": 20000,
       "beam": "CERN T10, +3 GeV",
-      "crystal": "EJ199 capillaries in LYSO:Ce/W shashlik",
       "started_utc": "2026-08-30T10:29:59Z",
       "ended_utc": "2026-08-30T10:51:50Z",
       "purpose": "EJ199 module scan, 3 GeV",
-      "notes": "XCETs ~0.4 bar (single setting, e-only at +1/+3/+5). MODULE NOTE (corrected 2026-08-31): module is the standard shashlik W/LYSO:Ce tile stack; only the capillary set changes between campaigns. EJ-199 WLS absorption is tuned for LuO:Yb - spectrally mismatched to the LYSO:Ce 425 nm emission BY SPEC, so a to-spec EJ-199 should be nearly blind here. The observed response (~550 ADC-eq/GeV, slow) is in-beam support for the suspected Eljen contaminant (Notre Dame fiber testing) responding at 425 nm. Tag plateau 22.8% (4,557 e). Miss 17.4%. t-med 666+/-14 ps."
+      "notes": "XCETs 0.593/0.593 bar (DAQ metadata; below the 1.44 bar mu threshold at 3 GeV - clean e tag; earlier '~0.4 bar' note WRONG). MODULE NOTE (corrected 2026-08-31): module is the standard shashlik W/LYSO:Ce tile stack; only the capillary set changes between campaigns. EJ-199 WLS absorption is tuned for LuO:Yb - spectrally mismatched to the LYSO:Ce 425 nm emission BY SPEC, so a to-spec EJ-199 should be nearly blind here. The observed response (~550 ADC-eq/GeV, slow) is in-beam support for the suspected Eljen contaminant (Notre Dame fiber testing) responding at 425 nm. Tag plateau 22.8% (4,557 e). Miss 17.4%. t-med 626+/-13 ps (final floors).",
+      "capillary_set": "EJ-199 WLS capillaries 132/131/133/134 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
+      "conditions": {
+        "xcet40_bar": ".593",
+        "xcet43_bar": ".593",
+        "sipm_bias": "29 V",
+        "amp_bias": "7 V",
+        "mcp_bias": "3000 V",
+        "daq_beam_field": "+3 GeV"
+      }
     },
     {
       "run_number": 41,
@@ -294,11 +385,19 @@
       "tree": "pulse",
       "events": 20000,
       "beam": "CERN T10, +5 GeV",
-      "crystal": "EJ199 capillaries in LYSO:Ce/W shashlik",
       "started_utc": "2026-08-30T10:56:48Z",
       "ended_utc": "2026-08-30T11:11:08Z",
       "purpose": "EJ199 module scan, 5 GeV",
-      "notes": "XCETs ~0.4 bar (single setting, e-only at +1/+3/+5). MODULE NOTE (corrected 2026-08-31): module is the standard shashlik W/LYSO:Ce tile stack; only the capillary set changes between campaigns. EJ-199 WLS absorption is tuned for LuO:Yb - spectrally mismatched to the LYSO:Ce 425 nm emission BY SPEC, so a to-spec EJ-199 should be nearly blind here. The observed response (~550 ADC-eq/GeV, slow) is in-beam support for the suspected Eljen contaminant (Notre Dame fiber testing) responding at 425 nm. Tag plateau 5.6% (1,121 e). Miss 12.0%. Peak ~2440 => ~490 ADC-eq/GeV (dimmest module). t-med 432+/-17 ps."
+      "notes": "XCETs 0.452/0.439 bar (DAQ metadata; 13% below the 0.518 bar mu threshold - clean but tighter margin than previously stated; earlier '~0.4 bar' note WRONG). MODULE NOTE (corrected 2026-08-31): module is the standard shashlik W/LYSO:Ce tile stack; only the capillary set changes between campaigns. EJ-199 WLS absorption is tuned for LuO:Yb - spectrally mismatched to the LYSO:Ce 425 nm emission BY SPEC, so a to-spec EJ-199 should be nearly blind here. The observed response (~550 ADC-eq/GeV, slow) is in-beam support for the suspected Eljen contaminant (Notre Dame fiber testing) responding at 425 nm. Tag plateau 5.6% (1,121 e). Miss 12.0%. Peak 2740+/-74 => ~550 ADC-eq/GeV (dimmest channel). t-med 380+/-18 ps (final floors; quick-pass 2440/432 superseded).",
+      "capillary_set": "EJ-199 WLS capillaries 132/131/133/134 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
+      "conditions": {
+        "xcet40_bar": ".452",
+        "xcet43_bar": ".439",
+        "sipm_bias": "29 V",
+        "amp_bias": "7 V",
+        "mcp_bias": "3000 V",
+        "daq_beam_field": "+5 GeV"
+      }
     },
     {
       "run_number": 42,
@@ -307,11 +406,19 @@
       "tree": "pulse",
       "events": 20000,
       "beam": "CERN T10, -7 GeV",
-      "crystal": "EJ199 capillaries in LYSO:Ce/W shashlik",
       "started_utc": "2026-08-30T11:13:33Z",
       "ended_utc": "2026-08-30T11:41:10Z",
       "purpose": "EJ199 scan, 7 GeV",
-      "notes": "XCETs 0.21 bar. Tag 7.77% at thr 40 (1,554 e). Mean timing 347+/-14 ps."
+      "notes": "XCETs 0.225/0.220 bar (DAQ metadata). Tag 7.77% at thr 40 (1,554 e). Timing 347+/-14 mean / 278+/-10 MEDIAN (adopted).",
+      "capillary_set": "EJ-199 WLS capillaries 132/131/133/134 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
+      "conditions": {
+        "xcet40_bar": ".225",
+        "xcet43_bar": ".220",
+        "sipm_bias": "29 V",
+        "amp_bias": "7 V",
+        "mcp_bias": "3000 V",
+        "daq_beam_field": "-7 GeV"
+      }
     },
     {
       "run_number": 43,
@@ -320,11 +427,19 @@
       "tree": "pulse",
       "events": 20000,
       "beam": "CERN T10, -9 GeV",
-      "crystal": "EJ199 capillaries in LYSO:Ce/W shashlik",
       "started_utc": "2026-08-30T11:42:59Z",
       "ended_utc": "2026-08-30T14:37:13Z",
       "purpose": "EJ199 scan, 9 GeV",
-      "notes": "XCETs ~0.150 bar. Tag 5.17% at thr 40 (1,034 e). Mean timing 325+/-23 ps. Long wall-clock (2.9 h for 20k)."
+      "notes": "XCETs 0.151/0.156 bar (DAQ metadata; its 'Beam: -7 GeV' field is an operator typo - this is the -9 GeV run). Tag 5.17% at thr 40 (1,034 e). Timing 325+/-23 mean / 249+/-17 MEDIAN (adopted). Long wall-clock (2.9 h for 20k).",
+      "capillary_set": "EJ-199 WLS capillaries 132/131/133/134 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
+      "conditions": {
+        "xcet40_bar": ".151",
+        "xcet43_bar": ".156",
+        "sipm_bias": "29 V",
+        "amp_bias": "7 V",
+        "mcp_bias": "3000 V",
+        "daq_beam_field": "-7 GeV"
+      }
     },
     {
       "run_number": 44,
@@ -333,11 +448,33 @@
       "tree": "pulse",
       "events": 20000,
       "beam": "CERN T10, -11 GeV",
-      "crystal": "EJ199 capillaries in LYSO:Ce/W shashlik",
       "started_utc": "2026-08-30T14:44:04Z",
       "ended_utc": "2026-08-30T15:42:32Z",
       "purpose": "EJ199 scan, 11 GeV",
-      "notes": "XCETs at the agreed raised 0.089 bar setting. Tag 2.48% at thr 40 (496; LuAG/DSB1 at 0.06 bar: 2.17/2.37% - modest efficiency gain). 11 GeV purity caveat applies as for the other modules."
+      "notes": "XCETs 0.090/0.088 bar (DAQ metadata; the agreed raised setting). Tag 2.48% at thr 40 (496; LuAG/DSB1 at 0.06 bar: 2.17/2.37% - modest efficiency gain). 11 GeV purity caveat applies as for the other modules.",
+      "capillary_set": "EJ-199 WLS capillaries 132/131/133/134 (TL/TR/BL/BR) in LYSO:Ce/W shashlik",
+      "conditions": {
+        "xcet40_bar": ".090",
+        "xcet43_bar": ".088",
+        "sipm_bias": "29 V",
+        "amp_bias": "7 V",
+        "mcp_bias": "3000 V",
+        "daq_beam_field": "-11 GeV"
+      }
     }
-  ]
+  ],
+  "module_architecture": "Shashlik calorimeter: alternating tungsten + LYSO:Ce tile layers (FIXED all campaign), sampled at shower max by an interchangeable 2x2 capillary set (14x14 mm face) = the light-collection channel. Campaigns differ ONLY in the capillary set: LuAG:Ce fibers (runs 12-30), DSB:Ce glass (31-38), EJ-199 WLS (39-44). Both XCET threshold Cherenkovs are beamline elements UPSTREAM of the module.",
+  "unregistered_runs": {
+    "1-11": "commissioning / pre-campaign, not analyzed",
+    "13": "no data under this number (DAQ numbering skip) - operator confirmation pending",
+    "16-21": "no data files exist under these numbers (DAQ numbering skipped between sessions) - operator confirmation pending"
+  },
+  "derived_files": {
+    "run_2223.root": "hadd of runs 22+23 (2,263 ev) - MCP threshold study",
+    "run_2526.root": "hadd of runs 25+26 (10,264 ev) - LuAG 1 GeV scan point",
+    "run_2829.root": "hadd of runs 28+29 (46,028 ev) - QC/drift studies ONLY, not DQ-selected: do not use for physics",
+    "run_9001.root": "run 28 (all 6,028) + run 29 DQ-good slices (entries 0-10k, 20-25k, 30-35k; 26,028 ev total) - LuAG 9 GeV scan point",
+    "run_29good.root": "run 29 DQ-good slices alone (20,000 ev) - intermediate product of run_9001",
+    "generator": "macros/MakeMergedRuns.C reproduces all five"
+  }
 }

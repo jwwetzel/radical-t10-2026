@@ -4,5 +4,4 @@
 7 GeV (run 33): N(e,on-module) 1001 | peak 9045 +/- 90, sigma 1950 => sigma/E 21.6 +/- 1.0 % | t-MEAN 176 +/- 8 ps | t-MEDIAN 140 +/- 6 ps | diff -36 (N=1001)
 9 GeV (run 32): N(e,on-module) 847 | peak 9946 +/- 144, sigma 2640 => sigma/E 26.5 +/- 1.8 % | t-MEAN 516 +/- 14 ps | t-MEDIAN 133 +/- 5 ps | diff -383 (N=847)
 11 GeV (run 31): N(e,on-module) 303 | peak 10721 +/- 734, sigma 4138 => sigma/E 38.6 +/- 13.1 % | t-MEAN 191 +/- 18 ps | t-MEDIAN 181 +/- 17 ps | diff -10 (N=303)
-
-timing trend (MEDIAN, 1&9 solve): sigma_t = 323 ps/sqrt(E) (+) 79 ps; 3 GeV median 202 ps, predicted 202
+\ntiming trend (MEDIAN, weighted fit, 11 GeV excluded): sigma_t = (361+/-4)/sqrt(E) ps; constant term consistent with zero (b = 32 +/- 17), chi2/ndf = 9.1/3. REF-INCLUDED — never quote b as intrinsic.\n

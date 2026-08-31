@@ -25,6 +25,6 @@ event-number gaps: 1
 TR0 copy-copy amplitude correlation (beam): 0.998  (expect ~1: same MCP pulse)
 LG->HG pairing check (best correlation per LG):
   LG 4 -> ch 14 (r=0.96)  [matches convention]
-  LG 5 -> ch 13 (r=0.93)  [matches convention]
-  LG 6 -> ch 14 (r=0.93)  [MISMATCH]
+  LG 5 -> ch 13 (r=0.94)  [matches convention]
+  LG 6 -> ch 16 (r=0.95)  [matches convention]
   LG 7 -> ch 15 (r=0.93)  [matches convention]

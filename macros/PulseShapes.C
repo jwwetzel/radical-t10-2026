@@ -70,16 +70,16 @@ void PulseShapes()
   meanShape(33, 40, pD, rD, tauD, tfD);   // DSB1,  -7 GeV
   meanShape(42, 40, pE, rE, tauE, tfE);   // EJ199, -7 GeV
   TCanvas c("c","c",1500,950);
-  TH1F *fr = gPad->DrawFrame(-5, -0.04, 79.8, 1.32,
+  TH1F *fr = gPad->DrawFrame(-5, -0.12, 79.8, 1.32,
     ";time from pulse peak [ns];amplitude / peak");
   pL->SetLineColor(rad::cRed());  pL->SetLineWidth(4);
   pD->SetLineColor(rad::cTeal()); pD->SetLineWidth(4);
   pE->SetLineColor(rad::cAmber()); pE->SetLineWidth(4);
   pL->Draw("hist same L"); pD->Draw("hist same L"); pE->Draw("hist same L");
   TLegend *l = new TLegend(0.34,0.52,0.93,0.80); l->SetBorderSize(0); l->SetTextFont(43); l->SetTextSize(24);
-  l->AddEntry(pD, Form("DSB1:  tail #tau = %.0f ns,  %.0f%% of light after 8 ns", tauD, 100*tfD), "l");
-  l->AddEntry(pL, Form("LuAG:  tail #tau = %.0f ns,  %.0f%% of light after 8 ns", tauL, 100*tfL), "l");
-  l->AddEntry(pE, Form("EJ199: tail #tau = %.0f ns,  %.0f%% of light after 8 ns", tauE, 100*tfE), "l");
+  l->AddEntry(pD, Form("DSB1:  tail #tau = %.1f ns,  %.0f%% of light after 8 ns", tauD, 100*tfD), "l");
+  l->AddEntry(pL, Form("LuAG:  tail #tau = %.1f ns,  %.0f%% of light after 8 ns", tauL, 100*tfL), "l");
+  l->AddEntry(pE, Form("EJ199: tail #tau = %.1f ns,  %.0f%% of light after 8 ns", tauE, 100*tfE), "l");
   l->Draw();
   TLatex tx; tx.SetNDC(); tx.SetTextFont(43);
   tx.SetTextSize(30); tx.DrawLatex(0.13,0.945,"Mean tagged-electron pulse shape by capillary channel");

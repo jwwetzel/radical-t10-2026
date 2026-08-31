@@ -671,3 +671,52 @@ RANDY'S DIAGONAL DIFFERENCE (DiagDiff.C, all 18 scan runs):
 - EJ199 intrinsic: 356/285/279 ps at 5/7/9.
 Geometry note for Randy's Q1 added to the how-it-works caption (both
 XCETs upstream; 1-AND-1 coincidence correct).
+
+## CORRECTIONS from the four-lens review — registry & conditions (2026-08-31)
+
+DAQ metadata 'experiment' blocks (runs 31-44) recovered into the registry:
+capillary serials (DSB1 T093/T091/T096/T099; EJ199 132/131/133/134),
+SiPM bias 29 V / Amp 7 V / MCP 3000 V throughout, and XCET pressures.
+CORRECTED against my earlier chat-sourced notes:
+- EJ199 runs 39/40: XCETs 0.593/0.593 bar; run 41: 0.452/0.439 bar.
+  The 'single ~0.4 bar fill' note was WRONG (run 41 margin below the
+  0.518 bar mu threshold is 13%, not ~23%).
+- Run 34: 1.314/1.304 bar (not '1.5'); pion-tag conclusion unchanged.
+- Runs 37/38: 0.406/0.406 bar. Run 44: 0.090/0.088 bar.
+- DAQ 'Beam' field typos: run 37 says '1 GeV' (is +5), run 43 says
+  '-7 GeV' (is -9) - physics (tag plateaus) confirms both.
+Registry: capillary_set normalized on all 26 runs; timing notes now quote
+adopted MEDIANS with means labeled; run 27 recount + run 30 dual-miss
+definitions reconciled; derived-files provenance + MakeMergedRuns.C
+added; unregistered-run map added (13, 16-21 need operator confirmation).
+
+ANALYSIS re-derivations (this pass): DiagDiff EJ199 floors aligned with
+EnergyScanEJ199 (prior 7/9/11 GeV intrinsic values came from a different
+selection - superseded, re-logged below when rerun completes). All three
+scan trends now WEIGHTED FITS (11 GeV excluded) replacing 2-point anchor
+solves; the '79 ps constant term' is RETIRED (it sat below the validated
+107-114 ps reference floor - an anchor artifact; ref-included fit b is
+never to be quoted as intrinsic).
+
+## Re-derived numbers (weighted fits + corrected DiagDiff floors, 2026-08-31)
+
+Timing trends, MEDIAN, weighted chi2 fits, 11 GeV excluded, REF-INCLUDED:
+  LuAG : (402 +/- 13)/sqrt(E) (+) (134 +/- 11) ps   chi2/ndf = 5.3/3
+  DSB1 : (361 +/-  4)/sqrt(E) ps, b = 32 +/- 17 (consistent with zero -
+         constant term UNRESOLVED over 1-9 GeV; needs higher energy)
+  EJ199: 1/sqrt(E) form REJECTED (chi2/ndf = 369/3) - medians fall
+         FASTER than 1/sqrt(E), consistent with first-photon tau/Npe
+         ~1/E scaling of a photon-starved slow fluorophore. No trend
+         curve is drawn for EJ199.
+The previously quoted "323/sqrt(E) (+) 79" and "389/sqrt(E) (+) 138"
+2-point-anchor solves are SUPERSEDED; "79 ps" is retired permanently.
+
+DiagDiff EJ199 (corrected floors 1700/2200/2500 at 7/9/11 GeV):
+  5 GeV: incl 405+/-18 -> intr 356+/-17 | 7: 301+/-11 -> 270+/-11 |
+  9: 257+/-21 -> 258+/-15 (diff/2 >= incl: upper-bound flag, as DSB1).
+  Prior 285/279 ps values (mismatched floors) superseded.
+
+Registry conditions recovered from DAQ experiment blocks (runs 31-44);
+figure set regenerated campaign-wide with per-energy tag thresholds and
+the review board's fixes (titles, legends, EMPTY watermarks, unified
+XCET colors, axis margins, caption corrections x7, subtitle collisions).

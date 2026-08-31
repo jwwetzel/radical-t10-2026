@@ -131,7 +131,9 @@ void Tertiary11()
   TLatex tx; tx.SetNDC(); tx.SetTextFont(43);
   auto specPanel = [&](RunSet &R, const char *mod, double floorC, double smax, double eeq){
     gPad->SetLogy();
-    R.hs[0]->SetLineColor(rad::cGrey());  R.hs[0]->SetLineWidth(2);
+    for (int k = 0; k < 3; ++k) R.hs[k]->Rebin(2);
+    R.h9->Rebin(2);
+    R.hs[0]->SetLineColor(kGray+2);  R.hs[0]->SetLineWidth(2);
     R.hs[1]->SetLineColor(rad::cAmber()); R.hs[1]->SetLineWidth(2);
     R.hs[2]->SetLineColor(rad::cTeal());  R.hs[2]->SetLineWidth(3);
     double sc = R.hs[2]->Integral() > 0 ? R.hs[2]->Integral()/std::max(1.0, R.h9->Integral(R.h9->FindBin(floorC), 160)) : 1;

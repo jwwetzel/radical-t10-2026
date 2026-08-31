@@ -25,11 +25,11 @@ event-number gaps: 0;  trigger_time_tag non-monotonic steps: 43 (wraps are norma
    17    MCPg1      357.0     5.09     1.000    0.0000    0.0000
 
 == BEAM / TRIGGER ==
-Cherenkov coincidence: 4701 / 20000 = 23.50%
+Cherenkov coincidence: 4704 / 20000 = 23.52%
 
 == MIP CALIBRATION (off-coincidence) ==
 cap 4 (slot 14): MIP MPV = 326.6 +/- 0.9 ADC-eq
-cap 5 (slot 13): MIP MPV = 296.7 +/- 0.9 ADC-eq
+cap 5 (slot 13): MIP MPV = 296.6 +/- 0.9 ADC-eq
 cap 6 (slot 16): MIP MPV = 255.7 +/- 0.8 ADC-eq
 cap 7 (slot 15): MIP MPV = 303.9 +/- 0.8 ADC-eq
 
@@ -37,7 +37,7 @@ cap 7 (slot 15): MIP MPV = 303.9 +/- 0.8 ADC-eq
 miss fraction (SumLG<300): 12.2% +/- 0.5%   (run 14: 7.9%, run 12: 42.9%)
   TL(4):  3.64 +/- 0.03 MIP-eq   HG rail frac (beam): 0.001
   TR(5):  4.35 +/- 0.04 MIP-eq   HG rail frac (beam): 0.001
-  BL(6):  4.65 +/- 0.04 MIP-eq   HG rail frac (beam): 0.001
+  BL(6):  4.64 +/- 0.04 MIP-eq   HG rail frac (beam): 0.001
   BR(7):  4.22 +/- 0.03 MIP-eq   HG rail frac (beam): 0.002
 rows bottom/top = 1.108 +/- 0.009 (centered = 1)
 cols left/right = 0.967 +/- 0.008

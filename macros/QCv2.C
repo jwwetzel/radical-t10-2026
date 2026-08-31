@@ -19,6 +19,8 @@
 #include "TH1F.h"
 #include "TF1.h"
 #include "TCanvas.h"
+#include "TLegend.h"
+#include "TLatex.h"
 #include "TStyle.h"
 #include "TSystem.h"
 #include "TString.h"
@@ -82,7 +84,7 @@ void QCv2(int run = 15, double cthr = CHER_THR)
   // histograms
   TH1F *hMIP[4], *hPkT[NSLOT];
   for (int j = 0; j < 4; ++j)
-    hMIP[j] = new TH1F(Form("hMIP_%d", HGs[j]), Form("HG slot %d (cap %d) off-coinc;amp [ADC-eq]", HGs[j], LGs[j]), 100, 0, 2000);
+    hMIP[j] = new TH1F(Form("hMIP_%d", HGs[j]), ";HG amplitude [ADC-eq];events", 100, 0, 2000);
   for (int s = 0; s < NSLOT; ++s)
     hPkT[s] = new TH1F(Form("hPkT_%d", s), Form("%s peak sample;sample", nm[s]), 128, 0, NSAMP);
   TH1F *hSumLG = new TH1F("hSumLG", "electrons #Sigma LG;#Sigma LG [ADC-eq]", 90, 0, 4500);
@@ -167,6 +169,9 @@ void QCv2(int run = 15, double cthr = CHER_THR)
     TF1 *lan = new TF1(Form("lan%d", j), "landau", 0.55*pk, 2.5*pk);
     hMIP[j]->Fit(lan, "QR"); hMIP[j]->Draw("hist"); lan->Draw("same");
     MPV[j] = lan->GetParameter(1);
+    TLatex tl; tl.SetNDC(); tl.SetTextFont(43); tl.SetTextSize(24);
+    tl.DrawLatex(0.55, 0.85, Form("#font[62]{capillary %d}  (slot %d)", LGs[j], HGs[j]));
+    tl.DrawLatex(0.55, 0.78, Form("MPV %.0f ADC-eq", MPV[j]));
     out("cap %d (slot %d): MIP MPV = %.1f +/- %.1f ADC-eq\n", LGs[j], HGs[j], MPV[j], lan->GetParError(1));
   }
   cM.SaveAs(outDir + "/QCv2_MIP.png");
@@ -193,11 +198,17 @@ void QCv2(int run = 15, double cthr = CHER_THR)
 
   // plots: sum spectrum + peak-time containment for key slots
   TCanvas cA("cA","cA",1600,600); cA.Divide(2,1);
-  cA.cd(1); hSumLG->Draw("hist");
+  cA.cd(1); hSumLG->SetTitle(";#SigmaLG [ADC-eq];events"); hSumLG->Draw("hist");
+  { TLatex tl; tl.SetNDC(); tl.SetTextFont(43); tl.SetTextSize(24);
+    tl.DrawLatex(0.55, 0.85, "#font[62]{#SigmaLG, tagged events}"); }
   cA.cd(2); gPad->SetLogy();
   int key[5] = {0, 2, 4, 14, 8}; int col[5] = {kBlack, kGray+2, kBlue, kRed, kGreen+2};
-  for (int k = 0; k < 5; ++k) { hPkT[key[k]]->SetLineColor(col[k]);
-    hPkT[key[k]]->Draw(k ? "hist same" : "hist"); }
+  const char *knm[5] = {"XCET40", "ScintA", "LG cap 4", "HG cap 4", "MCP g0"};
+  TLegend *lgA = new TLegend(0.62, 0.60, 0.93, 0.88); lgA->SetBorderSize(0); lgA->SetTextFont(43); lgA->SetTextSize(19);
+  for (int k = 0; k < 5; ++k) { hPkT[key[k]]->SetLineColor(col[k]); hPkT[key[k]]->SetLineWidth(2);
+    hPkT[key[k]]->SetTitle(";pulse peak time [sample];events");
+    hPkT[key[k]]->Draw(k ? "hist same" : "hist"); lgA->AddEntry(hPkT[key[k]], knm[k], "l"); }
+  lgA->Draw();
   cA.SaveAs(outDir + "/QCv2_align.png");
 
   fclose(sum);

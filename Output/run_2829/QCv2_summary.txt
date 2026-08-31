@@ -25,19 +25,19 @@ event-number gaps: 1;  trigger_time_tag non-monotonic steps: 908 (wraps are norm
    17    MCPg1      359.0     4.82     1.000    0.0000    0.0000
 
 == BEAM / TRIGGER ==
-Cherenkov coincidence: 142 / 46028 = 0.31%
+Cherenkov coincidence: 2237 / 46028 = 4.86%
 
 == MIP CALIBRATION (off-coincidence) ==
-cap 4 (slot 14): MIP MPV = 265.7 +/- 0.5 ADC-eq
-cap 5 (slot 13): MIP MPV = 215.7 +/- 0.6 ADC-eq
-cap 6 (slot 16): MIP MPV = 187.3 +/- 0.5 ADC-eq
-cap 7 (slot 15): MIP MPV = 257.1 +/- 0.4 ADC-eq
+cap 4 (slot 14): MIP MPV = 266.1 +/- 0.5 ADC-eq
+cap 5 (slot 13): MIP MPV = 215.9 +/- 0.6 ADC-eq
+cap 6 (slot 16): MIP MPV = 187.4 +/- 0.5 ADC-eq
+cap 7 (slot 15): MIP MPV = 257.0 +/- 0.4 ADC-eq
 
 == ALIGNMENT ==
-miss fraction (SumLG<300): 37.3% +/- 4.1%   (run 14: 7.9%, run 12: 42.9%)
-  TL(4):  6.31 +/- 0.41 MIP-eq   HG rail frac (beam): 0.028
-  TR(5):  8.19 +/- 0.52 MIP-eq   HG rail frac (beam): 0.021
-  BL(6):  9.27 +/- 0.60 MIP-eq   HG rail frac (beam): 0.014
-  BR(7):  6.97 +/- 0.43 MIP-eq   HG rail frac (beam): 0.021
-rows bottom/top = 1.120 +/- 0.072 (centered = 1)
-cols left/right = 1.027 +/- 0.066
+miss fraction (SumLG<300): 50.6% +/- 1.1%   (run 14: 7.9%, run 12: 42.9%)
+  TL(4):  4.53 +/- 0.10 MIP-eq   HG rail frac (beam): 0.014
+  TR(5):  5.79 +/- 0.12 MIP-eq   HG rail frac (beam): 0.008
+  BL(6):  6.38 +/- 0.14 MIP-eq   HG rail frac (beam): 0.007
+  BR(7):  5.04 +/- 0.10 MIP-eq   HG rail frac (beam): 0.011
+rows bottom/top = 1.107 +/- 0.024 (centered = 1)
+cols left/right = 1.008 +/- 0.022

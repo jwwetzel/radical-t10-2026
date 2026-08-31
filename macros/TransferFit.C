@@ -99,7 +99,8 @@ void TransferFit(int run = 15, double cthr = 150)
     lf->SetLineColor(rad::cAmber()); lf->SetLineWidth(3); lf->SetLineStyle(2); lf->Draw();
     TLatex tx; tx.SetTextFont(43); tx.SetTextSize(17);
     tx.SetTextColor(rad::cRed());
-    tx.DrawLatex(wall[j]*0.72, hAmp[j]->GetMaximum()*0.5, Form("wall %.0f", wall[j]));
+    { TLatex txn; txn.SetNDC(); txn.SetTextFont(43); txn.SetTextSize(19); txn.SetTextColor(rad::cRed());
+      txn.DrawLatex(0.62, 0.78, Form("wall %.0f", wall[j])); }
 
     // ---- bottom row: scatter + profile + fit window ----
     TProfile *pr = prs[j];

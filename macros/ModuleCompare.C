@@ -38,8 +38,8 @@ void ModuleCompare()
   TCanvas ch("ch","ch",1500,950);
   TH1F *fr = gPad->DrawFrame(0, 0, 12.3, 530,
     ";beam energy [GeV];shower-time resolution  #sigma_{t}  [ps]");
-  TF1 *fL = new TF1("fL","sqrt(389*389/x+138*138)",0.7,12.3);
-  TF1 *fD = new TF1("fD","sqrt(323*323/x+79*79)",0.7,12.3);
+  TF1 *fL = new TF1("fL","sqrt(402*402/x+134*134)",0.7,12.3);
+  TF1 *fD = new TF1("fD","361/sqrt(x)",0.7,12.3);
   fL->SetLineColor(rad::cRed());  fL->SetLineWidth(3); fL->SetLineStyle(7);
   fD->SetLineColor(rad::cTeal()); fD->SetLineWidth(4);
   fL->Draw("same"); fD->Draw("same");
@@ -55,13 +55,13 @@ void ModuleCompare()
   open11(eL[5], tL[5], rad::cRed(), 21, 25); open11(eD[5], tD[5], rad::cTeal(), 20, 24);
   TLegend *l = new TLegend(0.42,0.62,0.93,0.90);
   l->SetBorderSize(0); l->SetTextFont(43); l->SetTextSize(26);
-  l->AddEntry(gD, "DSB1:  #sigma_{t} = 323 ps/#sqrt{E} #oplus 79 ps", "pl");
-  l->AddEntry(gL, "LuAG:  #sigma_{t} = 389 ps/#sqrt{E} #oplus 138 ps", "pl");
+  l->AddEntry(gD, "DSB1:  #sigma_{t} = (361#pm4) ps/#sqrt{E}   (b unresolved)", "pl");
+  l->AddEntry(gL, "LuAG:  #sigma_{t} = (402#pm13)/#sqrt{E} #oplus (134#pm11) ps", "pl");
   l->Draw();
   TLatex tx; tx.SetNDC(); tx.SetTextFont(43);
   tx.SetTextSize(30); tx.DrawLatex(0.13,0.945,"Shower timing, 14#times14 mm shower-max sampling modules");
   tx.SetTextSize(21); tx.SetTextColor(rad::cGrey());
-  tx.DrawLatex(0.13,0.905,"CERN PS T10, tagged electrons, 1#font[122]{-}11 GeV #upoint reference included, unsubtracted #upoint open points: e^{#font[122]{-}} purity uncertain above ~10 GeV/c");
+  tx.DrawLatex(0.13,0.921,"CERN PS T10, tagged electrons, 1#font[122]{-}11 GeV #upoint reference included, unsubtracted #upoint open points: e^{#font[122]{-}} purity uncertain above ~10 GeV/c");
   gSystem->mkdir("Output/summary", true);
   ch.SaveAs("Output/summary/Hero_timing.png");
 
@@ -78,8 +78,8 @@ void ModuleCompare()
   open11(eL[5], tL[5], rad::cRed(), 21, 25); open11(eD[5], tD[5], rad::cTeal(), 20, 24);
   open11(eJ[5], tJ[5], rad::cAmber(), 22, 26);
   TLegend *l1 = new TLegend(0.36,0.62,0.93,0.90); l1->SetBorderSize(0); l1->SetTextFont(43); l1->SetTextSize(22);
-  l1->AddEntry(gD, "DSB1: 323/#sqrt{E} #oplus 79 ps", "pl");
-  l1->AddEntry(gL, "LuAG: 389/#sqrt{E} #oplus 138 ps", "pl");
+  l1->AddEntry(gD, "DSB1: (361#pm4)/#sqrt{E} ps", "pl");
+  l1->AddEntry(gL, "LuAG: (402#pm13)/#sqrt{E} #oplus (134#pm11) ps", "pl");
   l1->AddEntry(gJ, "EJ199: photostatistics-limited (no stable trend)", "p");
   l1->Draw();
   c2.cd(2);

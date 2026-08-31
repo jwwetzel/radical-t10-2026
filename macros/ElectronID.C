@@ -118,7 +118,7 @@ void ElectronID(int run = 15, double cthr = 150)
     hO->SetLineColor(rad::cBlue()); hO->SetFillColor(0); hO->SetLineWidth(3);
     hT->SetLineColor(rad::cRed()); hT->SetFillColor(rad::cBand()); hT->SetLineWidth(3);
     double mx2 = std::max(hT->GetMaximum(), hO->GetMaximum()) * 1.25;
-    hO->SetMaximum(mx2); hO->Draw("hist"); hT->Draw("hist same");
+    hO->SetMaximum(1.3*mx2); hO->Draw("hist"); hT->Draw("hist same");
     TLatex l; l.SetNDC(); l.SetTextFont(43); l.SetTextSize(21);
     l.DrawLatex(0.17, 0.86, ttl[p]);
     if (p == 0) {

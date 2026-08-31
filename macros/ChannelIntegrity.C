@@ -215,6 +215,8 @@ void ChannelIntegrity(int run = 15, double cthr = 150)
     pAvg[s]->Draw("hist same");
     TLatex l; l.SetNDC(); l.SetTextFont(43); l.SetTextSize(17);
     l.DrawLatex(0.20, 0.85, Form("%d  #font[62]{%s}", s, cfg.nm[s]));
+    if (TString(cfg.nm[s]) == "EMPTY") { TLatex we; we.SetNDC(); we.SetTextFont(43);
+      we.SetTextSize(34); we.SetTextColor(kGray+1); we.DrawLatex(0.36, 0.45, "EMPTY"); }
   }
   cw.SaveAs(outDir + "/Integrity_waveforms.png");
 
@@ -236,6 +238,7 @@ void ChannelIntegrity(int run = 15, double cthr = 150)
     h->SetFillColor(rad::cFill()); h->SetLineColor(rad::cTeal()); h->SetLineWidth(2);
     if (p == 0 || p == 2) { gPad->SetLogy(); h->SetMinimum(p == 2 ? 1e-4 : 0.05); }
     if (p == 3) { h->SetMinimum(0); h->SetMaximum(1024); }
+    h->GetXaxis()->SetTitle("slot"); h->GetXaxis()->SetTitleSize(16);
     h->Draw("hist");
     if (p == 3) {
       TLine *e1 = new TLine(0, 30, NCH, 30), *e2 = new TLine(0, 994, NCH, 994);
