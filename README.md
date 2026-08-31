@@ -86,14 +86,19 @@ copy (group 0), arrays 9–16 = DT5742 ch 8–15, array 17 = MCP TR0 copy
   root -l -b -q 'macros/Resolution.C+(12)'
   ```
 
-## Sharing
+## Pipeline (authoritative)
 
-- Repo: https://github.com/jwwetzel/radical-t10-2026 (public)
-- Run book (GitHub Pages): https://jwwetzel.github.io/radical-t10-2026/
-- To publish an updated run book:
+The published site (index/luag/dsb1/ej199.html + docs/) is GENERATED. Never edit pages by hand,
+and never copy run_summary.html anywhere — it is the internal content store.
 
-  ```
-  cp run_summary.html docs/index.html && git add -A && git commit -m "update run book" && git push
-  ```
+1. Per new run: run the macro chain (XCETCheck -> MCPThreshold -> QCv2 -> ChannelIntegrity ->
+   TransferFit -> ElectronID -> BestTiming, each `root -l -b -q 'macros/M.C+(RUN,CTHR)'`;
+   precompile each macro in its own root process BEFORE any parallel fan-out — ACLiC races).
+2. Register the run in runs/runs.json and add a dict to RUNS in build_runbook.py.
+3. `python3 build_runbook.py`   (updates the store; enforces a uniqueness invariant)
+4. `python3 build_site.py`      (emits the four pages, copies to docs/, writes artifact_index.html)
+5. Commit and push; GitHub Pages serves docs/.
 
-  Raw data (`*.root`) is intentionally excluded from the repo.
+Dependencies: Python 3 + Pillow; ROOT 6.40 for the macros. Raw data (*.root) lives outside git —
+see runs/runs.json `file` fields; the `data/` symlink must point at the local copy of
+01_Data/2026-08-CERN_T10.

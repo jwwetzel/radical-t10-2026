@@ -15,7 +15,7 @@ TO ADD A NEW RUN (e.g. the 11 GeV point):
   2. append a dict to RUNS below (key, dir, btn, head, notes) — see the
      commented R11GEV stub at the end of RUNS
   3. python3 build_runbook.py          (add --dry to preview)
-  4. cp run_summary.html docs/index.html && git commit && git push
+  4. python3 build_site.py   (NEVER copy run_summary.html to docs/ — it is the internal store)
 Missing plots are skipped with a warning, so a partially analyzed run can be
 published early and the page filled in as macros finish.
 """
@@ -29,8 +29,9 @@ DRY = "--dry" in sys.argv
 def enc(path, w=1200, q=78):
     im = Image.open(path).convert("RGB")
     if im.width > w: im = im.resize((w, int(im.height*w/im.width)), Image.LANCZOS)
-    tmp = "/tmp/_rb.jpg"; im.save(tmp, "JPEG", quality=q, optimize=True)
-    return "data:image/jpeg;base64," + base64.b64encode(open(tmp,'rb').read()).decode()
+    import io
+    buf = io.BytesIO(); im.save(buf, "JPEG", quality=q, optimize=True)
+    return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
 
 # ---- canonical plot sequence: (filename, stage, title, description) ----
 STD = [
@@ -314,7 +315,7 @@ if ".stdfig" not in s:
 
 for run in RUNS:
     key, rdir = run["key"], run["dir"]
-    m = re.search(r'(<section data-content="' + key + r'">)(.*?)(</section>)', s, re.S)
+    m = re.search(r'(<section data-content="' + key + r'"[^>]*>)(.*?)(</section>)', s, re.S)
     if m:
         body = m.group(2)
         head = body.split('<div class="stage">')[0].rstrip()
@@ -356,6 +357,12 @@ for run in RUNS:
     s = s[:m.start(2)] + newbody + s[m.end(2):]
     print(f"{key}: rebuilt ({'notes kept' if m and 'data-notes' in m.group(2) else 'notes harvested'})")
 
+# invariant: every run key exactly once as section and once as button
+for run in RUNS:
+    k = run["key"]
+    ns = len(re.findall(r'<section data-content="' + k + '"[^>]*>', s))
+    nb = len(re.findall(r'data-run="' + k + '"', s))
+    assert ns == 1 and nb == 1, f"INVARIANT VIOLATION {k}: sections={ns} buttons={nb} — refusing to write"
 if not DRY:
     open("run_summary.html", "w").write(s)
 print(("DRY " if DRY else "") + f"SIZE: {len(s)//1024} KB")

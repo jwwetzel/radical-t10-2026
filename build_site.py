@@ -25,8 +25,9 @@ os.chdir(WS)
 def enc(path, w=1400, q=80):
     im = Image.open(path).convert("RGB")
     if im.width > w: im = im.resize((w, int(im.height*w/im.width)), Image.LANCZOS)
-    tmp = "/tmp/_st.jpg"; im.save(tmp, "JPEG", quality=q, optimize=True)
-    return "data:image/jpeg;base64," + base64.b64encode(open(tmp,'rb').read()).decode()
+    import io
+    buf = io.BytesIO(); im.save(buf, "JPEG", quality=q, optimize=True)
+    return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
 
 store = open("run_summary.html").read()
 STYLE = re.search(r'<style>.*?</style>', store, re.S).group(0)
@@ -399,7 +400,9 @@ page("index.html", "RADiCAL T10 Run Book", "CERN PS T10 · Aug 2026 · LuAG / DS
      "summary", [], index_sec, None, toc=SUMMARY_TOC)
 
 # ---------------- copy to docs ----------------
-os.system("cp index.html luag.html dsb1.html ej199.html docs/")
+import shutil
+for _p in ["index.html","luag.html","dsb1.html","ej199.html"]:
+    shutil.copy(_p, "docs/" + _p)
 print("copied to docs/")
 
 # ---------------- artifact variant: absolute links for the claude.ai copy ----
@@ -407,5 +410,5 @@ PAGES = "https://jwwetzel.github.io/radical-t10-2026/"
 art = open("index.html").read()
 for p in ("index.html", "luag.html", "dsb1.html", "ej199.html"):
     art = art.replace(f'href="{p}"', f'href="{PAGES}{p}" target="_blank"')
-open("/private/tmp/claude-501/-Users-jameswetzel-Documents/7538d0d0-b27d-467b-8254-3b3949a82e69/scratchpad/artifact_index.html", "w").write(art)
+open("artifact_index.html", "w").write(art)
 print("artifact variant written")

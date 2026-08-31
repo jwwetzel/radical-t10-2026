@@ -10,3 +10,6 @@ data
 # OS / media
 .DS_Store
 *.MOV
+*ACLiC_dict*
+*_tmp_*
+artifact_index.html
