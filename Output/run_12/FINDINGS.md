@@ -777,3 +777,10 @@ HARDWARE PROVENANCE: T115 corner timing capillary broke at installation
 iseg CEP-0582 HV supply rented Aug 26; "broken" MCP was a 0.15 mA
 current-limit setting; downstream-card connector rewired Aug 27 but
 chs 9 & 11 remained unstable -> card excluded.
+
+## T114/T115 identified (James, 2026-08-31)
+
+T114/T115 were LuAG capillaries: T115 broke at installation (Aug 25),
+LuAG spare T114 went in ("brightest of the remaining"). T114 is one of
+the four LuAG capillaries of runs 12-30; the other three LuAG serials
+remain unrecorded. Hardware record complete except those three serials.

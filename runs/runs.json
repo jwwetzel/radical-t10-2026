@@ -35,7 +35,7 @@
         "16": "MCP group 0 (TR0 input, CAEN DT5742)",
         "17": "MCP group 1 (TR0 input, CAEN DT5742)"
       },
-      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)",
+      "capillary_set": "LuAG:Ce capillaries (incl. T114, the spare that replaced broken T115 at installation; other three serials unrecorded) in LYSO:Ce/W shashlik",
       "beam_file": "T10 RADiCAL 002",
       "conditions": {
         "xcet_nominal_bar": "0.4",
@@ -55,7 +55,7 @@
       "purpose": "1k-event alignment check after moving module ~6.4 mm toward ch 6/7 row",
       "notes": "Waveforms in mV (calibrated), not ADC (x4.096 to ADC-eq). NEW ARRAY LAYOUT (matches historical data; the single MCP TR0 is duplicated into both DRS groups): arrays 0-7 = DT5742 ch 0-7; array 8 = MCP TR0 copy, group 0; arrays 9-16 = DT5742 ch 8-15; array 17 = MCP TR0 copy, group 1. Verified in data: corr(arr8,arr17)=0.998 (same MCP pulse), arr16 = LG6's HG partner (corr 0.90). DT5742-native HG pairing unchanged from run 12 (4-13, 5-12, 6-15, 7-14). Post-trigger 74%: prompt pulses at sample ~52, only ~40 pre-samples for baselines (recommend restoring ~70%). HG gains raised ~2x (MIP MPVs 255-325 ADC-eq vs 121-165 in run 12; reference channels unchanged). ALIGNMENT (correct mapping): miss fraction 7.9% +/- 3.1% (was 42.9%); left/right = 0.96 +/- 0.06 (centered); bottom/top = 1.25 +/- 0.07 (was 1.41) - possibly ~1-2 mm still low, within calibration systematics of centered.",
       "channel_map_note": "run>=14 array layout: 0-7 DT ch0-7, 8 TR0(grp0), 9-16 DT ch8-15, 17 TR0(grp1)",
-      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)",
+      "capillary_set": "LuAG:Ce capillaries (incl. T114, the spare that replaced broken T115 at installation; other three serials unrecorded) in LYSO:Ce/W shashlik",
       "beam_file": "T10 RADiCAL 002",
       "conditions": {
         "xcet_nominal_bar": "0.4",
@@ -76,7 +76,7 @@
       "purpose": "First 20k production run at 5 GeV, position same as run 14",
       "notes": "COMPLETE: 20,000 events, zero event-number gaps. QC clean (QCv2.C): all channels healthy, HG clipping in beam events 0.2-0.6% (was 1-12% in run 12 - offset fix worked), Cherenkov coincidence 9.08% (1,816 e). MIP MPVs 329-404 ADC-eq (+25% vs run 14: SiPM bias raised +1 V on all LG and HG channels for this run - FINAL operating point for the campaign; run-15 MIPs are the reference calibration). ALIGNMENT: miss 7.9+/-0.6%; residual offset now significant: bottom/top 1.255+/-0.014, left/right 0.909+/-0.010 => beam ~2-3 mm low, ~1 mm right of module center. NEW: centered beam produces a real electron response peak in SumLG: mean 2992+/-36, sigma/E = 33.6+/-1.4% (position-smearing dominated; run-12 edge bound says intrinsic ~10%). Green light for energy scan with geometry/gains frozen.",
       "bias_note": "RESOLVED (CodiMD logbook): bias was already 29 V from run 13 - runs 14 and 15 ran at the SAME bias, so the '+1 V at run 15' attribution of the run-14-to-15 MIP jump was wrong. Leading explanation for the +25% MPV shift: run 14 had only 1,000 events (~200 off-coincidence MIPs per channel) - a low-statistics Landau-fit artifact, not a gain change. Run-15 MIPs remain the campaign reference.",
-      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)",
+      "capillary_set": "LuAG:Ce capillaries (incl. T114, the spare that replaced broken T115 at installation; other three serials unrecorded) in LYSO:Ce/W shashlik",
       "beam_file": "T10 RADiCAL 002",
       "conditions": {
         "xcet_nominal_bar": "0.4",
@@ -91,7 +91,7 @@
       "purpose": "threshold test / first 3 GeV data",
       "notes": "MCP TR0 threshold 164 mV; e-coincidence 25.9%; merged with run 23 as run_2223.root for analysis.",
       "tree": "pulse",
-      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)",
+      "capillary_set": "LuAG:Ce capillaries (incl. T114, the spare that replaced broken T115 at installation; other three serials unrecorded) in LYSO:Ce/W shashlik",
       "started_utc_approx": "2026-08-28T16:05Z (file mtime; DAQ metadata not preserved)",
       "beam_file": "T10 RADiCAL 003"
     },
@@ -103,7 +103,7 @@
       "purpose": "threshold test / first 3 GeV data",
       "notes": "MCP TR0 threshold 137 mV (final); e-coincidence 21.8%; merged with run 22 as run_2223.root.",
       "tree": "pulse",
-      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)",
+      "capillary_set": "LuAG:Ce capillaries (incl. T114, the spare that replaced broken T115 at installation; other three serials unrecorded) in LYSO:Ce/W shashlik",
       "started_utc_approx": "2026-08-28T16:12Z (file mtime; DAQ metadata not preserved)",
       "beam_file": "T10 RADiCAL 003"
     },
@@ -116,7 +116,7 @@
       "purpose": "1 GeV scan point (crashed)",
       "notes": "DAQ crashed at 3,264 events; file intact, zero gaps. Continued as run 26.",
       "tree": "pulse",
-      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)",
+      "capillary_set": "LuAG:Ce capillaries (incl. T114, the spare that replaced broken T115 at installation; other three serials unrecorded) in LYSO:Ce/W shashlik",
       "beam_file": "T10 RADiCAL 004",
       "conditions": {
         "xcet_nominal_bar": "1.3",
@@ -132,7 +132,7 @@
       "purpose": "1 GeV continuation",
       "notes": "Continuation of run 25. Merged: run_2526.root = 10,264 events, 4,367 tagged e on module (85.8% XCET coincidence).",
       "tree": "pulse",
-      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)",
+      "capillary_set": "LuAG:Ce capillaries (incl. T114, the spare that replaced broken T115 at installation; other three serials unrecorded) in LYSO:Ce/W shashlik",
       "beam_file": "T10 RADiCAL 004",
       "conditions": {
         "xcet_nominal_bar": "1.3",
@@ -148,7 +148,7 @@
       "beam": "CERN T10, 3 GeV",
       "purpose": "3 GeV scan point",
       "notes": "MCP threshold 137 mV. XCET coincidence 23.5% (4,701 e). Peak 1686+/-25, sigma/E 54.2% (current unified-binning fit; earlier 1742/64.7% superseded), timing 300+/-6 mean / 274+/-5 MEDIAN (adopted, ref included). MIP MPVs 327/297/256/304 (gain drift vs run 15). Alignment 12.2%/1.108/0.967.",
-      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)",
+      "capillary_set": "LuAG:Ce capillaries (incl. T114, the spare that replaced broken T115 at installation; other three serials unrecorded) in LYSO:Ce/W shashlik",
       "beam_file": "T10 RADiCAL 003",
       "conditions": {
         "xcet_nominal_bar": "1.3",
@@ -164,7 +164,7 @@
       "beam": "CERN T10, -7 GeV (negative)",
       "purpose": "7 GeV scan point, marginal XCET tag",
       "notes": "Both XCETs 0.21 bar. SUPERSEDED initial thr-150 pass gave 347 e / peak 4400 / '2.3% e-' - see FINDINGS 7 GeV recount. Adopted: tag 8.8% at thr 50 (1,200 e on module; beam ~9% electrons, above the T10 table), peak 4814+/-51, sigma/E 22.5%, timing 223+/-9 mean / 191+/-7 MEDIAN (adopted, ref included). MCP thr 133 mV.",
-      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)",
+      "capillary_set": "LuAG:Ce capillaries (incl. T114, the spare that replaced broken T115 at installation; other three serials unrecorded) in LYSO:Ce/W shashlik",
       "beam_file": "T10 RADiCAL 005",
       "conditions": {
         "xcet_nominal_bar": "0.21",
@@ -180,7 +180,7 @@
       "beam": "CERN T10, -9 GeV",
       "purpose": "9 GeV scan point, part 1",
       "notes": "XCET40 0.150 / XCET43 0.156 bar (~3 pe: no threshold plateau, tag floor thr=40 ADC-eq, coincidence ~4.9% => beam >=5% e-). Stable; timing 331 ps standalone.",
-      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)",
+      "capillary_set": "LuAG:Ce capillaries (incl. T114, the spare that replaced broken T115 at installation; other three serials unrecorded) in LYSO:Ce/W shashlik",
       "beam_file": "T10 RADiCAL 006",
       "conditions": {
         "xcet_nominal_bar": "0.15",
@@ -196,7 +196,7 @@
       "beam": "CERN T10, -9 GeV",
       "purpose": "9 GeV overnight extension",
       "notes": "INTERMITTENT TIMING DRIFT (environmental, overnight): chronological slices alternate 330-420 ps (stable) and 536-1218 ps with center jumps to +300 ps, worst in the morning. DQ selection keeps slices 0,1,4,6 (20k of 40k). Excluded events recoverable with time-dependent calibration. DQ dataset = run_9001.root (run 28 + good slices, 26,028 events): peak 5782+/-160, sigma/E 31.9+/-3.8%, timing 204+/-11 mean / 189+/-12 MEDIAN (adopted, containment-gated, ref included; pre-gating 212/176 superseded).",
-      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)",
+      "capillary_set": "LuAG:Ce capillaries (incl. T114, the spare that replaced broken T115 at installation; other three serials unrecorded) in LYSO:Ce/W shashlik",
       "beam_file": "T10 RADiCAL 006",
       "conditions": {
         "xcet_nominal_bar": "0.15",
@@ -214,7 +214,7 @@
       "started_utc": "2026-08-29T09:12:04Z",
       "ended_utc": "2026-08-29T10:47:59Z",
       "notes": "XCETs pressurized 0.062/0.060 bar - hardware tag WORKS at threshold floor (cthr 40): coincidence 2.17% (867 tags, accidental rate ~0.11%); pi/mu below Cherenkov threshold at this pressure. Health clean: 0 gaps, LG rail 0.00-0.03% (bias stays frozen), HG clip ~2% (transfer line handles), MCP thr 133 mV, TR0 corr 0.998, pairings verified. MIP MPVs 459/440/376/405 (+13% vs run 15, day-scale gain ladder, absorbed by per-run calibration). Miss fractions: 41.5% (QCv2 SumLG<300 definition) / 54% of tags below SumLG=400 (scan class definition) (vs 8-12% at 3-9 GeV) and depressed per-cap response - consistent with wider/halo beam at the T10 momentum limit; per-cap timing asymmetric (right column 5/7 ~600 ps vs left 4/6 ~400 ps). Adopted scan timing (contained, SumLG>3800): 547+/-32 mean / 227+/-32 MEDIAN, ref included. (BestTiming ungated mean 328+/-28 superseded.) 11 GeV trial: contained tags are hard electrons, E-eq 9.7 GeV.",
-      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)",
+      "capillary_set": "LuAG:Ce capillaries (incl. T114, the spare that replaced broken T115 at installation; other three serials unrecorded) in LYSO:Ce/W shashlik",
       "beam_file": "T10 RADiCAL 007",
       "conditions": {
         "xcet_nominal_bar": "0.06",
@@ -540,7 +540,7 @@
       "tree": "pulse",
       "events": 1000,
       "beam": "CERN T10, 5 GeV",
-      "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik",
+      "capillary_set": "LuAG:Ce capillaries (incl. T114, the spare that replaced broken T115 at installation; other three serials unrecorded) in LYSO:Ce/W shashlik",
       "purpose": "Alignment discovery run",
       "notes": "Operator manifest: found MCP and RADiCAL module misaligned; stand y shifted by -7 mm afterwards. SiPM bias 29 V (first run at the raised bias per manifest). XCETs 0.4 bar nominal, beam file T10 RADiCAL 002. Logbook: stand position photos before/after; bias 29 V from this run (the 28->29 V step, logbook Aug 28)."
     }
@@ -561,7 +561,7 @@
     "generator": "macros/MakeMergedRuns.C reproduces all five"
   },
   "hardware_log": {
-    "capillary_incident": "Aug 25: one of the 4 corner timing capillaries (T115) broke during installation; replaced with spare T114 ('brightest of the remaining') - WHICH capillary configuration this belongs to needs James's confirmation",
+    "capillary_incident": "Aug 25: LuAG capillary T115 broke during installation; replaced with LuAG spare T114 ('brightest of the remaining') - confirmed by James 2026-08-31. T114 is therefore one of the four LuAG capillaries of runs 12-30.",
     "hv_supply": "iseg CEP-0582 (rented from CERN electronics pool Aug 26 after original supplies failing)",
     "mcp_note": "MCP appeared unable to reach 3000 V on Aug 26 - fix was raising the current limit to 0.15 mA, not a broken MCP",
     "downstream_card": "connector desoldered and replaced with wires Aug 27; channels 9 & 11 still unstable afterwards - downstream card excluded from the campaign",
