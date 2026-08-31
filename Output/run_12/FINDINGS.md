@@ -818,3 +818,24 @@ a usable upper bound <=198+/-10 ps.
 LESSON (added to the pile): any full-window max amplitude on an empty
 channel reads the noise envelope - never let no-detection events into a
 calibration sample.
+
+## XCET absolute photoelectron calibration (XCETCalib.C, 2026-08-31)
+
+James's question about the -7 GeV spectrum structure (pedestal /
+sharp low peak / broad hump) led to the campaign's closing deliverable.
+The sharp peak IS the single-photoelectron response - a per-counter gain
+ruler. Tag-and-probe (probe counter tagged by the other; unbiased) with
+two <Npe> estimators (Poisson-exact mean incl. zeros; resolved-hump
+peak) across 18 runs and 0.06-1.3 bar:
+  XCET40: A1pe = 40.2 ADC-eq (+-5% over 5 days, 15 runs);
+          <Npe> = (19.0 +/- 0.4) pe/bar * P, chi2/ndf 24/17.
+  XCET43: A1pe ~ 21.8 ADC-eq (1-pe rides the pedestal edge; PMT gain
+          ~half of XCET40's - explains its compressed spectra);
+          <Npe> = (26.0 +/- 0.5) pe/bar * P (+-15% scale systematic).
+Predicted coincidence efficiencies (Poisson zero-suppression):
+54% @0.06 bar / 74% @0.09 / 92% @0.15 / 98% @0.21 / ~100% >=0.4 bar -
+retroactively explaining the -11 GeV tag deficits, run 44's modest
+gain, and the 9 GeV ">=5%" content hedge (true content ~5.3%); the
+-7 GeV corrected content matches the in-situ ~9%.
+Run 34 excluded (pion-contaminated probe). Run-to-run ~10% scatter =
+beam optics. Future pressure choices can now TARGET a tag efficiency.

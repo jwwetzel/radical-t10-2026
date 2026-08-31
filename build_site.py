@@ -237,6 +237,7 @@ how   = enc("Output/summary/HowItWorks.png", 1500, 82)
 comp  = enc("Output/summary/ModuleCompare.png", 1500, 82)
 pulse = enc("Output/summary/PulseShapes.png", 1400, 82)
 t11   = enc("Output/summary/Tertiary11.png", 1500, 82)
+pecal = enc("Output/summary/XCETCalib.png", 1500, 82)
 
 index_sec = f'''<section data-content="summary">
   <div class="runhead">
@@ -343,6 +344,20 @@ index_sec = f'''<section data-content="summary">
     the beam. A 1.5 bar setting at +5 GeV radiates on pions too: coincidence 69.7% = the beam&rsquo;s combined
     e+&mu;+&pi; content, measured to a percent.</p></div>
 
+  <div class="card" id="sec-pecal"><h4>The XCETs, absolutely calibrated — pe/bar from the 1-pe ruler</h4>
+    <figure><img src="{pecal}" alt="XCET photoelectron calibration"><figcaption><b>The counters&rsquo; own single-photoelectron
+    peaks turn every spectrum into an absolute photon count.</b> Left: tag-and-probe electron yield (probe counter tagged by
+    the other) divided by the 1-pe position — <span class="num">XCET40: (19.0 &plusmn; 0.4) pe/bar</span> (1-pe ruler
+    40.2 ADC-eq, stable to &plusmn;5% over five days and 15 runs), <span class="num">XCET43: (26.0 &plusmn; 0.5) pe/bar</span>
+    (&plusmn;15% scale systematic — its 1-pe peak at ~22 ADC-eq rides the pedestal edge; the PMT runs at roughly half
+    XCET40&rsquo;s gain, which is why its spectra always looked compressed). Filled: Poisson-exact mean estimator (valid even
+    at 0.06 bar where the electron hump dissolves into counting); open: resolved-hump fits — the two agree throughout.
+    Residual ~10% scatter is run-to-run beam optics. Right: predicted tag efficiency vs pressure. The predictions
+    retroactively explain the campaign: <span class="num">54% coincidence at 0.06 bar</span> (the &minus;11 GeV tag deficit),
+    74% at 0.09 (run 44&rsquo;s modest gain), 92% at 0.15 (why 9 GeV content was quoted as a lower bound), 98% at 0.21
+    (the &minus;7 GeV points, whose corrected content then matches our in-situ ~9%). Future runs can now <em>choose</em> a
+    tag efficiency instead of discovering it. Excluded from the fit: run 34 (pion-contaminated probe).</figcaption></figure></div>
+
   <div class="card" id="sec-trial"><h4>&ldquo;11 GeV on trial&rdquo; — are the tags real electrons?</h4>
     <figure><img src="{t11}" alt="11 GeV tagged spectra and MCP pulse heights by class"><figcaption><b>Verdict: the
     contained tags are hard electrons.</b> Top: the &minus;11 GeV tagged &Sigma;LG spectra, classed miss / partial /
@@ -396,6 +411,7 @@ SUMMARY_TOC = [
   ("sec-how",         "How it works",     "one event, four steps"),
   ("sec-materials",   "Materials",        "light · speed · pulse shape"),
   ("sec-beam",        "The T10 beam",     "in-situ composition"),
+  ("sec-pecal",       "XCET pe scale",    "photons per bar, absolute"),
   ("sec-trial",       "11 GeV on trial",  "are the tags electrons?"),
   ("sec-log",         "Campaign log",     "four days, short version"),
   ("sec-conclusions", "Conclusions",      "three claims, three numbers"),
