@@ -75,7 +75,7 @@
       "ended_utc": "2026-08-28T13:47:39Z",
       "purpose": "First 20k production run at 5 GeV, position same as run 14",
       "notes": "COMPLETE: 20,000 events, zero event-number gaps. QC clean (QCv2.C): all channels healthy, HG clipping in beam events 0.2-0.6% (was 1-12% in run 12 - offset fix worked), Cherenkov coincidence 9.08% (1,816 e). MIP MPVs 329-404 ADC-eq (+25% vs run 14: SiPM bias raised +1 V on all LG and HG channels for this run - FINAL operating point for the campaign; run-15 MIPs are the reference calibration). ALIGNMENT: miss 7.9+/-0.6%; residual offset now significant: bottom/top 1.255+/-0.014, left/right 0.909+/-0.010 => beam ~2-3 mm low, ~1 mm right of module center. NEW: centered beam produces a real electron response peak in SumLG: mean 2992+/-36, sigma/E = 33.6+/-1.4% (position-smearing dominated; run-12 edge bound says intrinsic ~10%). Green light for energy scan with geometry/gains frozen.",
-      "bias_note": "SiPM bias +1 V vs runs 12-14 (all LG+HG); final setting from run 15 onward",
+      "bias_note": "CONFLICT, unresolved: campaign log attributed the run-14-to-15 MIP jump (+25%) to a '+1 V bias step at run 15'; the operator manifest instead records 28 V only for pre-run-13 and 29 V from run 13 onward (runs 14 and 15 both 29 V). If the manifest is right, the 14-to-15 MIP jump needs another explanation. See FINDINGS 2026-08-31.",
       "capillary_set": "LuAG:Ce capillaries in LYSO:Ce/W shashlik (serials unrecorded - pre-experiment-block DAQ)",
       "beam_file": "T10 RADiCAL 002",
       "conditions": {
