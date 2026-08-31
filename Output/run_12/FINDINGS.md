@@ -784,3 +784,37 @@ T114/T115 were LuAG capillaries: T115 broke at installation (Aug 25),
 LuAG spare T114 went in ("brightest of the remaining"). T114 is one of
 the four LuAG capillaries of runs 12-30; the other three LuAG serials
 remain unrecorded. Hardware record complete except those three serials.
+
+## Transfer-calibration noise-envelope bias FOUND & FIXED (James's plot
+## review, 2026-08-31) — campaign-wide timing recalibration
+
+James spotted "garbage" in the EJ199 HG/LG transfer plots: a dense blob
+at LG~0, HG~400-600. Diagnosis: MISS events (no module hit) carry
+noise-ENVELOPE HG amplitudes (max-over-1024-samples of ~120 ADC-eq HG
+noise = ~450) that contaminate the low-LG transfer bins, inflating
+intercepts and flattening slopes. Dose-response confirmed: worst where
+miss fraction x dimness is largest (EJ199 1 GeV: intercepts 445, slopes
+1.6; LuAG 1 GeV intermediate; bright 5 GeV runs healthy). SECOND defect:
+for runs that never clip, the 99.5% "wall" quantile is a tail statistic,
+not a clip wall (EJ199 "walls" 1540-2035 were fake).
+
+FIX (6 macros): (1) transfer-calibration sample gated on-module at the
+S>300 miss boundary (NOT the containment floors - first attempt used
+those and starved the high-E calibrations); (2) wall validated against
+the ~3150 ADC-eq DRS headroom - quantiles below 2900 are replaced by the
+headroom and labeled "no clip wall (dim run)".
+
+RESULT (medians, ref included, old -> new):
+  LuAG : 412/274/228/191/189 -> 410/277/227/196/183 (all within errors)
+         trend (402+/-13)/sqrt(E) (+) (135+/-10), chi2 5.6/3
+  DSB1 : 366/202/156/140/133 -> 368/204/149/137/136; trend (364+/-4)/sqrt(E)
+  EJ199: 1367/626/380/278/249 -> 1294/629/381/271/252 (1 GeV -73 ps:
+         the worst-contaminated calibration, exactly as diagnosed)
+  11 GeV open points: LuAG 267+/-54, DSB1 190+/-21, EJ199 237+/-42.
+All physics conclusions unchanged; EJ199 faster-than-1/sqrt(E) scaling
+persists (chi2 316/3). DiagDiff re-derived: LuAG implied ref plateau
+94-108 ps at >=5 GeV (validation intact); DSB1 9 GeV diagonal now gives
+a usable upper bound <=198+/-10 ps.
+LESSON (added to the pile): any full-window max amplitude on an empty
+channel reads the noise envelope - never let no-detection events into a
+calibration sample.

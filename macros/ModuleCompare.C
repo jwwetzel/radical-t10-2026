@@ -16,15 +16,15 @@ void ModuleCompare()
   SetRadStyle();
   // LuAG (runs 2526,24,15,27,9001,30) — median timing, contained showers
   double eL[6]  = {1,3,5,7,9,11};
-  double tL[6]  = {412,274,228,191,189,227}, tLe[6] = {11,5,6,7,12,32};
+  double tL[6]  = {410,277,227,196,183,267}, tLe[6] = {11,5,6,7,11,54};
   double pL[6]  = {0,1686,2962,4814,5782,5696}, pLe[6] = {0,25,37,51,160,117};
   // DSB1 (runs 36,35,33,32,31) — 5 GeV pending run 37
   double eD[6]  = {1,3,5,7,9,11};
-  double tD[6]  = {366,202,156,140,133,181}, tDe[6] = {4,4,8,6,5,17};
+  double tD[6]  = {368,204,149,137,136,190}, tDe[6] = {4,4,6,5,5,21};
   double pD[6]  = {0,3763,6769,9045,9946,10721}, pDe[6] = {0,73,138,90,144,734};
   // EJ199 (runs 39-44) — 11 GeV response fit unstable (202 e): timing kept (open), response omitted
   double eJ[6]  = {1,3,5,7,9,11};
-  double tJ[6]  = {1367,626,380,278,249,266}, tJe[6] = {24,13,18,10,17,37};
+  double tJ[6]  = {1294,629,381,271,252,237}, tJe[6] = {24,13,17,10,17,42};
   double pJ[4]  = {1354,2740,4658,5704}, pJe[4] = {42,74,97,159};
   double eJr[4] = {3,5,7,9};
 
@@ -38,8 +38,8 @@ void ModuleCompare()
   TCanvas ch("ch","ch",1500,950);
   TH1F *fr = gPad->DrawFrame(0, 0, 12.3, 530,
     ";beam energy [GeV];shower-time resolution  #sigma_{t}  [ps]");
-  TF1 *fL = new TF1("fL","sqrt(402*402/x+134*134)",0.7,12.3);
-  TF1 *fD = new TF1("fD","361/sqrt(x)",0.7,12.3);
+  TF1 *fL = new TF1("fL","sqrt(402*402/x+135*135)",0.7,12.3);
+  TF1 *fD = new TF1("fD","364/sqrt(x)",0.7,12.3);
   fL->SetLineColor(rad::cRed());  fL->SetLineWidth(3); fL->SetLineStyle(7);
   fD->SetLineColor(rad::cTeal()); fD->SetLineWidth(4);
   fL->Draw("same"); fD->Draw("same");
@@ -55,8 +55,8 @@ void ModuleCompare()
   open11(eL[5], tL[5], rad::cRed(), 21, 25); open11(eD[5], tD[5], rad::cTeal(), 20, 24);
   TLegend *l = new TLegend(0.42,0.62,0.93,0.90);
   l->SetBorderSize(0); l->SetTextFont(43); l->SetTextSize(26);
-  l->AddEntry(gD, "DSB1:  #sigma_{t} = (361#pm4) ps/#sqrt{E}   (b unresolved)", "pl");
-  l->AddEntry(gL, "LuAG:  #sigma_{t} = (402#pm13)/#sqrt{E} #oplus (134#pm11) ps", "pl");
+  l->AddEntry(gD, "DSB1:  #sigma_{t} = (364#pm4) ps/#sqrt{E}   (b unresolved)", "pl");
+  l->AddEntry(gL, "LuAG:  #sigma_{t} = (402#pm13)/#sqrt{E} #oplus (135#pm10) ps", "pl");
   l->Draw();
   TLatex tx; tx.SetNDC(); tx.SetTextFont(43);
   tx.SetTextSize(30); tx.DrawLatex(0.13,0.945,"Shower timing, 14#times14 mm shower-max sampling modules");
@@ -78,8 +78,8 @@ void ModuleCompare()
   open11(eL[5], tL[5], rad::cRed(), 21, 25); open11(eD[5], tD[5], rad::cTeal(), 20, 24);
   open11(eJ[5], tJ[5], rad::cAmber(), 22, 26);
   TLegend *l1 = new TLegend(0.36,0.62,0.93,0.90); l1->SetBorderSize(0); l1->SetTextFont(43); l1->SetTextSize(22);
-  l1->AddEntry(gD, "DSB1: (361#pm4)/#sqrt{E} ps", "pl");
-  l1->AddEntry(gL, "LuAG: (402#pm13)/#sqrt{E} #oplus (134#pm11) ps", "pl");
+  l1->AddEntry(gD, "DSB1: (364#pm4)/#sqrt{E} ps", "pl");
+  l1->AddEntry(gL, "LuAG: (402#pm13)/#sqrt{E} #oplus (135#pm10) ps", "pl");
   l1->AddEntry(gJ, "EJ199: photostatistics-limited (no stable trend)", "p");
   l1->Draw();
   c2.cd(2);

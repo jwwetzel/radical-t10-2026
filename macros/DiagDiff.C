@@ -116,14 +116,15 @@ void DiagDiff(int mod = 0)
       Pulse c0 = pulseOf(ch[0],-1,BASE_CTR), c1 = pulseOf(ch[1],-1,BASE_CTR);
       isB[i] = c0.amp > cthr && c1.amp > cthr;
       if (!isB[i]) continue;
-      for (int j = 0; j < 4; ++j) {
-        Pulse l = pulseOf(ch[LGs[j]],+1,BASE_MOD), h = pulseOf(ch[HGs[j]],+1,BASE_MOD);
-        hA[j]->Fill(h.amp); hHL[j]->Fill(l.amp, h.amp);
-      }
+      { double Scal = 0; Pulse lv[4], hv[4];
+        for (int j = 0; j < 4; ++j) { lv[j] = pulseOf(ch[LGs[j]],+1,BASE_MOD); hv[j] = pulseOf(ch[HGs[j]],+1,BASE_MOD); Scal += lv[j].amp; }
+        if (Scal > 300)   // miss-class boundary, NOT the containment floor: calibration needs the full on-module LG range
+          for (int j = 0; j < 4; ++j) { hA[j]->Fill(hv[j].amp); hHL[j]->Fill(lv[j].amp, hv[j].amp); } }
     }
     double wall[4], a[4], b[4];
     for (int j = 0; j < 4; ++j) {
       double q = 0.995; hA[j]->GetQuantiles(1, &wall[j], &q);
+      if (wall[j] < 2900) wall[j] = 3150;
       TProfile *pr = hHL[j]->ProfileX(Form("dp%d",j));
       double lgMax = 1200, ceil_ = 0.72*wall[j];
       for (int bb = pr->FindBin(60); bb <= pr->GetNbinsX(); ++bb)

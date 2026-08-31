@@ -113,7 +113,7 @@ RUNS = [
       <span class="num">5696 &plusmn; 117</span>. The scan therefore uses a containment floor
       &Sigma;LG &gt; 3800 for this point (drawn from the measured spectrum), and the timing is computed
       on contained showers only. Timing shows why the median combination is the adopted estimator:
-      <span class="num">t-MEDIAN 227 &plusmn; 32 ps</span> vs t-MEAN 547 &plusmn; 32 &mdash; edge-hit
+      <span class="num">t-MEDIAN 267 &plusmn; 54 ps</span> vs t-MEAN 367 &plusmn; 85 &mdash; edge-hit
       outliers (right column, caps 5/7) destroy the mean, the median holds within ~1.4&sigma; of the
       photostatistics trend (181 ps predicted).</p>
       <p><b>Health.</b> Zero event gaps; TR0 copies correlate at 0.998; all four LG&harr;HG pairings
@@ -126,7 +126,7 @@ RUNS = [
       <tr><td class="t">contained electrons (&Sigma;LG &gt; 3800)</td><td class="num">187</td></tr>
       <tr><td class="t">&Sigma;LG peak</td><td class="num">5696 &plusmn; 117 ADC-eq</td></tr>
       <tr><td class="t">&sigma;/E (position-smeared)</td><td class="num">18.5 &plusmn; 2.6%</td></tr>
-      <tr><td class="t">srCFD shower-time &sigma; (median | mean)</td><td class="num">227 &plusmn; 32 | 547 &plusmn; 32 ps</td></tr>
+      <tr><td class="t">srCFD shower-time &sigma; (median | mean)</td><td class="num">267 &plusmn; 54 | 367 &plusmn; 85 ps</td></tr>
       <tr><td class="t">response vs linear &times; shower-max migration</td><td class="num">&minus;5.5% (SaturationStudy: within the gain ladder)</td></tr>
       </table></div>
       <div class="verdict warn"><b>Verdict.</b> Valid 11 GeV point with a wide-beam caveat: statistics
@@ -144,7 +144,7 @@ RUNS = [
           "notes": """<p>First DSB1 run, same beam and tight-slit config as LuAG run 30. Floor-threshold tag:
       <span class="num">948 = 2.37%</span> (LuAG run 30: 2.17% — beam reproducible). Miss fraction 18.7%.
       MIP MPVs 498/489/459/486. Scan point (contained, &Sigma;LG &gt; 6500): peak 10721 &plusmn; 734 — approaching the ~13.6k LG headroom
-      ceiling — and <b>t-MEDIAN 181 &plusmn; 17 ps</b> (mean 191; LuAG at 11 GeV: 227).</p>"""}},
+      ceiling — and <b>t-MEDIAN 190 &plusmn; 21 ps</b> (mean 191; LuAG at 11 GeV: 227).</p>"""}},
  {"key": "r32", "dir": "run_32", "extras": [],
   "new": {"btnname": "Run 32 · DSB1", "dot": "good",
           "meta": ["40,000 ev · &minus;9 GeV · Aug 29", "DSB1 · 9 GeV scan point"],
@@ -153,8 +153,8 @@ RUNS = [
           "chips": ["40,000 events", "&minus;9 GeV", "XCET floor tag (40)", "DSB1"],
           "pill":  ("good", "complete"),
           "notes": """<p>Floor tag <span class="num">1,954 = 4.88%</span> (LuAG run 28: 4.9% — identical).
-      Miss fraction 24.3%. MIP MPVs 441/422/382/411. Scan point (&Sigma;LG &gt; 6000): peak 9946 &plusmn; 144, &sigma;/E 26.5%, and <b>t-MEDIAN 133 &plusmn; 5 ps</b> —
-      best timing of the campaign; the 516 ps mean vs 133 median is the most extreme daytime-outlier
+      Miss fraction 24.3%. MIP MPVs 441/422/382/411. Scan point (&Sigma;LG &gt; 6000): peak 9946 &plusmn; 144, &sigma;/E 26.5%, and <b>t-MEDIAN 136 &plusmn; 5 ps</b> —
+      best timing of the campaign; the 507 ps mean vs 133 median is the most extreme daytime-outlier
       rescue yet (diff &minus;383 ps).</p>"""}},
  {"key": "r33", "dir": "run_33", "extras": [],
   "new": {"btnname": "Run 33 · DSB1", "dot": "good",
@@ -165,7 +165,7 @@ RUNS = [
           "pill":  ("good", "complete"),
           "notes": """<p>Tag <span class="num">1,721 = 8.61%</span> &asymp; the known ~9% e&#8315; content of the
       &minus;7 GeV beam. Miss 18.6%; beam a touch low/left (rows 1.27, cols 1.15). MIP MPVs 406/374/265/365.
-      Scan point (&Sigma;LG &gt; 4000): peak 9045 &plusmn; 90, &sigma;/E 21.6%, <b>t-MEDIAN 140 &plusmn; 6 ps</b> (LuAG: 191).</p>"""}},
+      Scan point (&Sigma;LG &gt; 4000): peak 9045 &plusmn; 90, &sigma;/E 21.6%, <b>t-MEDIAN 137 &plusmn; 5 ps</b> (LuAG: 191).</p>"""}},
  {"key": "r34", "dir": "run_34", "extras": [],
   "new": {"btnname": "Run 34 · DSB1", "dot": "warn",
           "meta": ["20,000 ev · +5 GeV · Aug 29", "DSB1 · BAD XCET PRESSURE"],
@@ -187,7 +187,7 @@ RUNS = [
           "pill":  ("good", "complete"),
           "notes": """<p>Cleanest tag of the DSB1 set: plateau at <span class="num">23.3%</span> (LuAG run 24: 23.5%).
       ElectronID selector holds at 83.2% efficiency. Miss 12.7%. MIP MPVs 277/203/169/271.
-      Scan point (&Sigma;LG &gt; 1500): peak 3763 &plusmn; 73, &sigma;/E 56%, <b>t-MEDIAN 202 &plusmn; 4 ps</b> (LuAG: 274).</p>"""}},
+      Scan point (&Sigma;LG &gt; 1500): peak 3763 &plusmn; 73, &sigma;/E 56%, <b>t-MEDIAN 204 &plusmn; 4 ps</b> (LuAG: 274).</p>"""}},
  {"key": "r36", "dir": "run_36", "extras": [],
   "new": {"btnname": "Run 36 · DSB1", "dot": "warn",
           "meta": ["20,000 ev · +1 GeV · Aug 29", "DSB1 · config changed mid-run"],
@@ -213,7 +213,7 @@ RUNS = [
       textbook plateau at <span class="num">5.7%</span> (the T10 table says 4.1% — in-situ above the tables again).
       1,132 tagged positrons; <b>miss fraction 7.8% — the best containment of the campaign</b>, courtesy of the
       post-fix beam config. MIP MPVs 282/200/168/267. Scan point (&Sigma;LG &gt; 2500): peak
-      <span class="num">6769 &plusmn; 138</span>, &sigma;/E 39.7%, <b>t-MEDIAN 156 &plusmn; 8 ps</b>
+      <span class="num">6769 &plusmn; 138</span>, &sigma;/E 39.7%, <b>t-MEDIAN 149 &plusmn; 6 ps</b>
       (LuAG at 5 GeV: 228) — on the DSB1 trend prediction of 165 ps.</p>"""}},
  {"key": "r38", "dir": "run_38", "extras": [],
   "new": {"btnname": "Run 38 · DSB1", "dot": "good",
@@ -226,7 +226,7 @@ RUNS = [
       ~30&times; run 36&rsquo;s pre-fix rate — the collimator + XCET-gas diagnosis cashed in. Tag plateau
       <span class="num">88.8%</span> = 44,408 tagged electrons; 22,745 on module, 14,582 timed.
       Miss 57.7% is the 1 GeV material-scattering floor, not a config problem. Scan point:
-      response ridge-merged at the 1 GeV floor (as for LuAG), <b>t-MEDIAN 366 &plusmn; 4 ps</b> with the
+      response ridge-merged at the 1 GeV floor (as for LuAG), <b>t-MEDIAN 368 &plusmn; 4 ps</b> with the
       campaign&rsquo;s largest timed sample.</p>"""}},
  # ================= EJ199 module (runs 39-41+, Aug 30) — WLS-only baseline =================
  {"key": "r39", "dir": "run_39", "extras": [],
@@ -237,7 +237,7 @@ RUNS = [
           "chips": ["20,000 events", "+1 GeV", "XCET tag (100)", "EJ199 WLS-only"],
           "pill":  ("good", "complete"),
           "notes": """<p>First EJ199 beam. Tag plateau <span class="num">88.7%</span> (17,732 e). Miss 69.5%
-      (1 GeV material floor). Timing is slow — <b>t-MEDIAN 1367 &plusmn; 24 ps</b> — consistent with fluorescence-like re-emission of the
+      (1 GeV material floor). Timing is slow — <b>t-MEDIAN 1294 &plusmn; 24 ps</b> — consistent with fluorescence-like re-emission of the
       LYSO:Ce tile light by the suspected contaminant (EJ-199&rsquo;s spec absorption band excludes 425 nm).</p>"""}},
  {"key": "r40", "dir": "run_40", "extras": [],
   "new": {"btnname": "Run 40 · EJ199", "dot": "good",
@@ -248,7 +248,7 @@ RUNS = [
           "pill":  ("good", "complete"),
           "notes": """<p>Tag plateau <span class="num">22.8%</span> (4,557 e), matching DSB1/LuAG — beam reproducible
       across all three modules. Miss 17.4%. Scan point (&Sigma;LG &gt; 500): peak
-      <span class="num">1354 &plusmn; 42</span>, <b>t-MEDIAN 626 &plusmn; 13 ps</b>.</p>"""}},
+      <span class="num">1354 &plusmn; 42</span>, <b>t-MEDIAN 629 &plusmn; 13 ps</b>.</p>"""}},
  {"key": "r41", "dir": "run_41", "extras": [],
   "new": {"btnname": "Run 41 · EJ199", "dot": "good",
           "meta": ["20,000 ev · +5 GeV · Aug 30", "EJ199 · 5 GeV scan point"],
@@ -258,7 +258,7 @@ RUNS = [
           "pill":  ("good", "complete"),
           "notes": """<p>Tag plateau <span class="num">5.6%</span> (1,121 e). Miss 12.0%. Scan point
       (&Sigma;LG &gt; 1200): peak <span class="num">2740 &plusmn; 74</span> — ~550 ADC-eq/GeV, the dimmest module
-      (LuAG ~620, DSB1 ~1,350) — and <b>t-MEDIAN 380 &plusmn; 18 ps</b> (LuAG 228, DSB1 156). By spec this channel should be nearly blind to the LYSO:Ce tiles&rsquo; 425 nm light — the observed response
+      (LuAG ~620, DSB1 ~1,350) — and <b>t-MEDIAN 381 &plusmn; 17 ps</b> (LuAG 228, DSB1 156). By spec this channel should be nearly blind to the LYSO:Ce tiles&rsquo; 425 nm light — the observed response
       is in-beam support for the suspected Eljen contaminant, and this run quantifies it.</p>"""}},
  {"key": "r42", "dir": "run_42", "extras": [],
   "new": {"btnname": "Run 42 · EJ199", "dot": "good",
@@ -268,7 +268,7 @@ RUNS = [
           "chips": ["20,000 events", "&minus;7 GeV", "XCET floor tag (40)", "EJ199"],
           "pill":  ("good", "complete"),
           "notes": """<p>Tag 7.77% (1,554 e). Scan point (&Sigma;LG &gt; 1700): peak <span class="num">4658 &plusmn; 97</span>,
-      <b>t-MEDIAN 278 &plusmn; 10 ps</b>. This run also supplies the EJ199 curve of the three-channel pulse-shape
+      <b>t-MEDIAN 271 &plusmn; 10 ps</b>. This run also supplies the EJ199 curve of the three-channel pulse-shape
       comparison (tail &tau; = 6.5 ns, 25% of light after 8 ns — the fingerprint for the contaminant question).</p>"""}},
  {"key": "r43", "dir": "run_43", "extras": [],
   "new": {"btnname": "Run 43 · EJ199", "dot": "good",
@@ -278,7 +278,7 @@ RUNS = [
           "chips": ["20,000 events", "&minus;9 GeV", "XCET floor tag (40)", "EJ199"],
           "pill":  ("good", "complete"),
           "notes": """<p>Tag 5.17% (1,034 e). Scan point (&Sigma;LG &gt; 2200): peak <span class="num">5704 &plusmn; 159</span>,
-      <b>t-MEDIAN 249 &plusmn; 17 ps</b>.</p>"""}},
+      <b>t-MEDIAN 252 &plusmn; 17 ps</b>.</p>"""}},
  {"key": "r44", "dir": "run_44", "extras": [],
   "new": {"btnname": "Run 44 · EJ199", "dot": "warn",
           "meta": ["20,000 ev · &minus;11 GeV · Aug 30", "EJ199 · 11 GeV, raised pressure"],
@@ -288,7 +288,7 @@ RUNS = [
           "pill":  ("warn", "complete — low stats"),
           "notes": """<p>The raised 0.089 bar fill delivered a modest tag gain: 2.48% vs 2.17&ndash;2.37% at 0.060 bar
       for the other modules. Only 202 on-module electrons; the &Sigma;LG peak fit is unstable
-      (8655 &plusmn; 4152) and the standing 11 GeV purity caveat applies. <b>t-MEDIAN 266 &plusmn; 37 ps.</b></p>"""}},
+      (8655 &plusmn; 4152) and the standing 11 GeV purity caveat applies. <b>t-MEDIAN 237 &plusmn; 42 ps.</b></p>"""}},
 ]
 
 def figblock(path, title, desc):

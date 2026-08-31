@@ -115,6 +115,9 @@ void EnergyScanDSB1()
     t->SetBranchAddress("channel", ch); t->SetBranchAddress("times", tax);
     const Long64_t nEnt = t->GetEntries();
 
+    // hoisted: pass-1 calibration is gated on-module too
+    static const double SMIN_OV[NP] = {0, 1500, 2500, 4000, 6000, 6500};  // containment floors from the measured DSB1 spectra
+    const double SMIN = SMIN_OV[ip] > 0 ? SMIN_OV[ip] : 60.0 * E[ip] + 120;    // miss/noise floor, scales mildly
     // pass 1: wall + transfer per capillary (beam events)
     TH1F *hA[4]; TH2F *hHL[4];
     for (int j = 0; j < 4; ++j) {
@@ -128,14 +131,15 @@ void EnergyScanDSB1()
       Pulse c0 = pulseOf(ch[0],-1,BASE_CTR), c1 = pulseOf(ch[1],-1,BASE_CTR);
       isB[i] = c0.amp > cthr[ip] && c1.amp > cthr[ip];
       if (!isB[i]) continue;
-      for (int j = 0; j < 4; ++j) {
-        Pulse l = pulseOf(ch[LGs[j]],+1,BASE_MOD), h = pulseOf(ch[HGs[j]],+1,BASE_MOD);
-        hA[j]->Fill(h.amp); hHL[j]->Fill(l.amp, h.amp);
-      }
+      { double Scal = 0; Pulse lv[4], hv[4];
+        for (int j = 0; j < 4; ++j) { lv[j] = pulseOf(ch[LGs[j]],+1,BASE_MOD); hv[j] = pulseOf(ch[HGs[j]],+1,BASE_MOD); Scal += lv[j].amp; }
+        if (Scal > 300)   // miss-class boundary, NOT the containment floor: calibration needs the full on-module LG range   // on-module only: keep noise-envelope miss events out of the calibration
+          for (int j = 0; j < 4; ++j) { hA[j]->Fill(hv[j].amp); hHL[j]->Fill(lv[j].amp, hv[j].amp); } }
     }
     double wall[4], a[4], b[4];
     for (int j = 0; j < 4; ++j) {
       double q = 0.995; hA[j]->GetQuantiles(1, &wall[j], &q);
+      if (wall[j] < 2900) wall[j] = 3150;   // dim/low-E run never clips: DRS headroom, not tail quantile
       TProfile *pr = hHL[j]->ProfileX(Form("p%d_%d",ip,j));
       double lgMax = 1200, ceil_ = 0.72*wall[j];
       for (int bb = pr->FindBin(60); bb <= pr->GetNbinsX(); ++bb)
@@ -151,8 +155,6 @@ void EnergyScanDSB1()
     hS[ip]->SetDirectory(nullptr);          // survive f->Close(): the crash was a use-after-free here
     std::vector<double> dtA;
     long nOnMod = 0;
-    static const double SMIN_OV[NP] = {0, 1500, 2500, 4000, 6000, 6500};  // containment floors from the measured DSB1 spectra
-    const double SMIN = SMIN_OV[ip] > 0 ? SMIN_OV[ip] : 60.0 * E[ip] + 120;    // miss/noise floor, scales mildly
     for (Long64_t i = 0; i < nEnt; ++i) {
       if (i % 2000 == 0) { printf("  [%d GeV] pass2 %lld/%lld\n", (int)E[ip], i, nEnt); fflush(stdout); }
       if (!isB[i]) continue;

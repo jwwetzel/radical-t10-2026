@@ -60,10 +60,10 @@ void TransferFit(int run = 15, double cthr = 150)
   for (Long64_t i = 0; i < nEnt; ++i) {
     t->GetEntry(i);
     if (!(amp(0,BASE_CTR,-1) > cthr && amp(1,BASE_CTR,-1) > cthr)) continue;
-    for (int j = 0; j < 4; ++j) {
-      double l = amp(LGs[j], BASE_MOD, +1), h = amp(HGs[j], BASE_MOD, +1);
-      hAmp[j]->Fill(h); hHL[j]->Fill(l, h);
-    }
+    double lv[4], hv[4], S = 0;
+    for (int j = 0; j < 4; ++j) { lv[j] = amp(LGs[j], BASE_MOD, +1); hv[j] = amp(HGs[j], BASE_MOD, +1); S += lv[j]; }
+    if (S < 300) continue;   // ON-MODULE ONLY: miss events carry noise-envelope HG amplitudes (~3.5 sigma of the max-over-window) that inflate the intercept and flatten the slope
+    for (int j = 0; j < 4; ++j) { hAmp[j]->Fill(hv[j]); hHL[j]->Fill(lv[j], hv[j]); }
     if (i % 5000 == 0) printf("  %lld/%lld\n", i, nEnt);
   }
 
@@ -71,11 +71,13 @@ void TransferFit(int run = 15, double cthr = 150)
   fprintf(sum, "TransferFit run %d (wall-aware; fit only HG < 0.72 x wall)\n", run);
 
   TCanvas c("c", "c", 2100, 1000); c.Divide(4, 2, 0.004, 0.008);
-  double wall[4], fitMaxHG[4], p0[4], p1[4], lgMax[4];
+  double wall[4], fitMaxHG[4], p0[4], p1[4], lgMax[4]; bool realW[4];
   TProfile *prs[4];
   for (int j = 0; j < 4; ++j) {
     // wall = 99.5% quantile of the HG beam spectrum (the clip shelf)
     double q = 0.995; hAmp[j]->GetQuantiles(1, &wall[j], &q);
+    realW[j] = wall[j] > 2900;                 // vs the ~3150 ADC-eq DRS headroom: dim/low-E runs never clip
+    if (!realW[j]) wall[j] = 3150;             // guard against the tail quantile masquerading as a clip wall
     fitMaxHG[j] = 0.72 * wall[j];
     // transfer fit first (no drawing side effects): linear region only
     prs[j] = hHL[j]->ProfileX(Form("pr_%d", j));
@@ -100,7 +102,7 @@ void TransferFit(int run = 15, double cthr = 150)
     TLatex tx; tx.SetTextFont(43); tx.SetTextSize(17);
     tx.SetTextColor(rad::cRed());
     { TLatex txn; txn.SetNDC(); txn.SetTextFont(43); txn.SetTextSize(19); txn.SetTextColor(rad::cRed());
-      txn.DrawLatex(0.62, 0.78, Form("wall %.0f", wall[j])); }
+      txn.DrawLatex(0.62, 0.78, realW[j] ? Form("wall %.0f", wall[j]) : "no clip wall (dim run)"); }
 
     // ---- bottom row: scatter + profile + fit window ----
     TProfile *pr = prs[j];

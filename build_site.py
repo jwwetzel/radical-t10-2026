@@ -165,16 +165,16 @@ dsb1_scan = f'''  <div class="runhead">
   <div class="card"><h4>Scan table</h4>
     <div class="tblwrap"><table>
       <tr><th>E [GeV]</th><th>run</th><th>events</th><th>e&#8315; on module</th><th>&Sigma;LG peak</th><th>&sigma;/E</th><th>&sigma;_t mean [ps]</th><th><b>&sigma;_t median [ps]</b></th></tr>
-      <tr><td>1</td><td class="t">38</td><td>50,000</td><td>22,745</td><td>ridge-merged (1 GeV material floor)</td><td>&mdash;</td><td class="num">416 &plusmn; 4</td><td class="num"><b>366 &plusmn; 4</b></td></tr>
-      <tr><td>3</td><td class="t">35</td><td>20,000</td><td>3,319</td><td class="num">3763 &plusmn; 73</td><td>56.4%</td><td class="num">254 &plusmn; 6</td><td class="num"><b>202 &plusmn; 4</b></td></tr>
-      <tr><td>5</td><td class="t">37</td><td>20,000</td><td>856</td><td class="num">6769 &plusmn; 138</td><td>39.7%</td><td class="num">182 &plusmn; 8</td><td class="num"><b>156 &plusmn; 8</b></td></tr>
-      <tr><td>7</td><td class="t">33</td><td>20,000</td><td>1,001</td><td class="num">9045 &plusmn; 90</td><td class="num">21.6%</td><td class="num">176 &plusmn; 8</td><td class="num"><b>140 &plusmn; 6</b></td></tr>
-      <tr><td>9</td><td class="t">32</td><td>40,000</td><td>847</td><td class="num">9946 &plusmn; 144</td><td>26.5%</td><td class="num">516 &plusmn; 14</td><td class="num"><b>133 &plusmn; 5</b></td></tr>
-      <tr><td>11*</td><td class="t">31</td><td>40,000</td><td>303</td><td class="num">10721 &plusmn; 734</td><td>38.6%</td><td class="num">191 &plusmn; 18</td><td class="num"><b>181 &plusmn; 17</b></td></tr>
+      <tr><td>1</td><td class="t">38</td><td>50,000</td><td>22,745</td><td>ridge-merged (1 GeV material floor)</td><td>&mdash;</td><td class="num">416 &plusmn; 4</td><td class="num"><b>368 &plusmn; 4</b></td></tr>
+      <tr><td>3</td><td class="t">35</td><td>20,000</td><td>3,319</td><td class="num">3763 &plusmn; 73</td><td>56.4%</td><td class="num">253 &plusmn; 6</td><td class="num"><b>204 &plusmn; 4</b></td></tr>
+      <tr><td>5</td><td class="t">37</td><td>20,000</td><td>856</td><td class="num">6769 &plusmn; 138</td><td>39.7%</td><td class="num">187 &plusmn; 9</td><td class="num"><b>149 &plusmn; 6</b></td></tr>
+      <tr><td>7</td><td class="t">33</td><td>20,000</td><td>1,001</td><td class="num">9045 &plusmn; 90</td><td class="num">21.6%</td><td class="num">180 &plusmn; 8</td><td class="num"><b>137 &plusmn; 5</b></td></tr>
+      <tr><td>9</td><td class="t">32</td><td>40,000</td><td>847</td><td class="num">9946 &plusmn; 144</td><td>26.5%</td><td class="num">507 &plusmn; 14</td><td class="num"><b>136 &plusmn; 5</b></td></tr>
+      <tr><td>11*</td><td class="t">31</td><td>40,000</td><td>303</td><td class="num">10721 &plusmn; 734</td><td>38.6%</td><td class="num">397 &plusmn; 19</td><td class="num"><b>190 &plusmn; 21</b></td></tr>
     </table></div>
-    <p>Timing trend (median, contained showers, 3&amp;9 GeV anchors): <span class="num">&sigma;_t &asymp; (361 &plusmn; 4)/&radic;E ps (b unresolved)</span> —
+    <p>Timing trend (median, contained showers, 3&amp;9 GeV anchors): <span class="num">&sigma;_t &asymp; (364 &plusmn; 4)/&radic;E ps (b unresolved)</span> —
     the constant term nearly half of LuAG&rsquo;s 138 ps, references included unsubtracted. The 9 GeV point
-    (<span class="num">133 &plusmn; 5 ps</span>) is the best timing of the campaign; its 516 ps <em>mean</em> against the 133 ps
+    (<span class="num">136 &plusmn; 5 ps</span>) is the best timing of the campaign; its 516 ps <em>mean</em> against the 133 ps
     <em>median</em> is the strongest daytime-outlier rescue yet. DSB1 delivers ~2.1&times; the LuAG light
     (~1,250&ndash;1,390 ADC-eq/GeV): the scan histograms extend to 16k and at 11 GeV the summed response approaches the
     ~13.6k LG headroom ceiling (rails still &lt;0.02%). Containment floors 0/1500/2500/4000/6000/6500 from the measured spectra. Runs 34 (pion-contaminated tag) and 36 (mixed beam config) are superseded by 37/38 and kept as control/backup datasets. *The 11 GeV point is drawn OPEN in the trend figures: T10&rsquo;s composition measurements put the electron fraction near zero above ~10 GeV/c, so the tag&rsquo;s purity was on trial. The trial (summary page, &ldquo;11 GeV on trial&rdquo;) finds the <em>contained</em> subset — the only events these scan numbers use — measures as genuine hard electrons: E-equivalent 9.7 GeV (LuAG, within the &plusmn;15% gain envelope of 11), spectra matching the 9 GeV shape, and hard-shower timing. The excess miss/halo population remains unexplained (plausibly tertiary electrons). The off-coincidence sample at &minus;11 GeV is ~97% pions: the campaign&rsquo;s purest MIP dataset (runs 30/31).
@@ -207,16 +207,16 @@ ej_scan = f'''  <div class="runhead">
   <div class="card"><h4>Scan table</h4>
     <div class="tblwrap"><table>
       <tr><th>E [GeV]</th><th>run</th><th>events</th><th>e&#8315; on module</th><th>&Sigma;LG peak</th><th>&sigma;/E</th><th>&sigma;_t mean [ps]</th><th><b>&sigma;_t median [ps]</b></th></tr>
-      <tr><td>1</td><td class="t">39</td><td>20,000</td><td>9,240</td><td>ridge-merged</td><td>&mdash;</td><td class="num">1269 &plusmn; 21</td><td class="num"><b>1367 &plusmn; 24</b></td></tr>
-      <tr><td>3</td><td class="t">40</td><td>20,000</td><td>3,407</td><td class="num">1354 &plusmn; 42</td><td>74.7%</td><td class="num">639 &plusmn; 13</td><td class="num"><b>626 &plusmn; 13</b></td></tr>
-      <tr><td>5</td><td class="t">41</td><td>20,000</td><td>812</td><td class="num">2740 &plusmn; 74</td><td>44.9%</td><td class="num">405 &plusmn; 18</td><td class="num"><b>380 &plusmn; 18</b></td></tr>
-      <tr><td>7</td><td class="t">42</td><td>20,000</td><td>917</td><td class="num">4658 &plusmn; 97</td><td>38.2%</td><td class="num">311 &plusmn; 12</td><td class="num"><b>278 &plusmn; 10</b></td></tr>
-      <tr><td>9</td><td class="t">43</td><td>20,000</td><td>525</td><td class="num">5704 &plusmn; 159</td><td>38.3%</td><td class="num">257 &plusmn; 21</td><td class="num"><b>249 &plusmn; 17</b></td></tr>
-      <tr><td>11*</td><td class="t">44</td><td>20,000</td><td>202</td><td class="t">fit unstable (low stats)</td><td>&mdash;</td><td class="num">385 &plusmn; 69</td><td class="num"><b>266 &plusmn; 37</b></td></tr>
+      <tr><td>1</td><td class="t">39</td><td>20,000</td><td>9,240</td><td>ridge-merged</td><td>&mdash;</td><td class="num">1205 &plusmn; 23</td><td class="num"><b>1294 &plusmn; 24</b></td></tr>
+      <tr><td>3</td><td class="t">40</td><td>20,000</td><td>3,407</td><td class="num">1354 &plusmn; 42</td><td>74.7%</td><td class="num">640 &plusmn; 13</td><td class="num"><b>629 &plusmn; 13</b></td></tr>
+      <tr><td>5</td><td class="t">41</td><td>20,000</td><td>812</td><td class="num">2740 &plusmn; 74</td><td>44.9%</td><td class="num">399 &plusmn; 18</td><td class="num"><b>381 &plusmn; 17</b></td></tr>
+      <tr><td>7</td><td class="t">42</td><td>20,000</td><td>917</td><td class="num">4658 &plusmn; 97</td><td>38.2%</td><td class="num">312 &plusmn; 13</td><td class="num"><b>271 &plusmn; 10</b></td></tr>
+      <tr><td>9</td><td class="t">43</td><td>20,000</td><td>525</td><td class="num">5704 &plusmn; 159</td><td>38.3%</td><td class="num">267 &plusmn; 20</td><td class="num"><b>252 &plusmn; 17</b></td></tr>
+      <tr><td>11*</td><td class="t">44</td><td>20,000</td><td>202</td><td class="t">fit unstable (low stats)</td><td>&mdash;</td><td class="num">389 &plusmn; 72</td><td class="num"><b>237 &plusmn; 42</b></td></tr>
     </table></div>
     <p>Response ~<span class="num">550 ADC-eq/GeV</span> — the dimmest module (LuAG ~620, DSB1 ~1,350) — and timing
     ~1.7&times; slower than LuAG at 5 GeV, with the trend fitting pure photostatistics
-    (<span class="num">&sigma;_t</span> falling FASTER than 1/&radic;E (the &radic;E form is rejected, &chi;&sup2;/ndf = 369/3 — consistent with first-photon &tau;/N&#8321; &prop; 1/E scaling of a photon-starved slow fluorophore)). Read against the spec,
+    (<span class="num">&sigma;_t</span> falling FASTER than 1/&radic;E (the &radic;E form is rejected, &chi;&sup2;/ndf = 316/3 — consistent with first-photon &tau;/N&#8321; &prop; 1/E scaling of a photon-starved slow fluorophore)). Read against the spec,
     this response should barely exist: the LYSO:Ce tiles emit at 425 nm, outside EJ-199&rsquo;s intended absorption
     band. That the channel still collects ~550 ADC-eq/GeV — with slow, fluorescence-like time structure — is in-beam,
     quantified support for the contaminant hypothesis from Notre Dame fiber testing: something in this EJ-199 batch
@@ -263,8 +263,8 @@ index_sec = f'''<section data-content="summary">
 
   <div class="card" id="sec-headline">
     <figure><img src="{hero}" alt="Shower timing versus energy for both modules"><figcaption><b>The headline.</b>
-    Shower-time resolution vs beam energy for tagged electrons. DSB1 reaches <b>133 &plusmn; 5 ps at 9 GeV</b> and 156 &plusmn; 8 at 5 GeV with the
-    MCP and digitizer reference jitter still included — the weighted-fit trends are (361 &plusmn; 4)/&radic;E ps for DSB1 (constant term unresolved at these energies, b = 32 &plusmn; 17) vs (402 &plusmn; 13)/&radic;E &oplus; (134 &plusmn; 11) ps for LuAG.
+    Shower-time resolution vs beam energy for tagged electrons. DSB1 reaches <b>136 &plusmn; 5 ps at 9 GeV</b> and 149 &plusmn; 6 at 5 GeV with the
+    MCP and digitizer reference jitter still included — the weighted-fit trends are (364 &plusmn; 4)/&radic;E ps for DSB1 (constant term unresolved at these energies, b = 21 &plusmn; 26) vs (402 &plusmn; 13)/&radic;E &oplus; (135 &plusmn; 10) ps for LuAG.
     Median 4-capillary combination; no reference subtraction. Open 11 GeV points: the whole-tag purity there was
     on trial (T10 composition: e&rarr;0 above ~10 GeV/c); the contained subset behind these points measures as genuine
     hard electrons — see &ldquo;11 GeV on trial&rdquo; below.</figcaption></figure>
@@ -276,9 +276,9 @@ index_sec = f'''<section data-content="summary">
     capillaries, &sigma;(diff)/2 is the intrinsic 4-capillary resolution. Applied to all 18 scan runs:</p>
     <div class="tblwrap"><table>
       <tr><th>E [GeV]</th><th colspan="2">LuAG: incl-ref &rarr; intrinsic</th><th colspan="2">DSB1</th><th colspan="2">EJ199</th></tr>
-      <tr><td>5</td><td class="num">251</td><td class="num"><b>226</b></td><td class="num">182</td><td class="num"><b>&le;187</b></td><td class="num">405</td><td class="num"><b>356</b></td></tr>
-      <tr><td>7</td><td class="num">216</td><td class="num"><b>187</b></td><td class="num">176</td><td class="num"><b>&le;198</b></td><td class="num">301</td><td class="num"><b>270</b></td></tr>
-      <tr><td>9</td><td class="num">215</td><td class="num"><b>183</b></td><td class="num" colspan="2">(daytime-noise run)</td><td class="num">257</td><td class="num"><b>258&dagger;</b></td></tr>
+      <tr><td>5</td><td class="num">248</td><td class="num"><b>223</b></td><td class="num">187</td><td class="num"><b>&le;187</b></td><td class="num">399</td><td class="num"><b>347</b></td></tr>
+      <tr><td>7</td><td class="num">216</td><td class="num"><b>188</b></td><td class="num">180</td><td class="num"><b>&le;193</b></td><td class="num">312</td><td class="num"><b>272</b></td></tr>
+      <tr><td>9</td><td class="num">213</td><td class="num"><b>191</b></td><td class="num">507</td><td class="num"><b>&le;198</b></td><td class="num">267</td><td class="num"><b>260&dagger;</b></td></tr>
     </table></div>
     <p><b>Validation:</b> for LuAG the implied reference jitter comes out at <span class="num">107&ndash;114 ps,
     energy-independent from 5&ndash;9 GeV</span> — matching the independently measured ~105 ps DRS inter-group +
@@ -375,8 +375,8 @@ index_sec = f'''<section data-content="summary">
 
   <div class="card" id="sec-conclusions"><h4>Conclusions so far</h4>
     <p><b>Shower-max sampling times electromagnetic showers at the hundred-picosecond scale from a 14 mm module.</b>
-    DSB1 reaches <span class="num">133 &plusmn; 5 ps at 9 GeV</span> with all reference jitter included, and its shower-time resolution beats LuAG&rsquo;s at every energy — traced mechanistically to its ~3&times; shorter
-    scintillation tail — and over 1&ndash;9 GeV its trend is pure photostatistics, (361 &plusmn; 4)/&radic;E ps, with the
+    DSB1 reaches <span class="num">136 &plusmn; 5 ps at 9 GeV</span> with all reference jitter included, and its shower-time resolution beats LuAG&rsquo;s at every energy — traced mechanistically to its ~3&times; shorter
+    scintillation tail — and over 1&ndash;9 GeV its trend is pure photostatistics, (364 &plusmn; 4)/&radic;E ps, with the
     constant term unresolved (the earlier &ldquo;79 ps&rdquo; figure was a two-point-anchor artifact and is retired). <b>Material choice is now a measured trade:</b> DSB:Ce buys ~2.2&times; the light per GeV and the
     faster pulse; LuAG:Ce buys more signal per crossing MIP. <b>And the campaign returned beam knowledge T10 didn&rsquo;t
     have:</b> in-situ electron fractions above the published tables at 5&ndash;9 GeV/c, their dependence on collimation,

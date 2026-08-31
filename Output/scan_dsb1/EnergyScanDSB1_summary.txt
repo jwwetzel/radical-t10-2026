@@ -1,7 +1,7 @@
-1 GeV (run 38): N(e,on-module) 22745 | peak 210 +/- 1, sigma 326 => sigma/E 155.3 +/- 4.0 % | t-MEAN 416 +/- 4 ps | t-MEDIAN 366 +/- 4 ps | diff -50 (N=14582)
-3 GeV (run 35): N(e,on-module) 3319 | peak 3763 +/- 73, sigma 2124 => sigma/E 56.4 +/- 2.2 % | t-MEAN 254 +/- 6 ps | t-MEDIAN 202 +/- 4 ps | diff -52 (N=3316)
-5 GeV (run 37): N(e,on-module) 856 | peak 6769 +/- 138, sigma 2688 => sigma/E 39.7 +/- 2.5 % | t-MEAN 182 +/- 8 ps | t-MEDIAN 156 +/- 8 ps | diff -26 (N=855)
-7 GeV (run 33): N(e,on-module) 1001 | peak 9045 +/- 90, sigma 1950 => sigma/E 21.6 +/- 1.0 % | t-MEAN 176 +/- 8 ps | t-MEDIAN 140 +/- 6 ps | diff -36 (N=1001)
-9 GeV (run 32): N(e,on-module) 847 | peak 9946 +/- 144, sigma 2640 => sigma/E 26.5 +/- 1.8 % | t-MEAN 516 +/- 14 ps | t-MEDIAN 133 +/- 5 ps | diff -383 (N=847)
-11 GeV (run 31): N(e,on-module) 303 | peak 10721 +/- 734, sigma 4138 => sigma/E 38.6 +/- 13.1 % | t-MEAN 191 +/- 18 ps | t-MEDIAN 181 +/- 17 ps | diff -10 (N=303)
-\ntiming trend (MEDIAN, weighted fit, 11 GeV excluded): sigma_t = (361+/-4)/sqrt(E) ps; constant term consistent with zero (b = 32 +/- 17), chi2/ndf = 9.1/3. REF-INCLUDED — never quote b as intrinsic.\n
+1 GeV (run 38): N(e,on-module) 22745 | peak 210 +/- 1, sigma 326 => sigma/E 155.3 +/- 4.0 % | t-MEAN 416 +/- 4 ps | t-MEDIAN 368 +/- 4 ps | diff -48 (N=14640)
+3 GeV (run 35): N(e,on-module) 3319 | peak 3763 +/- 73, sigma 2124 => sigma/E 56.4 +/- 2.2 % | t-MEAN 253 +/- 6 ps | t-MEDIAN 204 +/- 4 ps | diff -49 (N=3316)
+5 GeV (run 37): N(e,on-module) 856 | peak 6769 +/- 138, sigma 2688 => sigma/E 39.7 +/- 2.5 % | t-MEAN 187 +/- 9 ps | t-MEDIAN 149 +/- 6 ps | diff -38 (N=855)
+7 GeV (run 33): N(e,on-module) 1001 | peak 9045 +/- 90, sigma 1950 => sigma/E 21.6 +/- 1.0 % | t-MEAN 180 +/- 8 ps | t-MEDIAN 137 +/- 5 ps | diff -43 (N=1001)
+9 GeV (run 32): N(e,on-module) 847 | peak 9946 +/- 144, sigma 2640 => sigma/E 26.5 +/- 1.8 % | t-MEAN 507 +/- 14 ps | t-MEDIAN 136 +/- 5 ps | diff -371 (N=847)
+11 GeV (run 31): N(e,on-module) 303 | peak 10721 +/- 734, sigma 4138 => sigma/E 38.6 +/- 13.1 % | t-MEAN 397 +/- 19 ps | t-MEDIAN 190 +/- 21 ps | diff -207 (N=303)
+\ntiming trend (MEDIAN, weighted fit, 11 GeV excluded): sigma_t = (364+/-4)/sqrt(E) ps; constant term consistent with zero (b = 21 +/- 26), chi2/ndf = 14.3/3. REF-INCLUDED — never quote b as intrinsic.\n
