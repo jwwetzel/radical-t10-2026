@@ -944,3 +944,29 @@ Three failed bootstrap attempts preserved in the summary as forensics:
 naive (noise envelope + fakes), quiet-counter dark control (contaminated
 by Poisson-zero electrons at low P), unsplit off-time (pileup counted
 as dark, over-subtraction).
+
+## Tag-and-probe step-by-step audit (2026-09-01, James's walkthrough request)
+
+Three-auditor conformance board (pseudo-code vs code, line-cited) plus a
+toy-MC closure test that #includes the REAL solver (XCETToyCheck.C):
+  - XCETCalib.C: FAITHFUL, zero defects. Probe mean verified cut-free;
+    efficiency fold reproduced independently; published numbers match
+    summaries verbatim.
+  - XCETTagProbe.C: faithful in every load-bearing step ([2][3] dark
+    indexing re-audited element-by-element post-bugfix). Two non-numeric
+    defects fixed: unity guide line swallowed by a trailing comment;
+    latent uninitialized metrology arrays for missing-run rows.
+  - Docs audit: pages substantially truthful; 3 overstated numerics
+    corrected (floor <=0.1% not <=0.05%; naive->robust range was
+    XCET40-only; envelope quoted per-channel pe); "measured coincidence"
+    now labeled as the product of per-counter efficiencies.
+  - TOY CLOSURE (the ultimate judge): real compiled solveBoot/f0Model
+    recover truth to <1% bias at all nominal configs incl the lambda=4.2
+    validity edge; stressed mis-specifications (r 0.30 gen vs 0.36
+    solve: -8.2%; fakes 2x under-assumed: +6.0%) fall WITHIN the quoted
+    per-run systematic ranges. NEW: skewed (heavy-low-tail) 1-pe shape
+    biases A1boot +9% (43) / +3% (40) - NOT in the syst menu; direction
+    RAISES A1boot, i.e. away from the anomaly-erasing hypothesis, so it
+    widens errors without rescuing A1(43)~25-26. Queued as a shape
+    systematic. Nominal leakUp=0.01 flagged as an unstated modeling
+    choice (bounded by the 0.03 variation).

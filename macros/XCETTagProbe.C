@@ -146,6 +146,8 @@ void XCETTagProbe()
     for (int c = 0; c < 2; ++c) { bootA1[i][c] = -1; naiveA1[i][c] = -1; fake40cut[i][c] = -1;
       f0obs[i][c] = -1; meanObs[i][c] = -1; nTag[i][c] = 0; fakeF[i][c] = 0; nBQ[i] = 0;
       qOcc[i][c][0] = -1; qOcc[i][c][1] = -1; qOcc[i][c][2] = -1; naiveF0[i][c] = -1; meanRMS[i][c] = 0;
+      quietN[i][c] = 0; zP[i][c] = -1; bPedG[i][c] = 0;
+      envG[i][c][0] = -1; envG[i][c][1] = -1; envP[i][c][0] = -1; envP[i][c][1] = -1;
       for (int k = 0; k < NT; ++k) { scanMean[i][c][k] = 0; scanN[i][c][k] = 0; } } }
 
   for (int ir = 0; ir < NR; ++ir) {
@@ -470,7 +472,8 @@ void XCETTagProbe()
   tx.DrawLatex(0.14,0.94,"1-pe gain from counting alone (zero fraction #otimes mean) vs the spectral ruler");
   c2.cd(2);
   TH1F *fr2 = gPad->DrawFrame(20, 0.86, 210, 1.70, ";tag threshold [ADC-eq];probe mean, relative to tag threshold = 40 ADC-eq");
-  TLine *one = new TLine(20, 1.0, 210, 1.0); // unity = no tag-hardness dependence one->SetLineColor(kGray+1); one->SetLineStyle(3); one->Draw();
+  TLine *one = new TLine(20, 1.0, 210, 1.0);   // unity = no tag-hardness dependence
+  one->SetLineColor(kGray+1); one->SetLineStyle(3); one->Draw();
   int demo[2] = {44, 39};   // low-P (fake-diluted) and high-P (pure) demo runs
   TGraphErrors *gS[4]; int gi = 0;
   TLegend *l2 = new TLegend(0.17,0.64,0.62,0.90); l2->SetBorderSize(0); l2->SetFillStyle(0); l2->SetTextFont(43); l2->SetTextSize(20);

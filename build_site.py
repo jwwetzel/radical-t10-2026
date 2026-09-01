@@ -361,7 +361,7 @@ index_sec = f'''<section data-content="summary">
     with the <span class="num">40 ADC-eq software threshold</span> the analyses used at low pressure; <b>points are measured</b>
     tag-and-probe efficiencies; grey dash-dot is the no-threshold Poisson bound the earlier version of this figure showed
     alone; red dashed is the same threshold fold applied to the two-counter coincidence (it undershoots the measured
-    coincidence at low pressure for the same reason XCET40&rsquo;s curve does). Measured coincidence at the campaign
+    coincidence at low pressure for the same reason XCET40&rsquo;s curve does). Measured coincidence (the product of the two measured per-counter efficiencies — independence assumed) at the campaign
     operating points: <span class="num">~41% at 0.06 bar</span> (the &minus;11 GeV
     tag deficit was even more expected than the old 54% bound suggested), ~44% at 0.09 (run 44&rsquo;s modest yield), ~60&ndash;80%
     at 0.15, ~76&ndash;94% at 0.21 (the &minus;7 GeV points, still consistent with the in-situ ~9% content). XCET40&rsquo;s measured
@@ -458,7 +458,8 @@ tp_secs = f"""
     tag decision uses <em>different photons, in a different gas volume, seen by a different PMT</em>, the probe&rsquo;s
     spectrum is an unbiased electron response. Every headline XCET number — both pe/bar slopes, the efficiency panel, and
     the 1-pe <em>rulers</em> themselves (a ruler = A<sub>1pe</sub>, the measured single-photoelectron amplitude that
-    converts ADC-eq to photoelectrons) — rests on this construction.</p>
+    converts ADC-eq to photoelectrons; the rulers use the complementary <em>anti-tag</em> sample — other counter
+    quiet — of the same construction) — rests on this selection logic.</p>
     <p>The fine print is three assumptions: (1) the tag really selected the species you think (purity);
     (2) tag and probe are statistically independent given the particle (no per-event correlation);
     (3) the tagged particle actually traversed the probe (matched acceptance). None of these may be assumed.
@@ -488,15 +489,16 @@ tp_secs = f"""
     double-digit fraction of the probe sample for both, worst for XCET43&rsquo;s.</p>
     <p><b>3&nbsp;&middot;&nbsp;Per-event correlation.</b> The coincidence-efficiency product assumes independence. The
     Pearson correlation of the two amplitudes (both counters fired) runs <span class="num">r = +0.10 to +0.68</span> and
-    varies between runs at identical settings (run 39: 0.15; run 40: 0.46) — intensity-linked. The threshold scan bounds
+    varies between runs at identical settings (run 39: 0.15; run 40: 0.46) — run-linked; spill intensity is the natural
+    suspect, though no rate variable is logged in these files. The threshold scan bounds
     <em>tag-selection</em> bias on the probe mean at &le;0.7% at 0.59&thinsp;bar; the large mid-pressure correlations
     (r up to 0.68 near 0.44&thinsp;bar, where tag purity is excellent) are not explained by the measured off-time pileup
     rate (~0.13%/event) alone and remain an open item — they matter for coincidence-product predictions more than for
     tag-and-probe means.</p>
     <p><b>4&nbsp;&middot;&nbsp;Acceptance mismatch.</b> A tagged particle that misses the probe fakes inefficiency. With
     full-window tags the empty-probe floor at 0.55&ndash;0.59&thinsp;bar measures 0.03&ndash;0.2% (now tabulated in the
-    summary); with <em>time-matched</em> tag and probe windows it collapses to <span class="num">&le;0.05%</span> — most
-    of even that small floor was out-of-time tags, not geometry. The counters really do see the same beam.</p>
+    summary); with <em>time-matched</em> tag and probe windows it collapses to <span class="num">&le;0.1%</span> (median floors
+    0.01&ndash;0.05%; run 39&rsquo;s XCET43 reads 0.11%) — most of even that small floor was out-of-time tags, not geometry. The counters really do see the same beam.</p>
     <p><b>5&nbsp;&middot;&nbsp;The amplitude estimator itself.</b> A minimum over 1024 samples has an extreme-value noise
     envelope: the 99th-percentile full-window &ldquo;amplitude&rdquo; of a genuinely empty channel runs up to
     <span class="num">~56&thinsp;ADC-eq</span> (run- and channel-dependent: typically 45&ndash;56 for XCET40,
@@ -513,8 +515,8 @@ tp_secs = f"""
     out of diluted samples.</p>
     <p>And the numbers close. The measured dark-only occupancies above the calibration&rsquo;s 40&thinsp;ADC-eq tag
     (1.7% per window for XCET40, 0.4% for XCET43), multiplied by each run&rsquo;s non-radiating population, predict
-    <span class="num">15&ndash;40%</span> fake dilution of XCET43&rsquo;s probe and
-    <span class="num">4&ndash;14%</span> of XCET40&rsquo;s at 0.06&ndash;0.16&thinsp;bar — consistent with the scan
+    <span class="num">19&ndash;40%</span> fake dilution of XCET43&rsquo;s probe and
+    <span class="num">7&ndash;14%</span> of XCET40&rsquo;s at 0.06&ndash;0.16&thinsp;bar (easing to 15%/4% by 0.22&thinsp;bar) — consistent with the scan
     plateaus, run by run (the closure table is in the summary). So <em>both</em> counters&rsquo; low-pressure calibration
     points are biased low, XCET43&rsquo;s ~3&ndash;4&times; worse: that is the shape of much of what the board flagged —
     the &chi;&sup2;, the negative intercept, the threshold-group split, and most of the relative-ratio climb. Two things
@@ -533,7 +535,7 @@ tp_secs = f"""
     the rulers; fake-subtracted; error bars stat &oplus; per-run syst). Bands: the spectral rulers with their quoted
     systematics. <span class="num">XCET40: 38.4 &plusmn; 2.5<sub>stat&times;1.91</sub> &plusmn; 0.9<sub>syst</sub> vs
     40.2</span> — agreement at ~0.5&sigma; once the ruler&rsquo;s own &plusmn;5% is included, though the five runs scatter
-    beyond their errors (&chi;&sup2;/ndf 14.5/4, run 44 low — see caveat below).
+    beyond their errors (&chi;&sup2;/ndf 14.5/4: run 44 low, run 9001 high — see caveat below).
     <span class="num">XCET43: 21.6 &plusmn; 2.3<sub>stat</sub> &plusmn; 3.7<sub>syst</sub> vs 21.8</span>, three runs,
     internally consistent (&chi;&sup2;/ndf 0.3/2).
     <b>Right — the fake-dilution signature.</b> Probe mean vs the tag threshold, normalized to the calibration&rsquo;s
@@ -545,10 +547,11 @@ tp_secs = f"""
     anomaly would evaporate. The bootstrap — with systematics independent of the pedestal edge — lands on
     21.6 &plusmn; 2.3 &plusmn; 3.7: <b>consistent with the ruler</b>, and the anomaly-erasing value is <b>disfavored at
     ~1&sigma; but not excluded</b>. The honest caveat cuts the other way too: the bootstrap&rsquo;s own XCET40 control
-    scatters beyond its errors in exactly the lowest-pressure regime (run 44 reads low), where sub-saturation-floor halo
-    electrons (failure mode 1) form a yield mixture the model does not yet carry — a per-run composition systematic that
-    caps how hard either counter&rsquo;s number can be pushed. The corrections are not cosmetic: naive &rarr; robust moves
-    individual runs by 40&ndash;160% (the naive column is kept in the summary table as forensics). Getting here took three
+    scatters beyond its errors (run 44 reads low, run 9001 high; the lowest-pressure run 31 agrees) — an unmodeled per-run
+    systematic, with the sub-saturation halo mixture of failure mode 1 the leading but unproven candidate. It caps how
+    hard either counter&rsquo;s number can be pushed. The corrections are not cosmetic: naive &rarr; robust moves
+    XCET40 runs by 40&ndash;160% and the two XCET43 rows by +10% and &minus;30% (the naive column is kept in the summary
+    table as forensics). Getting here took three
     honest failures, each of which became a measurement: the naive full-window version fails on the noise envelope (mode 5)
     and fake tags (mode 2); a quiet-counter dark control fails because at low pressure &ldquo;quiet&rdquo; events are
     dominated by real electrons whose probe Poisson-zeroed; an off-time control works once the in-window pileup component
@@ -562,7 +565,7 @@ tp_secs = f"""
     mode; dark is not), then close the loop: dark rate &times; non-radiating population should reproduce the
     threshold-scan dilution, run by run. Ours does.<br>
     3 &middot; <b>Calibrate the acceptance floor at high pressure,</b> where Poisson zeros are extinct: any
-    prompt-empty probe there is geometry or readout. Ours: &le;0.05% with time-matched windows.<br>
+    prompt-empty probe there is geometry or readout. Ours: &le;0.1% with time-matched windows (median 0.01&ndash;0.05%).<br>
     4 &middot; <b>Bootstrap the SPE gain from counting</b> (zero fraction &otimes; mean, solved for &lambda; and
     A<sub>1pe</sub>): works on any threshold-Cherenkov pair with waveform readout, needs no resolved 1-pe peak, and
     cross-checks the spectral ruler with largely independent systematics (the one imported spectral quantity is the
@@ -571,8 +574,8 @@ tp_secs = f"""
     5 &middot; <b>Exploit &beta; saturation — above its floor.</b> Halo electrons comfortably above the counter&rsquo;s
     own threshold energy (here ~0.3&thinsp;GeV at the lowest pressures, ~0.1&thinsp;GeV at 0.4&thinsp;bar) are free
     calibration statistics; softer ones dilute the yield and belong in the systematics.<br>
-    6 &middot; <b>Distrust full-window minima near threshold.</b> The 1024-sample extreme-value envelope reads up to
-    ~2.5 XCET43 photoelectrons on an empty channel.</p></div>
+    6 &middot; <b>Distrust full-window minima near threshold.</b> The 1024-sample extreme-value envelope on an empty
+    channel reads up to ~1.4 photoelectrons on XCET40 and ~2 on XCET43, in each counter&rsquo;s own gain.</p></div>
 
   <div class="card" id="tp-verdict"><h4>The verdict — what this validation changes, and what it leaves standing</h4>
     <p><b>Standing, strengthened:</b> the tag-and-probe construction itself (unbiased where pure; tag-selection bias
