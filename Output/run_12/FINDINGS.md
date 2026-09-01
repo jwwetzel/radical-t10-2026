@@ -880,3 +880,67 @@ pressure audit (XCET43 probe means of 38/39 statistically identical,
 426.2 vs 425.2 ADC-eq, but registry says 0.553 vs 0.593 bar - James
 checking e-log); derive the error floor from repeat pairs (5-6%, not
 8%); T10 beam-instrumentation note.
+
+## Tag-and-probe validation suite + methods note (XCETTagProbe.C, 2026-09-01)
+
+James: "let's rubber duck it for the committee, for the reader, for the
+beam line experts... Perhaps we can add something they haven't seen
+before?" Every assumption behind the XCET tag-and-probe results is now
+MEASURED, not asserted; write-up published as tagprobe.html (new top-nav
+tab "Tag & Probe").
+
+THE HEADLINE - counting bootstrap of the 1-pe gain ruler: on tagged
+electrons, zero fraction f0 + mean-incl-zeros = two equations in
+(lambda, A1pe). Solved per run with prompt-window zero class + tags,
+fake subtraction and 1-pe-leakage model (after the writeup review
+board corrected the error treatment - chi2-scaled stat, common-mode
+syst quoted separately):
+  A1boot XCET40 = 38.4 +/- 2.5 (stat x1.91, chi2 14.5/4) +/- 0.9 syst
+                  vs spectral 40.2  -> ~0.5 sigma incl the ruler's 5%
+  A1boot XCET43 = 21.6 +/- 2.3 (stat, chi2 0.3/2) +/- 3.7 common syst
+                  vs spectral 21.8  -> 0.05 sigma, 3 runs
+XCET43's single-run pedestal-edge ruler - the review board's dominant
+concern - is independently SUPPORTED (not "confirmed": the anomaly-
+erasing A1~25-26 is disfavored at ~1 sigma, not excluded). On present
+evidence 26 pe/bar is real photons; N0(43) ~ 100/cm remains the favored
+reading. CAVEAT: XCET40's bootstrap scatters beyond errors (run 44 low)
+in the sub-beta-saturation regime - halo-mixture composition syst
+identified as leading residual (electron yield reaches ~95% saturation
+only above ~0.3 GeV at 0.06 bar - the beta claim was over-broad as
+first written and is now qualified everywhere).
+
+THE MECHANISM - XCET43's pressure-structured calibration residuals are
+fake-tag dilution: dark occupancy (measured OFF-TIME, pileup component
+0.13%/window separated via XCET43's >100 rate) is ~0.5%/window for
+XCET40 >60 ADC-eq vs <0.05% for XCET43. XCET40 is the dirty tagger (its
+1-pe = 40.2 sits AT the 40 ADC-eq tag threshold); XCET43 tags cleanly.
+Tag-threshold scan: probe mean flat <=0.7% vs tag hardness at 0.59 bar,
+climbs at 0.09 bar for BOTH probes (+54%@80 XCET43, +20%@60 XCET40).
+CLOSURE (review board demand, delivered): dark-only occ>40 (1.7%/window
+XCET40, 0.4% XCET43, pileup-subtracted) x non-radiating population
+predicts 15-40% dilution of XCET43's probe and 4-14% of XCET40's at
+0.06-0.16 bar - matches the scan plateaus run by run (summary table).
+Dilution biases BOTH slopes LOW at low P, XCET43 ~3-4x worse. NOT
+explained: the 0.55-0.6 bar high-side cluster (fakes only push down);
+mid-P Pearson r up to 0.68 (pileup rate alone under-predicts; open).
+QUEUED: prompt-tag fake-subtracted refit of both slopes; halo-mixture
+bootstrap systematic; XCET43 bootstrap extension toward 0.15 bar.
+
+ALSO MEASURED: per-event Pearson r(a40,a43) = 0.10-0.68, run-dependent
+at fixed conditions = in-window pileup (intensity); independence <1%
+where tag is pure. Time-matched windows collapse the empty-probe floor
+0.7% -> <=0.05% (the "geometric miss" was out-of-time tags). Global
+1024-sample min-amplitude noise envelope q99 = 25-55 ADC-eq vs 5-18 in
+a 71-sample prompt window (the transfer-calibration lesson, quantified
+for the XCETs). Halo electrons are valid calibration particles (beta
+saturation) - ties to the 11 GeV trial's miss class.
+
+METHOD LESSONS (recipe box, exportable): tag in time not in window
+(14x purity); off-time dark control with common-mode pileup split;
+acceptance floor calibrated at high pressure; SPE gain from counting
+alone; full-window minima near threshold are noise-biased.
+
+Three failed bootstrap attempts preserved in the summary as forensics:
+naive (noise envelope + fakes), quiet-counter dark control (contaminated
+by Poisson-zero electrons at low P), unsplit off-time (pileup counted
+as dark, over-subtraction).

@@ -1,0 +1,163 @@
+# TAG-AND-PROBE VALIDATION (XCETTagProbe.C)
+# prompt window +-35 samples; zero cut = per-run q99 of prompt noise; tag = max(60, cthr); fake-tag subtracted
+
+## 0. amplitude-estimator noise metrology (anti-tag events)
+# run  ctr   global q50/q99   prompt q50/q99   zero-cut  envelope mean (global, true empties)
+   15  40     7.4 /  53.6       3.0 /   5.4       5.4       8.2
+   15  43     6.6 /  25.1       3.0 /  11.0      11.0       7.3
+   24  40     7.0 /  45.5       2.9 /   5.2       5.2       7.6
+   24  43     6.5 /  23.5       3.0 /   6.9       6.9       6.9
+ 2526  40     7.1 /  48.4       3.0 /   5.3       5.3       7.4
+ 2526  43     6.5 /  18.9       3.1 /   5.5       5.5       6.8
+   27  40     7.1 /  11.1       3.0 /   5.2       5.2       7.2
+   27  43     6.4 /  17.1       3.0 /   5.7       5.7       6.6
+ 9001  40     7.2 /  28.5       3.0 /   5.3       5.3       7.4
+ 9001  43     6.5 /  21.1       3.1 /   7.4       7.4       6.7
+   30  40     7.2 /  49.6       3.0 /   5.4       5.4       7.8
+   30  43     6.6 /  28.9       3.0 /  15.7      15.7       7.3
+   31  40     7.2 /  53.0       3.0 /   5.5       5.5       7.9
+   31  43     6.6 /  28.2       3.0 /  15.7      15.7       7.3
+   32  40     7.1 /  46.7       3.0 /   5.4       5.4       7.6
+   32  43     6.5 /  25.1       3.1 /  11.3      11.3       6.9
+   33  40     7.1 /  49.2       3.0 /   5.5       5.5       7.7
+   33  43     6.4 /  23.8       3.1 /   7.6       7.6       6.9
+   35  40     7.0 /  10.4       3.0 /   5.2       5.2       7.1
+   35  43     6.3 /  14.1       3.0 /   5.7       5.7       6.5
+   37  40     7.1 /  44.4       3.0 /   5.2       5.2       7.6
+   37  43     6.5 /  20.2       3.0 /   6.0       6.0       6.8
+   38  40     7.3 / 102.1       3.0 /   6.2       6.2       7.7
+   38  43     6.7 /  43.0       3.0 /   8.3       8.3       7.2
+   39  40     7.3 / 246.4       3.0 /   6.4       6.4       8.5
+   39  43     6.9 /  31.4       3.0 /  13.9      13.9       7.7
+   40  40     7.2 /  55.7       3.0 /   5.6       5.6       8.3
+   40  43     6.7 /  27.2       3.0 /  11.9      11.9       7.6
+   41  40     7.2 /  55.5       2.9 /   5.6       5.6       8.3
+   41  43     6.7 /  27.3       3.0 /  13.2      13.2       7.5
+   42  40     7.2 /  52.2       3.0 /   5.4       5.4       8.0
+   42  43     6.6 /  26.1       3.0 /  11.3      11.3       7.3
+   43  40     7.2 /  53.8       3.0 /   5.8       5.8       8.2
+   43  43     6.5 /  26.6       3.0 /  11.7      11.7       7.2
+   44  40     7.1 /  52.2       3.0 /   5.5       5.5       7.8
+   44  43     6.4 /  27.2       3.0 /  13.5      13.5       7.0
+
+## 1. counting bootstrap of the 1-pe ruler (beam electrons only; no spectral fit)
+# geometric-miss floor (prompt-empty probe | tag, at 0.55-0.59 bar): XCET40 0.0001, XCET43 0.0005
+# off-time occupancy (all runs, scaled to 1024 samples): XCET40 >60/>100: 0.0061/0.0015  XCET43: 0.0013/0.0013
+# off-time occupancy > 40 ADC-eq: XCET40 0.0184  XCET43 0.0054
+# in-window pileup component (common, min of the two > 100 rates): 0.0013 -> dark-only >40/>60/>100: XCET40 0.0171/0.0048/0.0003  XCET43 0.0041/0.0000/0.0000
+# valid regime: lambda <= 4.2 (Poisson zeros must dominate the subtracted floors)
+# run  ctr  P[bar]  fakeFrac  lambda   A1boot +/- stat +/- syst    naive-A1  (spectral: 40.2 / 21.8)
+ 9001  40  0.150   0.000     2.93    44.3 +/-  2.7 +/-  0.9     30.8
+   30  43  0.060   0.035     2.45    19.5 +/-  4.6 +/-  3.7     17.7
+   31  40  0.062   0.000     1.66    38.6 +/-  5.1 +/-  0.9     14.8
+   31  43  0.060   0.034     2.01    22.5 +/-  4.3 +/-  3.3      --  
+   32  40  0.149   0.000     3.05    41.6 +/-  2.7 +/-  0.9     29.0
+   43  40  0.152   0.000     3.61    35.7 +/-  2.4 +/-  0.9     25.5
+   44  40  0.090   0.000     2.55    29.9 +/-  3.3 +/-  0.8     15.5
+   44  43  0.088   0.028     2.79    22.2 +/-  3.5 +/-  4.0     31.7
+A1boot XCET40 = 38.4 +/- 2.5 (stat x1.91, chi2/ndf 14.5/4) +/- 0.9 (common syst) ADC-eq (5 runs)  [spectral ruler: 40.2]
+A1boot XCET43 = 21.6 +/- 2.3 (stat x1.00, chi2/ndf 0.3/2) +/- 3.7 (common syst) ADC-eq (3 runs)  [spectral ruler: 21.8]
+
+# dilution closure: predicted fake fraction of the CALIBRATION tag sample (dark-only occ x bothQuiet / Ntag40)
+ 9001  XCET40 probe  P=0.150  predicted fake frac = 0.074  (dark-only occ40[43]=0.0041, Nbq=18668, Ntag=1027)
+ 9001  XCET43 probe  P=0.156  predicted fake frac = 0.293  (dark-only occ40[40]=0.0171, Nbq=18668, Ntag=1088)
+   30  XCET40 probe  P=0.062  predicted fake frac = 0.138  (dark-only occ40[43]=0.0041, Nbq=18671, Ntag=552)
+   30  XCET43 probe  P=0.060  predicted fake frac = 0.396  (dark-only occ40[40]=0.0171, Nbq=18671, Ntag=806)
+   31  XCET40 probe  P=0.062  predicted fake frac = 0.134  (dark-only occ40[43]=0.0041, Nbq=18558, Ntag=566)
+   31  XCET43 probe  P=0.060  predicted fake frac = 0.345  (dark-only occ40[40]=0.0171, Nbq=18558, Ntag=919)
+   32  XCET40 probe  P=0.149  predicted fake frac = 0.071  (dark-only occ40[43]=0.0041, Nbq=18366, Ntag=1056)
+   32  XCET43 probe  P=0.146  predicted fake frac = 0.247  (dark-only occ40[40]=0.0171, Nbq=18366, Ntag=1273)
+   33  XCET40 probe  P=0.206  predicted fake frac = 0.040  (dark-only occ40[43]=0.0041, Nbq=17580, Ntag=1799)
+   33  XCET43 probe  P=0.194  predicted fake frac = 0.145  (dark-only occ40[40]=0.0171, Nbq=17580, Ntag=2066)
+   42  XCET40 probe  P=0.225  predicted fake frac = 0.044  (dark-only occ40[43]=0.0041, Nbq=17500, Ntag=1609)
+   42  XCET43 probe  P=0.220  predicted fake frac = 0.152  (dark-only occ40[40]=0.0171, Nbq=17500, Ntag=1973)
+   43  XCET40 probe  P=0.152  predicted fake frac = 0.065  (dark-only occ40[43]=0.0041, Nbq=17775, Ntag=1118)
+   43  XCET43 probe  P=0.156  predicted fake frac = 0.192  (dark-only occ40[40]=0.0171, Nbq=17775, Ntag=1587)
+   44  XCET40 probe  P=0.090  predicted fake frac = 0.125  (dark-only occ40[43]=0.0041, Nbq=18607, Ntag=607)
+   44  XCET43 probe  P=0.088  predicted fake frac = 0.347  (dark-only occ40[40]=0.0171, Nbq=18607, Ntag=916)
+
+# naive full-window empty-probe fraction (tag=cthr, global window) at 0.55-0.59 bar (traceability for the acceptance-floor claim)
+   38  XCET40  naive f0 = 0.0005   prompt-tag f0 = 0.0001
+   38  XCET43  naive f0 = 0.0013   prompt-tag f0 = 0.0005
+   39  XCET40  naive f0 = 0.0003   prompt-tag f0 = 0.0000
+   39  XCET43  naive f0 = 0.0018   prompt-tag f0 = 0.0011
+   40  XCET40  naive f0 = 0.0009   prompt-tag f0 = 0.0004
+   40  XCET43  naive f0 = 0.0020   prompt-tag f0 = 0.0004
+
+## 2. tag-threshold scan: probe mean vs cthr, normalized to cthr=40 (fake-dilution + correlation diagnostic)
+# run  ctr  P[bar]   thr:      30     40     60     80    100    140    200 
+   31  40  0.062   rel:   0.929  1.000  1.114    --     --     --     --    (N40=566)
+   31  43  0.060   rel:   0.911  1.000  1.017  1.255    --     --     --    (N40=919)
+   30  40  0.062   rel:   0.928  1.000  1.062    --     --     --     --    (N40=552)
+   30  43  0.060   rel:   0.909  1.000  1.054  1.304    --     --     --    (N40=806)
+   44  40  0.090   rel:   0.931  1.000  1.203  1.156    --     --     --    (N40=607)
+   44  43  0.088   rel:   0.907  1.000  1.240  1.538  1.578    --     --    (N40=916)
+ 9001  40  0.150   rel:   0.978  1.000  1.185  1.190  1.234  1.229    --    (N40=1027)
+ 9001  43  0.156   rel:   0.953  1.000  1.237  1.248  1.247  1.281  1.306   (N40=1088)
+   39  40  0.593   rel:   0.999  1.000  1.002  1.002  1.003  1.003  1.003   (N40=17803)
+   39  43  0.593   rel:   0.998  1.000  1.005  1.006  1.006  1.006  1.007   (N40=17891)
+   38  40  0.590   rel:   0.999  1.000  1.003  1.003  1.003  1.003  1.004   (N40=17824)
+   38  43  0.553   rel:   0.999  1.000  1.003  1.003  1.004  1.004  1.005   (N40=17854)
+
+## 3. per-event Pearson correlation a40 vs a43 (both > 25)
+   15  P=0.400/0.400  r = +0.490  (N=2357)
+   24  P=1.300/1.300  r = +0.601  (N=5017)
+ 2526  P=1.300/1.300  r = +0.097  (N=8839)
+   27  P=0.210/0.210  r = +0.325  (N=1798)
+ 9001  P=0.150/0.156  r = +0.296  (N=997)
+   30  P=0.062/0.060  r = +0.123  (N=529)
+   31  P=0.062/0.060  r = +0.118  (N=540)
+   32  P=0.149/0.146  r = +0.236  (N=1024)
+   33  P=0.206/0.194  r = +0.262  (N=1769)
+   35  P=1.313/1.303  r = +0.598  (N=4968)
+   37  P=0.400/0.405  r = +0.608  (N=1528)
+   38  P=0.590/0.553  r = +0.158  (N=17804)
+   39  P=0.593/0.593  r = +0.145  (N=17792)
+   40  P=0.593/0.593  r = +0.462  (N=4908)
+   41  P=0.452/0.439  r = +0.676  (N=1547)
+   42  P=0.225/0.220  r = +0.279  (N=1594)
+   43  P=0.152/0.156  r = +0.294  (N=1111)
+   44  P=0.090/0.088  r = +0.130  (N=588)
+
+## 4. occupancy of the tag counter above cthr given a quiet probe
+# NOTE: only the 0.55-0.59 bar rows are pure dark rates. At low pressure this
+# occupancy is dominated by REAL electrons (direct + soft halo) whose probe
+# Poisson-zeroed. Halo electrons well above the counter's own threshold energy
+# (~70 MeV at 0.06 bar; yield within 5% of saturation above ~0.3 GeV) radiate
+# like beam electrons and are valid calibration particles, not fakes.
+   15  tag-for-XCET40-probe  cthr=100  P(fake) = 0.0004  (Nquiet=16997)
+   15  tag-for-XCET43-probe  cthr=100  P(fake) = 0.0002  (Nquiet=17465)
+   24  tag-for-XCET40-probe  cthr=100  P(fake) = 0.0005  (Nquiet=14621)
+   24  tag-for-XCET43-probe  cthr=100  P(fake) = 0.0004  (Nquiet=14863)
+ 2526  tag-for-XCET40-probe  cthr=100  P(fake) = 0.0000  (Nquiet=1393)
+ 2526  tag-for-XCET43-probe  cthr=100  P(fake) = 0.0077  (Nquiet=1420)
+   27  tag-for-XCET40-probe  cthr= 50  P(fake) = 0.0014  (Nquiet=18079)
+   27  tag-for-XCET43-probe  cthr= 50  P(fake) = 0.0025  (Nquiet=18127)
+ 9001  tag-for-XCET40-probe  cthr= 40  P(fake) = 0.0034  (Nquiet=18799)
+ 9001  tag-for-XCET43-probe  cthr= 40  P(fake) = 0.0062  (Nquiet=18872)
+   30  tag-for-XCET40-probe  cthr= 40  P(fake) = 0.0047  (Nquiet=18964)
+   30  tag-for-XCET43-probe  cthr= 40  P(fake) = 0.0165  (Nquiet=19178)
+   31  tag-for-XCET40-probe  cthr= 40  P(fake) = 0.0047  (Nquiet=18836)
+   31  tag-for-XCET43-probe  cthr= 40  P(fake) = 0.0216  (Nquiet=19182)
+   32  tag-for-XCET40-probe  cthr= 40  P(fake) = 0.0036  (Nquiet=18553)
+   32  tag-for-XCET43-probe  cthr= 40  P(fake) = 0.0151  (Nquiet=18789)
+   33  tag-for-XCET40-probe  cthr= 40  P(fake) = 0.0028  (Nquiet=17732)
+   33  tag-for-XCET43-probe  cthr= 40  P(fake) = 0.0181  (Nquiet=18079)
+   35  tag-for-XCET40-probe  cthr=100  P(fake) = 0.0007  (Nquiet=14956)
+   35  tag-for-XCET43-probe  cthr=100  P(fake) = 0.0010  (Nquiet=14976)
+   37  tag-for-XCET40-probe  cthr=100  P(fake) = 0.0003  (Nquiet=18102)
+   37  tag-for-XCET43-probe  cthr=100  P(fake) = 0.0002  (Nquiet=18386)
+   38  tag-for-XCET40-probe  cthr=100  P(fake) = 0.0042  (Nquiet=2127)
+   38  tag-for-XCET43-probe  cthr=100  P(fake) = 0.0107  (Nquiet=2155)
+   39  tag-for-XCET40-probe  cthr=100  P(fake) = 0.0024  (Nquiet=2063)
+   39  tag-for-XCET43-probe  cthr=100  P(fake) = 0.0148  (Nquiet=2159)
+   40  tag-for-XCET40-probe  cthr=100  P(fake) = 0.0003  (Nquiet=14395)
+   40  tag-for-XCET43-probe  cthr=100  P(fake) = 0.0006  (Nquiet=14880)
+   41  tag-for-XCET40-probe  cthr=100  P(fake) = 0.0004  (Nquiet=17571)
+   41  tag-for-XCET43-probe  cthr=100  P(fake) = 0.0004  (Nquiet=18199)
+   42  tag-for-XCET40-probe  cthr= 40  P(fake) = 0.0021  (Nquiet=17707)
+   42  tag-for-XCET43-probe  cthr= 40  P(fake) = 0.0220  (Nquiet=18199)
+   43  tag-for-XCET40-probe  cthr= 40  P(fake) = 0.0031  (Nquiet=18002)
+   43  tag-for-XCET43-probe  cthr= 40  P(fake) = 0.0276  (Nquiet=18662)
+   44  tag-for-XCET40-probe  cthr= 40  P(fake) = 0.0039  (Nquiet=18837)
+   44  tag-for-XCET43-probe  cthr= 40  P(fake) = 0.0196  (Nquiet=19182)
