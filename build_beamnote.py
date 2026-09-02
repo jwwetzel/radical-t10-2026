@@ -33,7 +33,7 @@ for m in re.finditer(r"^\s*(\d+)\s+([+-]?\d+)\s+([\d.]+)/([\d.]+)\s+(\d+)\s+(\d+
     run, p, p40, p43, ntr, nco, raw, eps, fe, fee, up = m.groups()
     disp = "2526&rarr;25+26" if run=="2526" else ("9001&rarr;28+29" if run=="9001" else run)
     upcls = " class='dim'" if up else ""
-    bc_rows += (f"<tr{upcls}><td>{disp}</td><td class='c'>{'+' if int(p)>0 else ''}{p}</td>"
+    bc_rows += (f"<tr{upcls}><td>{disp}</td><td class='c'>{p}</td>"
                 f"<td class='c'>{p40}/{p43}</td><td class='c'>{int(nco):,}/{int(ntr):,}</td>"
                 f"<td class='c'>{float(raw)*100:.1f}%</td><td class='c'>{float(eps)*100:.1f}%</td>"
                 f"<td class='c'><b>{float(fe)*100:.1f}%</b>{' *' if up else ''}</td></tr>")
@@ -177,7 +177,7 @@ constraint: below the muon Cherenkov threshold P<sub>&mu;</sub> = 12.96/p&sup2; 
 muons tag too (and above P<sub>&pi;</sub> = 1.745&thinsp;P<sub>&mu;</sub>, pions as well &mdash; the run-34 lesson). The
 two constraints define the usable window.</p>
 <table>
-<tr><th class="c">|p|<br>[GeV/c]</th><th class="c">P for<br>90% coinc.</th><th class="c">P for<br>95%</th>
+<tr><th class="c sym">|p|<br>[GeV/c]</th><th class="c">P for<br>90% coinc.</th><th class="c">P for<br>95%</th>
 <th class="c">P for<br>99%</th><th class="c sym">&mu; thr.<br>P<sub>&mu;</sub></th><th class="c sym">&pi; thr.<br>P<sub>&pi;</sub></th>
 <th class="c">max <em>pure-e</em><br>coinc. eff.</th></tr>
 {prec_rows}
@@ -270,8 +270,8 @@ XCET040&rsquo;s &plusmn;5%. (2) Avoid setting a tag threshold <em>at</em> a coun
 &epsilon;. Rows marked * (dimmed) are &le;0.15 bar, where fake-tag dilution makes f<sub>e</sub> an upper bound. Merged
 files are expanded to their source runs. Run 34 (pion-contaminated tag) excluded throughout.</p>
 <table>
-<tr><th>Run</th><th class="c">p [GeV/c]</th><th class="c">P40/P43 [bar]</th><th class="c">coinc / trig</th>
-<th class="c">raw rate</th><th class="c">&epsilon;<sub>fold</sub></th><th class="c">f<sub>e</sub></th></tr>
+<tr><th>Run</th><th class="c sym">p [GeV/c]</th><th class="c sym">P<sub>40</sub>/P<sub>43</sub> [bar]</th><th class="c">coinc / trig</th>
+<th class="c">raw rate</th><th class="c sym">&epsilon;<sub>fold</sub></th><th class="c sym">f<sub>e</sub></th></tr>
 {bc_rows}
 </table>
 
