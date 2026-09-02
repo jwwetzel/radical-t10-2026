@@ -970,3 +970,29 @@ toy-MC closure test that #includes the REAL solver (XCETToyCheck.C):
     widens errors without rescuing A1(43)~25-26. Queued as a shape
     systematic. Nominal leakUp=0.01 flagged as an unstated modeling
     choice (bounded by the 0.03 variation).
+
+## Beam-instrumentation note for T10 beam physics (2026-09-01)
+
+Standalone gift-back deliverable for Maarten (beamnote.html + beamnote.pdf,
+build_beamnote.py; on Pages + PDF download). Contents: absolute pe
+calibration recap, counter-health readout (dark rates/stability/acceptance),
+efficiency-vs-purity OPERATING TABLE, measured beam content, methods, open
+questions, and asks (HV/serials/gas/temp/gauge provenance).
+
+NEW ANALYSIS - BeamContent.C: measured electron content of the T10 beam vs
+momentum. f_e = coincidence-tag rate / folded coincidence efficiency (from
+the calibrated slopes+rulers+SPE widths). Fraction among MCP triggers.
+RESULT: positive beam 88% e+ @+1 GeV -> 25% @+3 -> ~9% @+5 (steep fall =
+pi0->gamma->e+e- conversions dwindling); negative beam ~7-9% flat @7-11 GeV.
+A direct cross-check of the T10 secondary-beam composition model. Low-P
+(<=0.15 bar) points are UPPER bounds (fake dilution inflates f_e). +5 GeV
+shows a real day-to-day spread (run 15 Aug28 11.8% vs runs 37/41 Aug30 7.7%).
+Merged-file momenta VERIFIED via derived_files: 2526=25+26=+1 GeV (NOT +3,
+my initial error; corroborated by runs 38/39 at +1), 9001=28+29=-9 GeV (NOT
+-11; corroborated by run 32 at -9). All other signs checked vs runs.json.
+
+OPERATING-TABLE PUNCHLINE (the delighter): electron tag efficiency is
+momentum-independent (P for 90/95/99% coinc = 0.22/0.26/0.35 bar), but pure-e
+purity requires P < muon threshold 12.96/p^2 bar. Pure-e ceiling: 99% @1-5
+GeV, 95% @7, 74% @9, 48% @11 - retroactively explains the -11 GeV tag
+deficits (no P is both high-eff and muon-free at high momentum).
