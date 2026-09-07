@@ -120,7 +120,37 @@ a.runbtn{display:block;text-decoration:none;color:inherit}
 .topnav a[aria-current="true"]{background:rgba(14,124,134,.16);color:#0E7C86}
 .topnav a:hover{background:rgba(14,124,134,.08)}
 .rail{height:calc(100vh - 62px);top:62px}
-@media (max-width:900px){.topbar{flex-wrap:wrap;padding:10px 16px}.topnav{margin-left:0;flex-wrap:wrap}}
+/* ---- phones & narrow tablets: content first ---- */
+@media (max-width:880px){
+  html,body{overflow-x:hidden}
+  .topbar{position:static;flex-wrap:wrap;gap:6px 0;padding:10px 14px 6px}
+  .topbar .brand{flex:1 1 100%;font-size:17px}
+  .topbar .brand small{font-size:9.5px}
+  .topbar .spacer{display:none}
+  .topnav{flex:1 1 100%;justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;gap:4px;
+    padding-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .topnav::-webkit-scrollbar{display:none}
+  .topnav a{flex:0 0 auto;padding:6px 11px;font-size:13px;white-space:nowrap}
+  .topnav a small{display:none}
+  .wrap{display:block;min-height:0}
+  .rail{position:static;top:auto;height:auto;max-height:none;display:flex;flex-wrap:nowrap;gap:8px;
+    overflow-x:auto;overflow-y:hidden;padding:10px 14px 8px;border-right:none;border-bottom:1px solid var(--line);
+    -webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .rail::-webkit-scrollbar{display:none}
+  .rail h2,.rail .railnote{display:none}
+  .rail .runbtn{flex:0 0 auto;width:auto;min-width:150px;max-width:240px;margin:0;padding:8px 11px}
+  .rail .runbtn .rn{font-size:14px;white-space:nowrap}
+  .rail .runbtn .rm{font-size:10.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:215px}
+  main{padding:16px 14px 60px;max-width:none;min-width:0}
+  .runhead h1{font-size:24px}
+  .stagehead{flex-wrap:wrap;gap:8px}
+  .stagehead h3{font-size:18px}
+  .card{padding:14px}
+  .card p,figcaption{max-width:none}
+  table{display:block;overflow-x:auto;max-width:100%}
+  .grid2,.figgrid{grid-template-columns:1fr}
+  pre{overflow-x:auto}
+}
 </style>
 <header class="topbar"><div class="brand">RADiCAL T10 Run Book<small>CERN PS T10 · Aug 2026 · LuAG / DSB1 / EJ199</small></div><nav class="topnav" aria-label="Modules"><a href="index.html" aria-current="true">Summary<small>campaign overview</small></a><a href="luag.html" aria-current="false">LuAG<small>LuAG:Ce crystal fibers</small></a><a href="dsb1.html" aria-current="false">DSB1<small>DSB:Ce glass fibers</small></a><a href="ej199.html" aria-current="false">EJ199<small>mismatched WLS — the finding</small></a><a href="tagprobe.html" aria-current="false">Tag &amp; Probe<small>methods, validated</small></a></nav><div class="spacer"></div></header>
 <div class="wrap">

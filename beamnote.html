@@ -60,7 +60,8 @@ a{color:var(--teal)}
   .kpis{gap:8px} .kpi .v{font-size:16pt}
   a{color:var(--ink);text-decoration:none}
 }
-@media (max-width:640px){.kpis{grid-template-columns:repeat(2,1fr)}.wrap{padding:0 16px 50px}}
+@media (max-width:640px){.kpis{grid-template-columns:repeat(2,1fr)}.wrap{padding:0 16px 50px}
+  h1{font-size:24px} .meta{gap:6px 14px} table{display:block;overflow-x:auto;max-width:100%} .dlbar{padding:12px 14px}}
 </style></head>
 <body><div class="wrap">
 
@@ -131,7 +132,7 @@ two constraints define the usable window.</p>
 <tr><th class="c sym">|p|<br>[GeV/c]</th><th class="c">P for<br>90% coinc.</th><th class="c">P for<br>95%</th>
 <th class="c">P for<br>99%</th><th class="c sym">&mu; thr.<br>P<sub>&mu;</sub></th><th class="c sym">&pi; thr.<br>P<sub>&pi;</sub></th>
 <th class="c">max <em>pure-e</em><br>coinc. eff.</th></tr>
-<tr><td class='c'>&plusmn;1</td><td class='c'>0.22</td><td class='c'>0.26</td><td class='c'>0.35</td><td class='c'>12.960</td><td class='c'>22.615</td><td class='c ok'>&mdash;</td></tr><tr><td class='c'>&plusmn;3</td><td class='c'>0.22</td><td class='c'>0.26</td><td class='c'>0.35</td><td class='c'>1.440</td><td class='c'>2.513</td><td class='c ok'>&mdash;</td></tr><tr><td class='c'>&plusmn;5</td><td class='c'>0.22</td><td class='c'>0.26</td><td class='c'>0.35</td><td class='c'>0.518</td><td class='c'>0.905</td><td class='c ok'>&mdash;</td></tr><tr><td class='c'>&plusmn;7</td><td class='c'>0.22</td><td class='c'>0.26</td><td class='c'>0.35</td><td class='c'>0.264</td><td class='c'>0.462</td><td class='c bad'>95%</td></tr><tr><td class='c'>&plusmn;9</td><td class='c'>0.22</td><td class='c'>0.26</td><td class='c'>0.35</td><td class='c'>0.160</td><td class='c'>0.279</td><td class='c bad'>74%</td></tr><tr><td class='c'>&plusmn;11</td><td class='c'>0.22</td><td class='c'>0.26</td><td class='c'>0.35</td><td class='c'>0.107</td><td class='c'>0.187</td><td class='c bad'>48%</td></tr>
+<tr><td class='c'>&plusmn;1</td><td class='c'>0.22</td><td class='c'>0.26</td><td class='c'>0.35</td><td class='c'>12.960</td><td class='c'>22.615</td><td class='c ok'>&mdash;</td></tr><tr><td class='c'>&plusmn;3</td><td class='c'>0.22</td><td class='c'>0.26</td><td class='c'>0.35</td><td class='c'>1.440</td><td class='c'>2.513</td><td class='c ok'>&mdash;</td></tr><tr><td class='c'>&plusmn;5</td><td class='c'>0.22</td><td class='c'>0.26</td><td class='c'>0.35</td><td class='c'>0.518</td><td class='c'>0.905</td><td class='c ok'>&mdash;</td></tr><tr><td class='c'>&plusmn;7</td><td class='c'>0.22</td><td class='c'>0.26</td><td class='c'>0.35</td><td class='c'>0.264</td><td class='c'>0.462</td><td class='c warn'>95%</td></tr><tr><td class='c'>&plusmn;9</td><td class='c'>0.22</td><td class='c'>0.26</td><td class='c'>0.35</td><td class='c'>0.160</td><td class='c'>0.279</td><td class='c bad'>74%</td></tr><tr><td class='c'>&plusmn;11</td><td class='c'>0.22</td><td class='c'>0.26</td><td class='c'>0.35</td><td class='c'>0.107</td><td class='c'>0.187</td><td class='c bad'>48%</td></tr>
 </table>
 <div class="callout"><b>The operational punchline.</b> At 1&ndash;5 GeV/c you can reach <b>99% pure-electron</b> coincidence
 tagging &mdash; the pressure you need (0.35 bar) sits far below the muon threshold. At 7 GeV/c, 95% is still clean but

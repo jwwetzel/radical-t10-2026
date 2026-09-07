@@ -15,7 +15,27 @@ def enc(path, w=1500, q=86):
     buf = io.BytesIO(); im.save(buf, "JPEG", quality=q, optimize=True)
     return "data:image/jpeg;base64," + base64.b64encode(buf.getvalue()).decode()
 
-prec = json.load(open("/tmp/prectable.json"))   # p, p90, p95, p99, Pmu, Ppi, flag, effmax_pure
+# ---- operating table: computed here from the calibrated rulers/slopes (no temp files) ----
+from math import erfc, exp, sqrt, factorial
+_A1, _SIG, _SLOPE, _THR = [40.2, 21.8], [14.5, 7.9], [19.0, 26.0], 40.0
+def _eff(c, P):
+    lam = _SLOPE[c]*P
+    return sum((lam**n*exp(-lam)/factorial(n))*0.5*erfc((_THR-n*_A1[c])/(sqrt(2*n)*_SIG[c])) for n in range(1, 120))
+def _coinc(P): return _eff(0, P)*_eff(1, P)
+def _Pfor(target):
+    lo, hi = 0.001, 4.0
+    for _ in range(60):
+        mid = 0.5*(lo+hi)
+        if _coinc(mid) < target: lo = mid
+        else: hi = mid
+    return 0.5*(lo+hi)
+prec = []   # p, p90, p95, p99, Pmu, Ppi, flag, effmax_pure
+for _p in (1, 3, 5, 7, 9, 11):
+    Pmu = 12.96/_p**2; Ppi = 1.745*Pmu
+    p90, p95, p99 = _Pfor(0.90), _Pfor(0.95), _Pfor(0.99)
+    emax = _coinc(Pmu*0.98)
+    flag = ("95% needs P>mu thr" if p95 > Pmu else ("99% needs P>mu thr; 95% OK pure" if p99 > Pmu else "all pure"))
+    prec.append((_p, p90, p95, p99, Pmu, Ppi, flag, emax))
 
 # recommended-pressure rows
 prec_rows = ""
@@ -109,7 +129,8 @@ a{{color:var(--teal)}}
   .kpis{{gap:8px}} .kpi .v{{font-size:16pt}}
   a{{color:var(--ink);text-decoration:none}}
 }}
-@media (max-width:640px){{.kpis{{grid-template-columns:repeat(2,1fr)}}.wrap{{padding:0 16px 50px}}}}
+@media (max-width:640px){{.kpis{{grid-template-columns:repeat(2,1fr)}}.wrap{{padding:0 16px 50px}}
+  h1{{font-size:24px}} .meta{{gap:6px 14px}} table{{display:block;overflow-x:auto;max-width:100%}} .dlbar{{padding:12px 14px}}}}
 </style></head>
 <body><div class="wrap">
 
