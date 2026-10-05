@@ -206,7 +206,7 @@ dsb1_scan = f'''  <div class="runhead">
     </table></div>
     <p>Timing trend (median, contained showers, 3&amp;9 GeV anchors): <span class="num">&sigma;_t &asymp; (364 &plusmn; 4)/&radic;E ps (b unresolved)</span> —
     the constant term nearly half of LuAG&rsquo;s 138 ps, references included unsubtracted. The 9 GeV point
-    (<span class="num">136 &plusmn; 5 ps</span>) is the best timing of the campaign; its 516 ps <em>mean</em> against the 133 ps
+    (<span class="num">136 &plusmn; 5 ps</span>) is the best timing of the campaign; its 516 ps <em>mean</em> against the 136 ps
     <em>median</em> is the strongest daytime-outlier rescue yet. DSB1 delivers ~2.1&times; the LuAG light
     (~1,250&ndash;1,390 ADC-eq/GeV): the scan histograms extend to 16k and at 11 GeV the summed response approaches the
     ~13.6k LG headroom ceiling (rails still &lt;0.02%). Containment floors 0/1500/2500/4000/6000/6500 from the measured spectra. Runs 34 (pion-contaminated tag) and 36 (mixed beam config) are superseded by 37/38 and kept as control/backup datasets. *The 11 GeV point is drawn OPEN in the trend figures: T10&rsquo;s composition measurements put the electron fraction near zero above ~10 GeV/c, so the tag&rsquo;s purity was on trial. The trial (summary page, &ldquo;11 GeV on trial&rdquo;) finds the <em>contained</em> subset — the only events these scan numbers use — measures as genuine hard electrons: E-equivalent 9.7 GeV (LuAG, within the &plusmn;15% gain envelope of 11), spectra matching the 9 GeV shape, and hard-shower timing. The excess miss/halo population remains unexplained (plausibly tertiary electrons). The off-coincidence sample at &minus;11 GeV is ~97% pions: the campaign&rsquo;s purest MIP dataset (runs 30/31).
@@ -321,8 +321,8 @@ index_sec = f'''<section data-content="summary">
     quadrupole) that the 4-capillary mean averages down but the diagonal difference does not. For the
     high-light channel the diagonal estimate is therefore an upper bound (&dagger;same flag at EJ199&rsquo;s 9 GeV point);
     EJ199 columns use containment floors matched to its scan (re-derived after an audit caught a floor mismatch); subtracting the validated 110 ps
-    reference instead gives DSB1 intrinsic estimates of <span class="num">~145 ps at 5 GeV, ~137 ps at 7 GeV,
-    and ~75 ps at 9 GeV</span> (from the 133 ps median) — the last to be confirmed with the downstream
+    reference instead gives DSB1 intrinsic estimates of <span class="num">~150 ps at 5 GeV, ~145 ps at 7 GeV,
+    and ~80 ps at 9 GeV</span> (mean-combination widths at 5/7 GeV; the 136 ps median at 9 GeV, where daytime outliers break the mean) — the last to be confirmed with the downstream
     reference planned for the next beam test, exactly the &ldquo;rich man&rsquo;s version&rdquo; of this estimator.</p></div>
 
   <div class="card" id="sec-how"><h4>How the measurement works — one real event</h4>

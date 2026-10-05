@@ -10,6 +10,7 @@
 #include "TSystem.h"
 #include "TH1F.h"
 #include "TPad.h"
+#include "TArrow.h"
 
 void ModuleCompare()
 {
@@ -64,6 +65,42 @@ void ModuleCompare()
   tx.DrawLatex(0.13,0.921,"CERN PS T10, tagged electrons, 1#font[122]{-}11 GeV #upoint reference included, unsubtracted #upoint open points: e^{#font[122]{-}} purity uncertain above ~10 GeV/c");
   gSystem->mkdir("Output/summary", true);
   ch.SaveAs("Output/summary/Hero_timing.png");
+
+  // ---------- slide variant: same data, sized for the right half of a 16:9 slide ----------
+  // 1.5x fonts, no subtitle (the slide's bullets carry the context), caveats kept ON the figure
+  // as a footnote so they travel with it, and the headline number called out at the point.
+  TCanvas cs("cs","cs",1400,1000);
+  gPad->SetLeftMargin(0.145); gPad->SetBottomMargin(0.135); gPad->SetTopMargin(0.04); gPad->SetRightMargin(0.04);
+  TH1F *frS = gPad->DrawFrame(0, 0, 12.3, 500, ";beam energy [GeV];shower-time resolution  #sigma_{t}  [ps]");
+  frS->GetXaxis()->SetTitleSize(36); frS->GetXaxis()->SetLabelSize(30); frS->GetXaxis()->SetTitleOffset(1.05);
+  frS->GetYaxis()->SetTitleSize(36); frS->GetYaxis()->SetLabelSize(30); frS->GetYaxis()->SetTitleOffset(1.35);
+  frS->GetXaxis()->SetTickLength(0.02); frS->GetYaxis()->SetTickLength(0.02);
+  TF1 *fLs = (TF1*)fL->Clone("fLs"); TF1 *fDs = (TF1*)fD->Clone("fDs");
+  fLs->SetLineWidth(4); fDs->SetLineWidth(6);
+  fLs->Draw("same"); fDs->Draw("same");
+  TGraphErrors *gLs = mkG(6,eL,tL,tLe,rad::cRed(),21);  gLs->SetMarkerSize(2.3); gLs->SetLineWidth(3);
+  TGraphErrors *gDs = mkG(6,eD,tD,tDe,rad::cTeal(),20); gDs->SetMarkerSize(2.4); gDs->SetLineWidth(3);
+  gLs->Draw("P same"); gDs->Draw("P same");
+  auto open11s = [&](double x, double y, int col, int solid, int openmk){
+    TGraph *w = new TGraph(1); w->SetPoint(0,x,y); w->SetMarkerStyle(solid);
+    w->SetMarkerColor(kWhite); w->SetMarkerSize(2.15); w->Draw("P same");
+    TGraph *o = new TGraph(1); o->SetPoint(0,x,y); o->SetMarkerStyle(openmk);
+    o->SetMarkerColor(col); o->SetMarkerSize(2.35); o->Draw("P same"); };
+  open11s(eL[5], tL[5], rad::cRed(), 21, 25); open11s(eD[5], tD[5], rad::cTeal(), 20, 24);
+  TLegend *ls = new TLegend(0.40,0.70,0.96,0.94);
+  ls->SetBorderSize(0); ls->SetFillStyle(0); ls->SetTextFont(43); ls->SetTextSize(34);
+  ls->AddEntry(gDs, "DSB:Ce   (364#pm4) ps/#sqrt{E}", "pl");
+  ls->AddEntry(gLs, "LuAG:Ce  (402#pm13)/#sqrt{E} #oplus (135#pm10) ps", "pl");
+  ls->Draw();
+  // headline call-out at the 9 GeV DSB:Ce point
+  TLatex ts; ts.SetTextFont(43); ts.SetTextSize(34); ts.SetTextColor(rad::cTeal());
+  ts.DrawLatex(8.55, 72, Form("%.0f #pm %.0f ps at 9 GeV", tD[4], tDe[4]));
+  TArrow ar(9.75, 94, 9.12, tD[4]-15, 0.018, "|>"); ar.SetLineColor(rad::cTeal()); ar.SetFillColor(rad::cTeal()); ar.SetLineWidth(3); ar.Draw();
+  // caveats stay on the figure
+  TLatex fn; fn.SetNDC(); fn.SetTextFont(43); fn.SetTextSize(22); fn.SetTextColor(rad::cGrey()); fn.SetTextAlign(11);
+  fn.DrawLatex(0.165, 0.200, "CERN PS T10, tagged e^{#font[122]{-}}, 1#font[122]{-}11 GeV  #upoint  reference included, unsubtracted");
+  fn.DrawLatex(0.165, 0.165, "open points: e^{#font[122]{-}} purity uncertain above ~10 GeV/c");
+  cs.SaveAs("Output/summary/Hero_timing_slide.png");
 
   // ---------- two-panel: timing + response (3 modules; log-y timing) ----------
   TGraphErrors *gJ = mkG(6,eJ,tJ,tJe,rad::cAmber(),22);

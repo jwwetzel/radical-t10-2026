@@ -996,3 +996,20 @@ momentum-independent (P for 90/95/99% coinc = 0.22/0.26/0.35 bar), but pure-e
 purity requires P < muon threshold 12.96/p^2 bar. Pure-e ceiling: 99% @1-5
 GeV, 95% @7, 74% @9, 48% @11 - retroactively explains the -11 GeV tag
 deficits (no P is both high-eff and muon-free at high momentum).
+
+## Stale pre-recalibration numbers caught while preparing the DRDCalo slide (2026-10-05)
+
+The summary page still quoted DSB1 "~145/137 ps at 5/7 GeV; ~75 ps at
+9 GeV (from the 133 ps median)" for the 110 ps-subtraction intrinsic
+estimate. Those were derived from the PRE-recalibration widths
+(mean-incl 182/176 at 5/7; median 133 at 9) and were not refreshed when
+the Aug-31 timing recalibration moved them to 187.3/180.2 (DiagDiff
+mean-incl) and 136 (median). Same arithmetic, current inputs:
+sqrt(187.3^2-110^2)=152, sqrt(180.2^2-110^2)=143, sqrt(136^2-110^2)=80
+-> page now reads ~150/~145 ps at 5/7 GeV, ~80 ps at 9 GeV, with the
+mixed provenance (mean at 5/7, median at 9) stated explicitly. The
+"516 ps mean vs 133 ps median" sentence corrected to 136. Still to be
+confirmed with a downstream reference; never quote as established.
+Slide asset: Output/summary/Hero_timing_slide.png (ModuleCompare.C),
+slide-sized render of the hero timing figure for Gabriella's DRDCalo
+test-beam talk (Oct 7).
