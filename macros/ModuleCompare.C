@@ -96,7 +96,6 @@ void ModuleCompare()
   // caveats stay on the figure
   TLatex fn; fn.SetNDC(); fn.SetTextFont(43); fn.SetTextSize(22); fn.SetTextColor(rad::cGrey()); fn.SetTextAlign(11);
   fn.DrawLatex(0.165, 0.200, "CERN PS T10, tagged e^{#font[122]{-}}, 1#font[122]{-}9 GeV  #upoint  reference included, unsubtracted");
-  fn.DrawLatex(0.165, 0.165, "11 GeV points omitted: e^{#font[122]{-}} purity uncertain at the T10 momentum limit");
   cs.SaveAs("Output/summary/Hero_timing_slide.png");
 
   // ---------- two-panel: timing + response (3 modules; log-y timing) ----------
