@@ -95,7 +95,8 @@ void ModuleCompare()
   TArrow ar(9.62, 93, 9.14, tD[4]-9, 0.018, "|>"); ar.SetLineColor(rad::cTeal()); ar.SetFillColor(rad::cTeal()); ar.SetLineWidth(3); ar.Draw();
   // caveats stay on the figure
   TLatex fn; fn.SetNDC(); fn.SetTextFont(43); fn.SetTextSize(22); fn.SetTextColor(rad::cGrey()); fn.SetTextAlign(11);
-  fn.DrawLatex(0.165, 0.200, "CERN PS T10, tagged e^{#font[122]{-}}, 1#font[122]{-}9 GeV  #upoint  reference included, unsubtracted");
+  fn.SetTextColor(kGray+2); fn.DrawLatex(0.165, 0.200, "RADiCAL preliminary");
+  fn.SetTextColor(rad::cGrey()); fn.DrawLatex(0.165, 0.165, "CERN PS T10, tagged e^{#font[122]{-}}, 1#font[122]{-}9 GeV  #upoint  reference included, unsubtracted");
   cs.SaveAs("Output/summary/Hero_timing_slide.png");
 
   // ---------- two-panel: timing + response (3 modules; log-y timing) ----------
